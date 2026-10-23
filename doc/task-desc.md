@@ -1,110 +1,66 @@
-# TASK-001: Define and Approve the Requirements Baseline
 
-- Status: Ready
-- Priority: P0
-- Owner: TBD
-- Reviewers: Product owner, technical lead, delivery lead
-- Related work package: `WBS-002`
-- Target date: TBD
-- Output: Approved requirements baseline with stable `REQ-###` identifiers
-- Detailed execution specification: [`tasks/WBS-002.md`](tasks/WBS-002.md)
 
-## Objective
+Overview
 
-Turn the initial project idea into an explicit, reviewable, and testable requirements baseline. Completion of this task should give the team enough information to make architecture decisions, replace placeholder diagrams, estimate implementation work, and define verification activities without relying on implicit assumptions.
+Build a support-ticket co-pilot for a retail forex/CFD broker, measure it, and make the business case for running it, in two phases: ship fast, then scale.
 
-## Problem statement
+gg
+    Timebox: 3–5 hours. Mocks and stubs are fine where you explain what the real version would do.
 
-The project currently has planning and architecture-documentation scaffolding but no domain brief. The intended users, desired outcomes, scope, workflows, data, integrations, constraints, and acceptance measures are unknown. Beginning implementation in this state would create a high risk of rework and unverifiable results.
+    Submit: a link to your Git repository.
 
-## Required inputs
+    Next step: a 60-minute technical call where you walk us through your decisions.
 
-- Project sponsor or product owner
-- Short description of the problem or opportunity
-- Intended users and stakeholders
-- Known deadlines, budget, platform, policy, or technology constraints
-- Existing systems, data sources, or processes that may be affected
 
-Missing inputs must be recorded as open questions; they must not be silently assumed.
+Scenario
 
-## Activities
+The support team answers repetitive questions about deposits, withdrawals, account opening and verification. Your co-pilot processes each incoming ticket and must:
 
-1. Identify the project sponsor, decision maker, users, operators, and affected stakeholders.
-2. Write a concise problem statement and measurable target outcome.
-3. Define the system boundary, including what is explicitly out of scope.
-4. Describe the primary user journeys, normal flows, alternate flows, and failure cases.
-5. Record functional requirements using stable identifiers beginning with `REQ-001`.
-6. Record data inputs, outputs, ownership, classification, retention, and deletion needs.
-7. Identify external systems, interface expectations, and dependency owners.
-8. Define measurable quality requirements for applicable areas such as security, privacy, accessibility, performance, availability, scalability, observability, backup, and recovery.
-9. Capture delivery and operational constraints, assumptions, risks, and unresolved questions.
-10. Review the baseline with stakeholders and record approval or requested changes.
 
-## Requirement format
+    Classify it: category, urgency, language, sentiment.
 
-Use this structure for every requirement:
+    Draft a reply grounded in the knowledge base, with citations to the pages used, or abstain when the knowledge base does not cover it.
 
-### REQ-###: Short requirement name
+    Route to a human reviewer whenever required.
 
-- Type: Functional | Quality | Constraint
-- Priority: Must | Should | Could | Won't now
-- Source: Stakeholder or source document
-- Rationale: Why the requirement matters
-- Statement: The system shall ...
-- Acceptance evidence: Observable result, test, measurement, or approved review
-- Dependencies: Other requirement IDs or external dependencies
-- Open questions: None, or a concrete list
 
-Every functional requirement must include at least one BDD scenario. Every applicable non-functional requirement must define a measurable limit and its verification method. See the WBS-002 task specification for templates and task boundaries.
+Two phases
 
-## Deliverables
 
-- Approved problem statement and measurable outcome
-- Stakeholder and actor list
-- In-scope and out-of-scope definitions
-- Prioritized requirements with `REQ-###` identifiers
-- Acceptance criteria for every Must requirement
-- Data and integration inventory
-- Applicable quality targets and operational constraints
-- Assumption, risk, dependency, and open-question logs
-- Approval record naming the approver and date
+    Phase 1 — Ship ASAP: get the co-pilot running for support agents as soon as possible.
 
-## Acceptance criteria
+    Phase 2 — Scale up: keep it working as ticket volume grows (around 10,000 tickets per month today) and the knowledge base and SOPs expand.
 
-- [ ] A named product owner or decision maker is recorded.
-- [ ] The problem and desired outcome are stated without prescribing an unapproved solution.
-- [ ] Primary actors and their goals are identified.
-- [ ] Scope and exclusions are explicit.
-- [ ] Every requirement has a unique `REQ-###` ID, type, priority, rationale, and acceptance evidence.
-- [ ] Critical workflows include failure and recovery behavior where applicable.
-- [ ] Data ownership, sensitivity, retention, and deletion expectations are addressed.
-- [ ] External dependencies have an owner or an explicit unresolved-owner risk.
-- [ ] Applicable quality attributes have measurable targets rather than adjectives alone.
-- [ ] Open questions have owners and target resolution dates.
-- [ ] Stakeholders have approved the baseline or all objections are recorded.
-- [ ] `doc/WBS.md`, ADR backlog, Mermaid diagrams, and the progress dashboard are updated from the approved baseline.
 
-## Definition of ready
+Rules and data
 
-This task can begin when a sponsor or delegate is available to answer discovery questions and provide the initial project idea.
+Hard rules for the co-pilot
 
-## Definition of done
 
-The acceptance checklist is complete, approval is recorded, and downstream architecture and implementation work can reference stable requirement IDs without unresolved P0 questions.
+    Never give trading advice: no buy/sell recommendations, signals, price targets or leverage suggestions. Detect these requests and decline politely.
 
-## Non-goals
 
-- Selecting the final architecture before requirements are understood
-- Producing implementation estimates based on placeholder components
-- Treating mockups or diagrams as approved requirements without stakeholder review
-- Implementing product functionality as part of this task
+    Never decide a complaint, KYC or AML outcome. Draft and route to a person.
 
-## Initial open questions
+    Never invent policy, fees or timelines. Cite the knowledge base or say it is unknown.
 
-| ID | Question | Owner | Target date | State |
-|---|---|---|---|---|
-| OQ-001 | What problem should this project solve, and for whom? | TBD | TBD | Open |
-| OQ-002 | What measurable outcome determines success? | TBD | TBD | Open |
-| OQ-003 | What capabilities are required for the first usable release? | TBD | TBD | Open |
-| OQ-004 | Which constraints, integrations, and data sources are already fixed? | TBD | TBD | Open |
-| OQ-005 | Who can approve scope and acceptance criteria? | TBD | TBD | Open |
+
+Data
+
+Knowledge base: four public Valetax help pages — 
+How to deposit, 
+How to withdraw, 
+How to open an account, 
+How to verify account. Use them as they are, including gaps, overlaps and inconsistencies.
+
+Constraints
+
+
+    Python preferred; any LLM provider. Build it with Claude Code or another agentic coding tool.
+
+    A minimal CLI or simple web page is enough for any UI.
+
+
+Business case in numbers
+
+The business case must answer one question on one page: is this worth running at our volume, and with which configuration?

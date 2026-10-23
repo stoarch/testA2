@@ -1,6 +1,6 @@
 # UML Models
 
-The UML-style views are Markdown files containing Mermaid diagrams. They intentionally use placeholders until `task-desc.md` defines the system actors, responsibilities, integrations, and deployment constraints.
+The UML-style views are Markdown files containing Mermaid diagrams derived from the approved support co-pilot requirements. Technology/vendor details remain intentionally open for WBS-003 architecture decisions.
 
 ## Views
 

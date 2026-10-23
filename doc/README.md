@@ -5,6 +5,7 @@ This directory is the project planning and architecture source of truth.
 ## Contents
 
 - [Task description](task-desc.md) — product and delivery requirements.
+- [Requirements baseline](requirements/README.md) — source-backed scope, requirements, BDD scenarios, KB assessment, verification, and business-case rules.
 - [Work breakdown structure](WBS.md) — scoped work packages, dependencies, and acceptance criteria.
 - [Task specifications](tasks/README.md) — execution prompts, boundaries, and verification strategy for individual WBS items.
 - [Architecture decisions](adr/README.md) — durable technical decisions and their consequences.

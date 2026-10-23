@@ -1,16 +1,25 @@
 # System Context
 
-This view identifies external actors, the target-system boundary, and external dependencies. Names remain placeholders until TASK-001 is approved.
+This view identifies the Phase 1 co-pilot boundary and its external actors and data sources.
 
 ```mermaid
 flowchart LR
-    user["Primary User<br/>(TBD)"]
-    system["Target System<br/>(TBD from task-desc.md)"]
-    external["External Service<br/>(TBD)"]
+    customer["Customer"]
+    agent["Support Agent /<br/>Human Reviewer"]
+    ops["Support Operations /<br/>Compliance"]
+    copilot["Support-ticket Co-pilot"]
+    kb["Approved Valetax<br/>Knowledge Pages"]
+    llm["LLM Provider"]
+    metrics["Evaluation and<br/>Business-case Outputs"]
 
-    user -->|"Primary interaction<br/>TBD · REQ-###"| system
-    system -->|"Integration<br/>TBD · REQ-###"| external
+    customer -->|"Incoming ticket"| agent
+    agent -->|"Submit ticket · REQ-001"| copilot
+    copilot -->|"Classification, cited draft or abstention,<br/>review reasons · REQ-002–010"| agent
+    copilot -->|"Retrieve approved passages · REQ-004"| kb
+    copilot -->|"Constrained inference"| llm
+    ops -->|"Safety and routing policy"| copilot
+    copilot -->|"Measured results · REQ-013/014"| metrics
 ```
 
-Boundary rule: replace placeholders only with approved actors, responsibilities, and dependencies from TASK-001.
+The co-pilot assists agents; it does not execute transactions, decide complaints/KYC/AML outcomes, or provide trading advice.
 

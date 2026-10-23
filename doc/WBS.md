@@ -1,6 +1,6 @@
 # Work Breakdown Structure
 
-This WBS is a planning baseline. Domain-specific estimates and deliverables remain `TBD` until [the task description](task-desc.md) is populated and approved.
+This WBS implements the [support-ticket co-pilot definition](task-desc.md). The delivery constraint is a 3–5 hour prototype followed by a scale-up design for approximately 10,000 tickets per month.
 
 ## Status values
 
@@ -14,8 +14,8 @@ This WBS is a planning baseline. Domain-specific estimates and deliverables rema
 
 | ID | Work package | Deliverable / acceptance criterion | Depends on | Status |
 |---|---|---|---|---|
-| WBS-001 | Establish documentation baseline | ADR, UML, WBS, and progress structures exist and cross-link correctly | — | Done |
-| WBS-002 | Define and approve requirements | Execute the [WBS-002 task specification](tasks/WBS-002.md): scope, actors, functional and non-functional requirements, limits, BDD scenarios, and approval; each requirement has a `REQ-###` ID | WBS-001 | In progress |
+| WBS-001 | Establish project and documentation baseline | Execute [WBS-001](tasks/WBS-001.md): source brief, ADR, Mermaid, WBS, dashboard, and task structures exist and cross-link correctly | — | Done |
+| WBS-002 | Define and approve co-pilot requirements | Execute [WBS-002](tasks/WBS-002.md): actors, behavior, hard safety rules, KB limits, BDD scenarios, quality limits, business-case requirements, and verification mapping | WBS-001 | Done |
 | WBS-003 | Resolve architecture decisions | Options and consequences are recorded for consequential technical choices; accepted ADRs reference relevant requirements | WBS-002 | Not started |
 | WBS-004 | Refine system models | Context, component, sequence, and deployment diagrams contain approved elements and trace to requirements/ADRs | WBS-002, WBS-003 | Not started |
 | WBS-005 | Plan implementation | Implementation tasks have owners, estimates, dependencies, and testable completion criteria | WBS-002, WBS-003 | Not started |
@@ -27,16 +27,19 @@ This WBS is a planning baseline. Domain-specific estimates and deliverables rema
 
 ## WBS-002 requirements checklist
 
-- [ ] Problem statement and measurable outcome
-- [ ] Stakeholders and system actors
-- [ ] In-scope and out-of-scope behavior
-- [ ] Functional requirements with acceptance examples
-- [ ] Data inputs, outputs, ownership, retention, and sensitivity
-- [ ] External systems and interface constraints
-- [ ] Quality attributes and measurable targets
-- [ ] Security, privacy, compliance, and accessibility constraints
-- [ ] Deployment and operational constraints
-- [ ] Assumptions, dependencies, risks, and open questions
+Latest execution: [`WBS-002 execution 002`](tasks/WBS-002-execution-002.md). The [first execution](tasks/WBS-002-execution-001.md) is retained as historical evidence from before the source brief was populated.
+
+- [x] Problem statement and measurable outcome
+- [x] Stakeholders and system actors
+- [x] In-scope and out-of-scope behavior
+- [x] Functional requirements with BDD acceptance examples
+- [x] Hard safety rules and mandatory human-review behavior
+- [x] Knowledge-base sources, gaps, overlaps, and inconsistencies
+- [x] Data inputs, outputs, and audit fields
+- [x] Quality attributes and sourced measurable limits
+- [x] Phase 1 prototype and Phase 2 scale constraints
+- [x] Business-case calculation requirements
+- [x] Assumptions, dependencies, risks, and open questions
 
 ## Definition of ready for implementation
 

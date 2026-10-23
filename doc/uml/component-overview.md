@@ -1,23 +1,38 @@
 # Component Overview
 
-This logical view shows candidate responsibilities, not an approved architecture. Component boundaries must follow accepted requirements and ADRs.
+This logical view shows requirement-driven responsibilities. Technology and provider choices remain WBS-003 decisions.
 
 ```mermaid
 flowchart LR
-    subgraph target[Target System]
-        interface["Interface Layer<br/>(TBD)"]
-        application["Application Logic<br/>(TBD)"]
-        dataAccess["Data Access<br/>(TBD)"]
+    subgraph copilot[Support-ticket Co-pilot]
+        interface["CLI / Simple Web UI<br/>REQ-012"]
+        orchestrator["Ticket Orchestrator<br/>REQ-001/010/016"]
+        classifier["Classifier<br/>REQ-002/003"]
+        retrieval["KB Retrieval + Provenance<br/>REQ-004/011"]
+        drafting["Grounded Draft / Abstention<br/>REQ-005/006"]
+        safety["Safety and Routing Rules<br/>REQ-007–009"]
+        validation["Claim / Citation Validator<br/>REQ-005/010"]
+        evaluation["Evaluation + Cost Model<br/>REQ-013/014"]
     end
 
-    database[("Data Store<br/>(TBD)")]
-    external["External Dependency<br/>(TBD)"]
+    kb[("Versioned KB Snapshot")]
+    llm["LLM Provider"]
+    reviewer["Human Reviewer"]
 
-    interface -->|invokes| application
-    application -->|reads and writes| dataAccess
-    dataAccess -->|persists| database
-    application -->|integrates| external
+    interface --> orchestrator
+    orchestrator --> classifier
+    orchestrator --> retrieval
+    retrieval --> kb
+    classifier --> llm
+    retrieval --> drafting
+    drafting --> llm
+    drafting --> validation
+    classifier --> safety
+    validation --> safety
+    safety --> orchestrator
+    orchestrator --> reviewer
+    orchestrator --> evaluation
 ```
 
-Refinement trigger: TASK-001 defines responsibilities, data ownership, and interfaces, followed by architecture decisions in `WBS-003`.
+Safety and deterministic validation remain separate from provider inference so hard rules are not prompt-only controls.
 

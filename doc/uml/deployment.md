@@ -1,27 +1,40 @@
 # Deployment View
 
-This view captures the categories of runtime nodes that may be needed. It does not select a hosting platform or protocol.
+This view separates the timeboxed local prototype from the Phase 2 production shape. It does not select a cloud or LLM vendor.
 
 ```mermaid
 flowchart LR
-    subgraph userEnv["User Environment (TBD)"]
-        client["Client<br/>(TBD)"]
+    subgraph phase1["Phase 1 · Local Prototype"]
+        ui["CLI or Simple Web UI"]
+        app["Python Co-pilot Process"]
+        snapshot[("Four-page KB Snapshot")]
+        eval[("Fixtures and Evaluation Results")]
+        ui --> app
+        app --> snapshot
+        app --> eval
     end
 
-    subgraph appEnv["Application Environment (TBD)"]
-        app["Application Artifact<br/>(TBD)"]
+    provider["Configured LLM Provider"]
+    pages["Public Valetax Pages"]
+    app --> provider
+    pages --> snapshot
+
+    subgraph phase2["Phase 2 · Scale Design"]
+        gateway["Authenticated Agent Interface"]
+        queue["Work Queue"]
+        workers["Stateless Processing Workers"]
+        index[("Versioned Search Index")]
+        audit[("Metrics / Audit Store")]
+        review["Human Review Queue"]
+        gateway --> queue --> workers
+        workers --> index
+        workers --> audit
+        workers --> review
     end
 
-    subgraph dataEnv["Data Environment (TBD)"]
-        database[("Primary Data Store<br/>(TBD)")]
-    end
-
-    external["External Platform<br/>(TBD)"]
-
-    client -->|"Secure protocol TBD"| app
-    app -->|"Data protocol TBD"| database
-    app -->|"Integration protocol TBD"| external
+    pages --> index
+    workers --> provider
 ```
 
-Refinement trigger: TASK-001 defines availability, scale, security, data, environment, observability, backup, and recovery constraints.
+Production data controls, SLA, peak factor, retention, and provider terms remain explicit pre-production decisions.
 

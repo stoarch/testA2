@@ -6,7 +6,10 @@ Task specifications turn WBS work packages into bounded, executable assignments.
 
 | WBS item | Task | Status |
 |---|---|---|
-| [WBS-002](WBS-002.md) | Define and approve requirements baseline | Ready |
+| [WBS-001](WBS-001.md) | Establish project and documentation baseline | Done |
+| [WBS-002](WBS-002.md) | Define and approve co-pilot requirements | Done |
+
+Latest execution records: [WBS-001 execution 001](WBS-001-execution-001.md) and [WBS-002 execution 002](WBS-002-execution-002.md).
 
 ## Delivery approach
 
