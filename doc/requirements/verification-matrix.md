@@ -4,7 +4,7 @@
 |---|---|---|---|---|---|
 | REQ-001 | [SCN-001](../../bdd/scenarios/SCN-001.md) ([passing execution](../../bdd/executions/SCN-001-execution-001.md)) | [Ticket identity unit test](../../tests/unit/test_ticket_processing.py) | UI/CLI adapter | Submit ticket | REQ-104 |
 | REQ-002 | [SCN-002](../../bdd/scenarios/SCN-002.md) ([passing execution](../../bdd/executions/SCN-002-execution-001.md)), [SCN-003](../../bdd/scenarios/SCN-003.md) ([passing execution](../../bdd/executions/SCN-003-execution-001.md)) | [Category unit tests](../../tests/unit/test_ticket_processing.py) | Model response schema | Classification journey | Labeled confusion matrix |
-| REQ-003 | [SCN-004](../../bdd/scenarios/SCN-004.md) | Field validation | Model response schema | Classification journey | Per-field metrics |
+| REQ-003 | [SCN-004](../../bdd/scenarios/SCN-004.md) ([passing execution](../../bdd/executions/SCN-004-execution-001.md)) | [Field classification unit test](../../tests/unit/test_ticket_processing.py) | [Pydantic result schema](../../src/support_copilot/contracts.py) | [CLI classification journey](../../tests/e2e/test_cli.py) | Per-field metrics remain planned |
 | REQ-004 | [SCN-005](../../bdd/scenarios/SCN-005.md) | Approved-source filter | Retriever/index | Grounded-answer journey | Source allowlist audit |
 | REQ-005 | [SCN-006](../../bdd/scenarios/SCN-006.md), [SCN-007](../../bdd/scenarios/SCN-007.md) | Claim/citation validator | Retriever + model | Grounded-answer journey | REQ-102/103 |
 | REQ-006 | [SCN-008](../../bdd/scenarios/SCN-008.md), [SCN-009](../../bdd/scenarios/SCN-009.md), [SCN-028](../../bdd/scenarios/SCN-028.md) | Coverage/abstention gate | Retriever | Gap journey | Abstention precision/recall |

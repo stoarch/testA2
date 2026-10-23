@@ -19,7 +19,7 @@ This WBS implements the governing [master prompt](master-prompt.md), with the or
 | WBS-003 | Resolve architecture decisions | Five master-prompt decision areas are accepted and traced ([execution](tasks/WBS-003-execution-001.md)) | WBS-002 | Done |
 | WBS-004 | Refine system models | PlantUML component, class, sequence, activity, context, and deployment views identify trust boundaries and implementation state ([execution](tasks/WBS-004-execution-001.md)) | WBS-002, WBS-003 | Done |
 | WBS-005 | Plan implementation | Implementation tasks have owners, estimates, dependencies, and testable completion criteria ([execution](tasks/WBS-005-execution-001.md)) | WBS-002, WBS-003 | Done |
-| WBS-006 | Prepare engineering foundation | Repository layout, build, configuration, quality checks, and local developer workflow are documented and reproducible | WBS-005 | In progress |
+| WBS-006 | Prepare engineering foundation | Repository layout, build, configuration, quality checks, and local developer workflow are documented and reproducible ([execution](tasks/WBS-006-execution-001.md)) | WBS-005 | Done |
 | WBS-007 | Implement domain increments | Each prioritized requirement is delivered in a small, independently verifiable increment | WBS-005, WBS-006 | In progress |
 | WBS-008 | Verify quality attributes | Functional tests and applicable security, performance, reliability, accessibility, and recovery checks pass | WBS-007 | In progress |
 | WBS-009 | Prepare release and operations | Deployment, rollback, monitoring, support, data migration, and runbook needs are satisfied | WBS-006, WBS-008 | Not started |
@@ -46,7 +46,7 @@ Latest execution: [`WBS-002 execution 002`](tasks/WBS-002-execution-002.md). The
 - [x] **WBS-007.001 / SCN-001** - preserve ticket identity; unit and tagged BDD tests pass ([execution evidence](../bdd/executions/SCN-001-execution-001.md))
 - [x] **WBS-007.002 / SCN-002** - classify a supported withdrawal topic; unit and tagged BDD tests pass ([execution evidence](../bdd/executions/SCN-002-execution-001.md))
 - [x] **WBS-007.003 / SCN-003** - preserve an unsupported topic; unit and tagged BDD tests pass ([execution evidence](../bdd/executions/SCN-003-execution-001.md))
-- [ ] **WBS-007.004 / SCN-004** - return every required classification field
+- [x] **WBS-007.004 / SCN-004** - return every required classification field through Pydantic and CLI boundaries ([execution evidence](../bdd/executions/SCN-004-execution-001.md))
 
 WBS-007 remains in progress until the prioritized domain increments are complete. WBS-008 is also in progress because functional verification has begun, while E2E and non-functional checks remain outstanding.
 
@@ -56,14 +56,15 @@ WBS-007 remains in progress until the prioritized domain increments are complete
 - [x] Authoritative PlantUML component, class, sequence, and activity views
 - [x] Trust boundaries and implemented/planned distinctions documented
 - [x] Missing master-prompt BDD cases specified (28 total scenarios)
-- [ ] Pydantic contracts and real CLI
+- [x] Pydantic classification contracts and real CLI
 - [ ] Persisted KB snapshot ingestion and provenance
 - [ ] Deterministic compliance gates and human routing
 - [ ] Provider abstraction and deterministic offline adapter
 - [ ] Integration and subprocess E2E tests
 - [ ] At least 30 synthetic evaluation tickets and metrics
 - [ ] Measured one-page business case and four-outcome demo
-- [ ] CI lint/test gate and PlantUML rendering
+- [x] CI lint/test/document-validation gate
+- [ ] PlantUML rendering in CI
 
 ## Definition of ready for implementation
 

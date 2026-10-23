@@ -11,9 +11,10 @@ Task specifications turn WBS work packages into bounded, executable assignments.
 | WBS-003 | Resolve architecture decisions | Done - [execution](WBS-003-execution-001.md) |
 | WBS-004 | Refine system models | Done for baseline - [execution](WBS-004-execution-001.md) |
 | [WBS-005](WBS-005.md) | Plan MVP implementation | Done - [execution](WBS-005-execution-001.md) |
-| [WBS-006](WBS-006.md) | Prepare engineering foundation | In progress |
+| [WBS-006](WBS-006.md) | Prepare engineering foundation | Done - [execution](WBS-006-execution-001.md) |
+| [WBS-007](WBS-007.md) | Implement domain increments | In progress |
 
-Latest execution records: [WBS-004 execution 001](WBS-004-execution-001.md), [WBS-005 execution 001](WBS-005-execution-001.md), and [SCN-003 execution 001](../../bdd/executions/SCN-003-execution-001.md). WBS-006 is the active foundation task.
+Latest execution records: [WBS-005 execution 001](WBS-005-execution-001.md), [WBS-006 execution 001](WBS-006-execution-001.md), and [SCN-004 execution 001](../../bdd/executions/SCN-004-execution-001.md). WBS-007 is the active domain task.
 
 ## Delivery approach
 

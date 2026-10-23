@@ -9,10 +9,10 @@ class SupportTicket <<implemented>> {
 
 class ProcessingResult <<partially implemented>> {
   +ticket_id: str
-  +category: str?
-  +urgency: str
-  +language: str
-  +sentiment: str
+  +category: TicketCategory
+  +urgency: TicketUrgency
+  +language: TicketLanguage
+  +sentiment: TicketSentiment
   +answer_status: str
   +citations: list<Citation>
   +safety_flags: list<str>
@@ -71,7 +71,9 @@ DraftProvider <|.. LiveLLMAdapter
 SupportTicket --> ProcessingResult : process
 
 note right of ProcessingResult
-Only ticket_id and category exist in code today.
-Other fields are planned by REQ-010.
+Identity and four classification fields are
+implemented as frozen Pydantic contracts.
+Draft, citation, safety, review, configuration,
+latency, and usage fields remain planned by REQ-010.
 end note
 @enduml

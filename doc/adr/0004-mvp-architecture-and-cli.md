@@ -51,7 +51,7 @@ The CLI returns validated structured JSON for agent review and never transmits a
 
 ### Follow-up work
 
-- [ ] Add Pydantic input/output contracts and the CLI entry point.
+- [x] Add Pydantic input/output contracts and the CLI entry point for the implemented classification slice.
 - [ ] Add subprocess E2E tests for grounded, abstain, refuse, and escalate paths.
 
 ## Validation

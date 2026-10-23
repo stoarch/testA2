@@ -26,3 +26,15 @@ def test_process_ticket_preserves_unsupported_topic_as_other() -> None:
         "account_opening",
         "verification",
     }
+
+
+def test_process_ticket_returns_all_required_classifications() -> None:
+    result = process_ticket(
+        ticket_id="TICKET-004",
+        text="I am frustrated because my withdrawal is still pending.",
+    )
+
+    assert result.category == "withdrawal"
+    assert result.urgency == "normal"
+    assert result.language == "en"
+    assert result.sentiment == "negative"

@@ -8,7 +8,10 @@ version = "0.1.0"
 description = "Deterministic MVP for a human-reviewed support co-pilot"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = ["pydantic>=2.9,<3"]
+
+[project.scripts]
+support-copilot = "support_copilot.cli:main"
 
 [project.optional-dependencies]
 dev = [

@@ -19,6 +19,12 @@ def step_ticket_has_unsupported_topic(context) -> None:
     context.ticket_text = "Can I receive a paper account statement?"
 
 
+@given("a ticket is written in a detectable language and expresses frustration")
+def step_ticket_is_detectable_and_frustrated(context) -> None:
+    context.ticket_id = "TICKET-004"
+    context.ticket_text = "I am frustrated because my withdrawal is still pending."
+
+
 @when("it is classified")
 def step_ticket_is_classified(context) -> None:
     from support_copilot.ticket_processing import process_ticket
@@ -47,3 +53,11 @@ def step_category_is_not_forced(context) -> None:
         "account_opening",
         "verification",
     }
+
+
+@then("category, urgency, language, and sentiment are all present")
+def step_all_classifications_are_present(context) -> None:
+    assert context.result.category
+    assert context.result.urgency
+    assert context.result.language
+    assert context.result.sentiment

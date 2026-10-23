@@ -1,13 +1,14 @@
 # Project Progress Dashboard
 
-- Last updated: 2026-10-23
-- Overall state: In progress - first three implementation scenarios are green
-- Current phase: Engineering foundation and incremental implementation
-- Current task: [`WBS-006`](../doc/tasks/WBS-006.md) - Prepare engineering foundation; next code slice is `WBS-007.004 / SCN-004`
-- Completed work packages: WBS-001, WBS-002, WBS-003, WBS-004, WBS-005
+- Last updated: 2026-10-24
+- Overall state: In progress - engineering foundation complete and first four implementation scenarios green
+- Current phase: Domain implementation
+- Current task: [`WBS-007`](../doc/tasks/WBS-007.md) - Implement domain increments; next code slice is `WBS-007.005 / SCN-005`
+- Completed work packages: WBS-001, WBS-002, WBS-003, WBS-004, WBS-005, WBS-006
 - Latest architecture execution: [`WBS-004 execution 001`](../doc/tasks/WBS-004-execution-001.md)
 - Latest planning execution: [`WBS-005 execution 001`](../doc/tasks/WBS-005-execution-001.md)
-- Latest code execution: [`SCN-003 execution 001`](../bdd/executions/SCN-003-execution-001.md)
+- Latest foundation execution: [`WBS-006 execution 001`](../doc/tasks/WBS-006-execution-001.md)
+- Latest code execution: [`SCN-004 execution 001`](../bdd/executions/SCN-004-execution-001.md)
 - Source of truth: [`doc/master-prompt.md`](../doc/master-prompt.md)
 - Work plan: [`doc/WBS.md`](../doc/WBS.md)
 - Architecture decisions: [`doc/adr/README.md`](../doc/adr/README.md)
@@ -23,18 +24,18 @@
 | Architecture decisions | Done | WBS-003 passed; ADR-0003 through ADR-0008 cover all required decision areas |
 | UML models | Done for baseline | WBS-004 passed; six authoritative PlantUML views include trust boundaries and implementation state |
 | Delivery plan | Done | WBS-005 defines ten owned, estimated, dependency-ordered, verifiable increments in a 4h25m timebox |
-| Engineering foundation | In progress | `pyproject.toml` now configures Python 3.12+, package discovery, pytest, and Ruff; CLI and CI remain |
-| Implementation | In progress | [x] SCN-001 identity; [x] SCN-002 withdrawal; [x] SCN-003 unsupported fallback; SCN-004 is next |
-| Verification | In progress | Unit: 3 passed; selected BDD: 3 scenarios / 10 steps passed; Gherkin parity: 28 scenarios |
+| Engineering foundation | Done | Python 3.12+ packaging, Pydantic, CLI, pytest, Behave, Ruff, quickstart, and CI gate are present |
+| Implementation | In progress | SCN-001 through SCN-004 are green; SCN-005 approved-source snapshot ingestion is next |
+| Verification | In progress | Pytest: 5 passed; selected BDD: 4 scenarios / 13 steps passed; Gherkin parity: 28 scenarios |
 
 ## Immediate next actions
 
 | Priority | Action | Owner | Target | Related item |
 |---|---|---|---|---|
-| P0 | Implement SCN-004 required classification fields through red-green-refactor | Engineer | Next increment | WBS-007.004 |
-| P0 | Complete the real CLI and Pydantic contract boundary | Engineer | Increment 4 | WBS-006 / ADR-0004 |
+| P0 | Implement SCN-005 approved-source snapshot ingestion through red-green-refactor | Engineer / KB owner | Next increment | WBS-007.005 |
+| P0 | Persist provenance and synthetic/live execution-mode metadata | Engineer / KB owner | Increment 5 | REQ-020 |
 | P0 | Build at least 30 labeled routine/risky/conflict/multilingual/adversarial fixtures | QA / Engineer | Increment 9 | WBS-008 / REQ-114 |
-| P1 | Add a CI lint/test/document-validation gate | Engineer | WBS-006 | WBS-006 |
+| P1 | Add PlantUML rendering to CI | Engineer | Architecture follow-up | WBS-008 |
 | P1 | Populate business-case labor and pricing assumptions | Support operations | Increment 10 | REQ-014 / OQ-005 |
 
 ## Blockers
@@ -81,6 +82,8 @@ Create an ADR only when the corresponding decision is ready for explicit compari
 | 2026-10-23 | Reconciled architecture with the master prompt; completed WBS-003 and WBS-004, added required ADRs and PlantUML views, expanded safety requirements/BDD, and opened WBS-005. |
 | 2026-10-23 | Completed WBS-007.003 / SCN-003 through red-green-refactor; unsupported topics now map to the explicit `other` category and all three implemented BDD scenarios pass. |
 | 2026-10-23 | Completed WBS-005 with a 4h25m owned and dependency-ordered implementation plan; opened WBS-006 and added the initial Python project, test, and lint configuration. |
+| 2026-10-24 | Completed WBS-007.004 / SCN-004 through red-green-refactor; added frozen Pydantic classification contracts and a schema-valid subprocess CLI journey. |
+| 2026-10-24 | Completed WBS-006 with packaging, quickstart, Ruff, pytest/Behave workflows, and a CI verification gate; WBS-007 / SCN-005 is now active. |
 
 ## Reporting rules
 
