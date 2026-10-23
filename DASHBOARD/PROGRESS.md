@@ -1,11 +1,11 @@
 # Project Progress Dashboard
 
 - Last updated: 2026-10-23
-- Overall state: In progress - first implementation scenario is green
+- Overall state: In progress - first two implementation scenarios are green
 - Current phase: Architecture decisions and incremental implementation
-- Current task: `WBS-007.002 / SCN-002` - Classify a supported topic
+- Current task: `WBS-007.003 / SCN-003` - Preserve an unsupported topic
 - Completed task specs: [`WBS-001`](../doc/tasks/WBS-001.md), [`WBS-002`](../doc/tasks/WBS-002.md)
-- Latest execution: [`SCN-001 execution 001`](../bdd/executions/SCN-001-execution-001.md)
+- Latest execution: [`SCN-002 execution 001`](../bdd/executions/SCN-002-execution-001.md)
 - Source of truth: [`doc/task-desc.md`](../doc/task-desc.md)
 - Work plan: [`doc/WBS.md`](../doc/WBS.md)
 - Architecture decisions: [`doc/adr/README.md`](../doc/adr/README.md)
@@ -21,15 +21,15 @@
 | Architecture decisions | In progress | Choose Phase 1 boundaries, provider adapter, retrieval, safety, and evaluation design |
 | UML models | Done for baseline | Context, components, primary flow, and two-phase deployment aligned |
 | Delivery plan | In progress | First vertical slice selected; remaining work still needs estimates and ownership |
-| Implementation | In progress | [x] WBS-007.001 / SCN-001 preserves ticket identity |
-| Verification | In progress | Unit: 1 passed; tagged BDD: 1 scenario / 3 steps passed; Gherkin parity: 21 scenarios |
+| Implementation | In progress | [x] SCN-001 identity; [x] SCN-002 withdrawal classification; SCN-003 is next |
+| Verification | In progress | Unit: 2 passed; selected BDD: 2 scenarios / 6 steps passed; Gherkin parity: 21 scenarios |
 
 ## Immediate next actions
 
 | Priority | Action | Owner | Target | Related item |
 |---|---|---|---|---|
 | P0 | Decide Phase 1 architecture and deterministic safety boundaries | TBD | TBD | WBS-003 |
-| P0 | Implement SCN-002 supported-topic classification through red-green-refactor | TBD | TBD | WBS-007.002 |
+| P0 | Implement SCN-003 unsupported-topic fallback through red-green-refactor | TBD | TBD | WBS-007.003 |
 | P0 | Build a labeled normal/gap/conflict/safety fixture set | TBD | TBD | WBS-005 / WBS-008 |
 | P1 | Decide LLM/provider configuration and KB snapshot approach | TBD | TBD | WBS-003 |
 | P1 | Populate business-case labor and pricing assumptions | TBD | TBD | REQ-014 / OQ-005 |
@@ -72,6 +72,7 @@ Create an ADR only when the corresponding decision is ready for explicit compari
 | 2026-10-23 | Source brief populated with the retail forex/CFD support co-pilot definition. |
 | 2026-10-23 | Fixed and executed WBS-001 and WBS-002; requirements, KB assessment, BDD, verification, business case, and Mermaid views now align. |
 | 2026-10-23 | Completed WBS-007.001 / SCN-001 through red-green-refactor; unit and tagged Behave execution pass, and Gherkin parity remains valid. |
+| 2026-10-23 | Completed WBS-007.002 / SCN-002 through red-green-refactor; withdrawal classification and the SCN-001 regression both pass. |
 
 ## Reporting rules
 

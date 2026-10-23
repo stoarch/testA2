@@ -5,3 +5,4 @@ Execution records preserve the observed red, green, and refactor results for eac
 | Scenario | Execution | Result |
 |---|---|---|
 | [SCN-001](../scenarios/SCN-001.md) | [Execution 001](SCN-001-execution-001.md) | Passed |
+| [SCN-002](../scenarios/SCN-002.md) | [Execution 001](SCN-002-execution-001.md) | Passed |

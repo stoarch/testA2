@@ -44,7 +44,7 @@ Latest execution: [`WBS-002 execution 002`](tasks/WBS-002-execution-002.md). The
 ## Ticket intake and classification increments
 
 - [x] **WBS-007.001 / SCN-001** - preserve ticket identity; unit and tagged BDD tests pass ([execution evidence](../bdd/executions/SCN-001-execution-001.md))
-- [ ] **WBS-007.002 / SCN-002** - classify a supported topic
+- [x] **WBS-007.002 / SCN-002** - classify a supported withdrawal topic; unit and tagged BDD tests pass ([execution evidence](../bdd/executions/SCN-002-execution-001.md))
 - [ ] **WBS-007.003 / SCN-003** - preserve an unsupported topic
 - [ ] **WBS-007.004 / SCN-004** - return every required classification field
 
