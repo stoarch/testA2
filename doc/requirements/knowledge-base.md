@@ -13,7 +13,7 @@ The prototype must use these pages as they are. Each snapshot records capture ti
 
 ## Implementation status
 
-The current repository implements JSON persistence, SHA-256 integrity validation, the exact four-URL allowlist, section-level lexical retrieval, and complete retrieved-passage provenance for an explicitly synthetic fixture. Live page fetching, refresh scheduling, and production source snapshots remain planned.
+The current repository implements JSON persistence, SHA-256 integrity validation, the exact four-URL allowlist, section-level lexical retrieval, complete retrieved-passage provenance for an explicitly synthetic fixture, and exact numeric-duration validation against cited passages. Live page fetching, refresh scheduling, and production source snapshots remain planned.
 
 ## Known gaps, overlaps, and inconsistencies
 

@@ -31,11 +31,11 @@
       "source_id": "KB-003",
       "title": "How to Open an Account",
       "url": "https://valetax.com/how-to-open-an-account/",
-      "content_hash": "1c1e670c7f4aacbeae9785b2c8ba539c6a6292fa5bd799f22a6f6c37791bc53d",
+      "content_hash": "19d6ba1b8fb6f625173cfd6187cf9be9f9aa2cdbece514449db5d83b39afbf9f",
       "sections": [
         {
           "heading": "Account opening overview",
-          "text": "Synthetic fixture for testing: account opening begins with registration."
+          "text": "Synthetic fixture for testing: account opening begins with registration and is completed within 48 hours."
         }
       ]
     },
