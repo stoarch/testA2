@@ -16,12 +16,12 @@ This WBS implements the [support-ticket co-pilot definition](task-desc.md). The 
 |---|---|---|---|---|
 | WBS-001 | Establish project and documentation baseline | Execute [WBS-001](tasks/WBS-001.md): source brief, ADR, Mermaid, WBS, dashboard, and task structures exist and cross-link correctly | — | Done |
 | WBS-002 | Define and approve co-pilot requirements | Execute [WBS-002](tasks/WBS-002.md): actors, behavior, hard safety rules, KB limits, BDD scenarios, quality limits, business-case requirements, and verification mapping | WBS-001 | Done |
-| WBS-003 | Resolve architecture decisions | Options and consequences are recorded for consequential technical choices; accepted ADRs reference relevant requirements | WBS-002 | Not started |
+| WBS-003 | Resolve architecture decisions | Options and consequences are recorded for consequential technical choices; accepted ADRs reference relevant requirements | WBS-002 | In progress |
 | WBS-004 | Refine system models | Context, component, sequence, and deployment diagrams contain approved elements and trace to requirements/ADRs | WBS-002, WBS-003 | Not started |
-| WBS-005 | Plan implementation | Implementation tasks have owners, estimates, dependencies, and testable completion criteria | WBS-002, WBS-003 | Not started |
-| WBS-006 | Prepare engineering foundation | Repository layout, build, configuration, quality checks, and local developer workflow are documented and reproducible | WBS-005 | Not started |
-| WBS-007 | Implement domain increments | Each prioritized requirement is delivered in a small, independently verifiable increment | WBS-005, WBS-006 | Not started |
-| WBS-008 | Verify quality attributes | Functional tests and applicable security, performance, reliability, accessibility, and recovery checks pass | WBS-007 | Not started |
+| WBS-005 | Plan implementation | Implementation tasks have owners, estimates, dependencies, and testable completion criteria | WBS-002, WBS-003 | In progress |
+| WBS-006 | Prepare engineering foundation | Repository layout, build, configuration, quality checks, and local developer workflow are documented and reproducible | WBS-005 | In progress |
+| WBS-007 | Implement domain increments | Each prioritized requirement is delivered in a small, independently verifiable increment | WBS-005, WBS-006 | In progress |
+| WBS-008 | Verify quality attributes | Functional tests and applicable security, performance, reliability, accessibility, and recovery checks pass | WBS-007 | In progress |
 | WBS-009 | Prepare release and operations | Deployment, rollback, monitoring, support, data migration, and runbook needs are satisfied | WBS-006, WBS-008 | Not started |
 | WBS-010 | Release and validate outcomes | Release is completed, acceptance criteria pass, and follow-up work is recorded | WBS-009 | Not started |
 
@@ -40,6 +40,15 @@ Latest execution: [`WBS-002 execution 002`](tasks/WBS-002-execution-002.md). The
 - [x] Phase 1 prototype and Phase 2 scale constraints
 - [x] Business-case calculation requirements
 - [x] Assumptions, dependencies, risks, and open questions
+
+## Ticket intake and classification increments
+
+- [x] **WBS-007.001 / SCN-001** - preserve ticket identity; unit and tagged BDD tests pass ([execution evidence](../bdd/executions/SCN-001-execution-001.md))
+- [ ] **WBS-007.002 / SCN-002** - classify a supported topic
+- [ ] **WBS-007.003 / SCN-003** - preserve an unsupported topic
+- [ ] **WBS-007.004 / SCN-004** - return every required classification field
+
+WBS-007 remains in progress until the prioritized domain increments are complete. WBS-008 is also in progress because functional verification has begun, while E2E and non-functional checks remain outstanding.
 
 ## Definition of ready for implementation
 

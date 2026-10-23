@@ -2,7 +2,7 @@
 
 | Requirement | BDD | Unit/component TDD | Contract/integration | E2E | Quality evidence |
 |---|---|---|---|---|---|
-| REQ-001 | [SCN-001](../../bdd/scenarios/SCN-001.md) | Input/output schema | UI/CLI adapter | Submit ticket | REQ-104 |
+| REQ-001 | [SCN-001](../../bdd/scenarios/SCN-001.md) ([passing execution](../../bdd/executions/SCN-001-execution-001.md)) | [Ticket identity unit test](../../tests/unit/test_ticket_processing.py) | UI/CLI adapter | Submit ticket | REQ-104 |
 | REQ-002 | [SCN-002](../../bdd/scenarios/SCN-002.md), [SCN-003](../../bdd/scenarios/SCN-003.md) | Category classifier/parser | Model response schema | Classification journey | Labeled confusion matrix |
 | REQ-003 | [SCN-004](../../bdd/scenarios/SCN-004.md) | Field validation | Model response schema | Classification journey | Per-field metrics |
 | REQ-004 | [SCN-005](../../bdd/scenarios/SCN-005.md) | Approved-source filter | Retriever/index | Grounded-answer journey | Source allowlist audit |

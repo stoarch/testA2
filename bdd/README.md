@@ -18,13 +18,13 @@ Validate Gherkin syntax, unique scenario IDs, and Markdown/feature parity:
 python bdd/validate_gherkin.py
 ```
 
-Run Behave after implementation step definitions are added under `features/steps/`:
+Run the implemented first increment by requirement tag:
 
 ```text
-behave bdd/features
+behave bdd/features --tags=@REQ-001
 ```
 
-The current Behave dry-run discovers all scenarios but reports their 81 steps as undefined, which is expected before the implementation/TDD work begins.
+SCN-001 is implemented and passing. Other scenarios retain undefined steps until their own red-green-refactor increments begin, so an unfiltered full-suite run is not yet expected to pass. Execution evidence is stored under [`executions/`](executions/README.md).
 
 ## Ticket intake and classification
 
