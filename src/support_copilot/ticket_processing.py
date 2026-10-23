@@ -1,4 +1,10 @@
 from dataclasses import dataclass
+from enum import StrEnum
+
+
+class TicketCategory(StrEnum):
+    WITHDRAWAL = "withdrawal"
+    OTHER = "other"
 
 
 @dataclass(frozen=True, slots=True)
@@ -10,16 +16,16 @@ class SupportTicket:
 @dataclass(frozen=True, slots=True)
 class ProcessingResult:
     ticket_id: str
-    category: str | None
+    category: TicketCategory
 
 
-def classify_category(text: str) -> str | None:
+def classify_category(text: str) -> TicketCategory:
     normalized_text = text.casefold()
     withdrawal_markers = ("withdraw",)
 
     if any(marker in normalized_text for marker in withdrawal_markers):
-        return "withdrawal"
-    return None
+        return TicketCategory.WITHDRAWAL
+    return TicketCategory.OTHER
 
 
 def process_ticket(ticket_id: str, text: str) -> ProcessingResult:

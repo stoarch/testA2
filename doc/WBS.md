@@ -18,7 +18,7 @@ This WBS implements the governing [master prompt](master-prompt.md), with the or
 | WBS-002 | Define and approve co-pilot requirements | Execute [WBS-002](tasks/WBS-002.md): actors, behavior, hard safety rules, KB limits, BDD scenarios, quality limits, business-case requirements, and verification mapping | WBS-001 | Done |
 | WBS-003 | Resolve architecture decisions | Five master-prompt decision areas are accepted and traced ([execution](tasks/WBS-003-execution-001.md)) | WBS-002 | Done |
 | WBS-004 | Refine system models | PlantUML component, class, sequence, activity, context, and deployment views identify trust boundaries and implementation state ([execution](tasks/WBS-004-execution-001.md)) | WBS-002, WBS-003 | Done |
-| WBS-005 | Plan implementation | Implementation tasks have owners, estimates, dependencies, and testable completion criteria | WBS-002, WBS-003 | In progress |
+| WBS-005 | Plan implementation | Implementation tasks have owners, estimates, dependencies, and testable completion criteria ([execution](tasks/WBS-005-execution-001.md)) | WBS-002, WBS-003 | Done |
 | WBS-006 | Prepare engineering foundation | Repository layout, build, configuration, quality checks, and local developer workflow are documented and reproducible | WBS-005 | In progress |
 | WBS-007 | Implement domain increments | Each prioritized requirement is delivered in a small, independently verifiable increment | WBS-005, WBS-006 | In progress |
 | WBS-008 | Verify quality attributes | Functional tests and applicable security, performance, reliability, accessibility, and recovery checks pass | WBS-007 | In progress |
@@ -45,7 +45,7 @@ Latest execution: [`WBS-002 execution 002`](tasks/WBS-002-execution-002.md). The
 
 - [x] **WBS-007.001 / SCN-001** - preserve ticket identity; unit and tagged BDD tests pass ([execution evidence](../bdd/executions/SCN-001-execution-001.md))
 - [x] **WBS-007.002 / SCN-002** - classify a supported withdrawal topic; unit and tagged BDD tests pass ([execution evidence](../bdd/executions/SCN-002-execution-001.md))
-- [ ] **WBS-007.003 / SCN-003** - preserve an unsupported topic
+- [x] **WBS-007.003 / SCN-003** - preserve an unsupported topic; unit and tagged BDD tests pass ([execution evidence](../bdd/executions/SCN-003-execution-001.md))
 - [ ] **WBS-007.004 / SCN-004** - return every required classification field
 
 WBS-007 remains in progress until the prioritized domain increments are complete. WBS-008 is also in progress because functional verification has begun, while E2E and non-functional checks remain outstanding.

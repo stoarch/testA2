@@ -21,10 +21,10 @@ python bdd/validate_gherkin.py
 Run the implemented increments by scenario name:
 
 ```text
-behave bdd/features --name=SCN-001 --name=SCN-002
+behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003
 ```
 
-SCN-001 and SCN-002 are implemented and passing. Other scenarios retain undefined steps until their own red-green-refactor increments begin, so an unfiltered full-suite run is not yet expected to pass. Execution evidence is stored under [`executions/`](executions/README.md).
+SCN-001 through SCN-003 are implemented and passing. Other scenarios retain undefined steps until their own red-green-refactor increments begin, so an unfiltered full-suite run is not yet expected to pass. Execution evidence is stored under [`executions/`](executions/README.md).
 
 ## Ticket intake and classification
 

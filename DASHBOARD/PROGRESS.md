@@ -1,12 +1,13 @@
 # Project Progress Dashboard
 
 - Last updated: 2026-10-23
-- Overall state: In progress - first two implementation scenarios are green
-- Current phase: MVP implementation planning and incremental implementation
-- Current task: [`WBS-005`](../doc/tasks/WBS-005.md) - Plan MVP implementation; next code slice is `WBS-007.003 / SCN-003`
-- Completed work packages: WBS-001, WBS-002, WBS-003, WBS-004
+- Overall state: In progress - first three implementation scenarios are green
+- Current phase: Engineering foundation and incremental implementation
+- Current task: [`WBS-006`](../doc/tasks/WBS-006.md) - Prepare engineering foundation; next code slice is `WBS-007.004 / SCN-004`
+- Completed work packages: WBS-001, WBS-002, WBS-003, WBS-004, WBS-005
 - Latest architecture execution: [`WBS-004 execution 001`](../doc/tasks/WBS-004-execution-001.md)
-- Latest code execution: [`SCN-002 execution 001`](../bdd/executions/SCN-002-execution-001.md)
+- Latest planning execution: [`WBS-005 execution 001`](../doc/tasks/WBS-005-execution-001.md)
+- Latest code execution: [`SCN-003 execution 001`](../bdd/executions/SCN-003-execution-001.md)
 - Source of truth: [`doc/master-prompt.md`](../doc/master-prompt.md)
 - Work plan: [`doc/WBS.md`](../doc/WBS.md)
 - Architecture decisions: [`doc/adr/README.md`](../doc/adr/README.md)
@@ -21,19 +22,20 @@
 | Requirements | Updated | REQ-001-021 and REQ-101-115 now cover the master prompt; approval refresh remains |
 | Architecture decisions | Done | WBS-003 passed; ADR-0003 through ADR-0008 cover all required decision areas |
 | UML models | Done for baseline | WBS-004 passed; six authoritative PlantUML views include trust boundaries and implementation state |
-| Delivery plan | In progress | WBS-005 opened with ten ordered MVP increments |
-| Implementation | In progress | [x] SCN-001 identity; [x] SCN-002 withdrawal classification; SCN-003 is next |
-| Verification | In progress | Unit: 2 passed; selected BDD: 2 scenarios / 6 steps passed; Gherkin parity target: 28 scenarios |
+| Delivery plan | Done | WBS-005 defines ten owned, estimated, dependency-ordered, verifiable increments in a 4h25m timebox |
+| Engineering foundation | In progress | `pyproject.toml` now configures Python 3.12+, package discovery, pytest, and Ruff; CLI and CI remain |
+| Implementation | In progress | [x] SCN-001 identity; [x] SCN-002 withdrawal; [x] SCN-003 unsupported fallback; SCN-004 is next |
+| Verification | In progress | Unit: 3 passed; selected BDD: 3 scenarios / 10 steps passed; Gherkin parity: 28 scenarios |
 
 ## Immediate next actions
 
 | Priority | Action | Owner | Target | Related item |
 |---|---|---|---|---|
-| P0 | Complete WBS-005 estimates, ownership, and slice-level verification details | TBD | TBD | WBS-005 |
-| P0 | Implement SCN-003 unsupported-topic fallback through red-green-refactor | TBD | TBD | WBS-007.003 |
-| P0 | Build at least 30 labeled routine/risky/conflict/multilingual/adversarial fixtures | TBD | TBD | WBS-005 / WBS-008 / REQ-114 |
-| P1 | Implement Pydantic contracts and the real CLI | TBD | TBD | WBS-006 / ADR-0004 |
-| P1 | Populate business-case labor and pricing assumptions | TBD | TBD | REQ-014 / OQ-005 |
+| P0 | Implement SCN-004 required classification fields through red-green-refactor | Engineer | Next increment | WBS-007.004 |
+| P0 | Complete the real CLI and Pydantic contract boundary | Engineer | Increment 4 | WBS-006 / ADR-0004 |
+| P0 | Build at least 30 labeled routine/risky/conflict/multilingual/adversarial fixtures | QA / Engineer | Increment 9 | WBS-008 / REQ-114 |
+| P1 | Add a CI lint/test/document-validation gate | Engineer | WBS-006 | WBS-006 |
+| P1 | Populate business-case labor and pricing assumptions | Support operations | Increment 10 | REQ-014 / OQ-005 |
 
 ## Blockers
 
@@ -77,6 +79,8 @@ Create an ADR only when the corresponding decision is ready for explicit compari
 | 2026-10-23 | Completed WBS-007.001 / SCN-001 through red-green-refactor; unit and tagged Behave execution pass, and Gherkin parity remains valid. |
 | 2026-10-23 | Completed WBS-007.002 / SCN-002 through red-green-refactor; withdrawal classification and the SCN-001 regression both pass. |
 | 2026-10-23 | Reconciled architecture with the master prompt; completed WBS-003 and WBS-004, added required ADRs and PlantUML views, expanded safety requirements/BDD, and opened WBS-005. |
+| 2026-10-23 | Completed WBS-007.003 / SCN-003 through red-green-refactor; unsupported topics now map to the explicit `other` category and all three implemented BDD scenarios pass. |
+| 2026-10-23 | Completed WBS-005 with a 4h25m owned and dependency-ordered implementation plan; opened WBS-006 and added the initial Python project, test, and lint configuration. |
 
 ## Reporting rules
 
