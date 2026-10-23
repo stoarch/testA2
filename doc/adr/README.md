@@ -8,6 +8,7 @@ ADRs capture decisions that materially affect architecture, delivery, operations
 |---|---|---|---|
 | [ADR-0001](0001-documentation-and-modeling-conventions.md) | Documentation and modeling conventions | Superseded by ADR-0002 | 2026-10-23 |
 | [ADR-0002](0002-mermaid-diagrams-in-markdown.md) | Mermaid diagrams in Markdown | Accepted | 2026-10-23 |
+| [ADR-0003](0003-bdd-tdd-e2e-delivery-strategy.md) | BDD, TDD, and E2E delivery strategy | Accepted | 2026-10-23 |
 
 ## Lifecycle
 

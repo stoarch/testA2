@@ -4,6 +4,7 @@
 - Overall state: In progress — TASK-001 is defined; domain answers and ownership are pending
 - Current phase: Discovery / requirements definition
 - Current task: `TASK-001` — Define and approve the requirements baseline
+- Task specification: [`doc/tasks/WBS-002.md`](../doc/tasks/WBS-002.md)
 - Source of truth: [`doc/task-desc.md`](../doc/task-desc.md)
 - Work plan: [`doc/WBS.md`](../doc/WBS.md)
 - Architecture decisions: [`doc/adr/README.md`](../doc/adr/README.md)
@@ -18,7 +19,7 @@
 | UML models | In progress | Four placeholder views created; replace TBD elements after requirements approval |
 | Delivery plan | In progress | Baseline WBS created; estimates and owners await scoped work |
 | Implementation | Not started | Begins after definition-of-ready is met |
-| Verification | Not started | Derive test strategy from acceptance criteria and quality attributes |
+| Verification | In progress | BDD/TDD/E2E strategy accepted; populate the WBS-002 verification matrix |
 
 ## Immediate next actions
 
@@ -62,6 +63,7 @@ Create an ADR only when the corresponding decision is ready for explicit compari
 |---|---|
 | 2026-10-23 | Created ADR framework, PlantUML views, WBS, and progress dashboard. |
 | 2026-10-23 | Converted UML views to Mermaid-in-Markdown and detailed TASK-001 requirements discovery. |
+| 2026-10-23 | Added the WBS-002 execution prompt, functional/non-functional limits, and BDD/TDD/E2E strategy. |
 
 ## Reporting rules
 

@@ -7,6 +7,7 @@
 - Related work package: `WBS-002`
 - Target date: TBD
 - Output: Approved requirements baseline with stable `REQ-###` identifiers
+- Detailed execution specification: [`tasks/WBS-002.md`](tasks/WBS-002.md)
 
 ## Objective
 
@@ -53,6 +54,8 @@ Use this structure for every requirement:
 - Acceptance evidence: Observable result, test, measurement, or approved review
 - Dependencies: Other requirement IDs or external dependencies
 - Open questions: None, or a concrete list
+
+Every functional requirement must include at least one BDD scenario. Every applicable non-functional requirement must define a measurable limit and its verification method. See the WBS-002 task specification for templates and task boundaries.
 
 ## Deliverables
 

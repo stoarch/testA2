@@ -15,7 +15,7 @@ This WBS is a planning baseline. Domain-specific estimates and deliverables rema
 | ID | Work package | Deliverable / acceptance criterion | Depends on | Status |
 |---|---|---|---|---|
 | WBS-001 | Establish documentation baseline | ADR, UML, WBS, and progress structures exist and cross-link correctly | — | Done |
-| WBS-002 | Define and approve requirements | Complete [`TASK-001`](task-desc.md): scope, actors, functional and quality requirements, constraints, exclusions, and acceptance criteria; each requirement has a `REQ-###` ID | WBS-001 | In progress |
+| WBS-002 | Define and approve requirements | Execute the [WBS-002 task specification](tasks/WBS-002.md): scope, actors, functional and non-functional requirements, limits, BDD scenarios, and approval; each requirement has a `REQ-###` ID | WBS-001 | In progress |
 | WBS-003 | Resolve architecture decisions | Options and consequences are recorded for consequential technical choices; accepted ADRs reference relevant requirements | WBS-002 | Not started |
 | WBS-004 | Refine system models | Context, component, sequence, and deployment diagrams contain approved elements and trace to requirements/ADRs | WBS-002, WBS-003 | Not started |
 | WBS-005 | Plan implementation | Implementation tasks have owners, estimates, dependencies, and testable completion criteria | WBS-002, WBS-003 | Not started |
@@ -40,9 +40,9 @@ This WBS is a planning baseline. Domain-specific estimates and deliverables rema
 
 ## Definition of ready for implementation
 
-An implementation item is ready when it has an owner, related requirement IDs, bounded scope, explicit dependencies, acceptance criteria, verification approach, and no unresolved blocking decision.
+An implementation item is ready when it has an owner, related requirement IDs, bounded scope, explicit dependencies, BDD acceptance scenarios, a TDD unit/component test plan, identified E2E coverage, and no unresolved blocking decision.
 
 ## Definition of done
 
-A work item is done when its acceptance criterion is met, relevant tests/checks pass, documentation and diagrams reflect the delivered behavior, and remaining risks or follow-ups are recorded in the dashboard.
+A work item is done when its BDD scenarios are satisfied, TDD-created unit/component tests pass, applicable E2E journeys pass, non-functional limits are verified, documentation and diagrams reflect the delivered behavior, and remaining risks or follow-ups are recorded in the dashboard.
 
