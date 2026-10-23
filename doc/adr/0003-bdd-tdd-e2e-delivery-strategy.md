@@ -1,9 +1,9 @@
-# ADR-0003: BDD, TDD, and E2E delivery strategy
+# ADR-0003: Testing, evaluation, and cost methodology
 
 - Status: Accepted
 - Date: 2026-10-23
 - Owners: Project team
-- Related requirements: To be assigned by WBS-002
+- Related requirements: `REQ-013`, `REQ-014`, `REQ-101`-`REQ-115`
 - Related work: `WBS-002`, `WBS-005`, `WBS-007`, `WBS-008`
 - Supersedes: None
 
@@ -30,7 +30,9 @@ The project needs a verification strategy that connects stakeholder intent to im
 
 ## Decision
 
-Use BDD scenarios to define observable acceptance behavior, TDD to implement business rules and components through red-green-refactor, contract tests at owned interfaces, and a deliberately small E2E suite for critical user and operational journeys.
+Use BDD scenarios to define observable acceptance behavior, TDD to implement business rules and components through red-green-refactor, integration tests around persisted KB snapshots and provider contracts, and subprocess E2E tests against the real CLI. Maintain at least 30 labeled synthetic evaluation tickets across routine, risky, contradictory, multilingual, unsupported, and adversarial cases.
+
+Evaluation reports must separate measured values from assumptions and report classification accuracy, escalation recall, false-escalation rate, critical policy violations, citation validity, unsupported-claim rate, abstention frequency, p50/p95 latency, token usage, and cost when available. Business-case projections compare deterministic, guarded-LLM, and hybrid configurations with low/base/high sensitivity cases.
 
 ## Consequences
 
@@ -48,9 +50,10 @@ Use BDD scenarios to define observable acceptance behavior, TDD to implement bus
 
 ### Follow-up work
 
-- [ ] Complete the WBS-002 verification matrix.
+- [x] Complete the WBS-002 verification matrix.
 - [ ] Define test tooling and CI gates during WBS-006.
 - [ ] Define production-like E2E data and environment ownership before WBS-008.
+- [ ] Create at least 30 synthetic evaluation tickets and a reproducible report.
 
 ## Validation
 

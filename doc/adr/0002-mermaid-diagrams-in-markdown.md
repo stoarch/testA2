@@ -1,6 +1,6 @@
 # ADR-0002: Mermaid diagrams in Markdown
 
-- Status: Accepted
+- Status: Superseded by ADR-0008
 - Date: 2026-10-23
 - Owners: Project team
 - Related requirements: Project documentation baseline
@@ -47,3 +47,7 @@ Store architecture diagrams as Markdown files under `doc/uml/`, with one Mermaid
 ## Validation
 
 All diagram Markdown files must contain a Mermaid block, use consistent element names, and link to relevant requirements or decisions when domain content is added.
+
+## Supersession note
+
+The governing [master prompt](../master-prompt.md) now requires source-controlled PlantUML. ADR-0008 replaces the diagram-format decision while retaining Markdown companion pages for context and traceability.
