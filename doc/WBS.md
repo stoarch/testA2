@@ -51,7 +51,8 @@ Latest execution: [`WBS-002 execution 002`](tasks/WBS-002-execution-002.md). The
 ## Grounded retrieval and drafting increments
 
 - [x] **WBS-007.005 / SCN-005** - persist a synthetic KB snapshot and retrieve only allowlisted passages with provenance ([execution evidence](../bdd/executions/SCN-005-execution-001.md))
-- [ ] **WBS-007.006 / SCN-006** - draft an answer supported by retrieved deposit evidence
+- [x] **WBS-007.006 / SCN-006** - draft an extractive answer supported by retrieved deposit evidence ([execution evidence](../bdd/executions/SCN-006-execution-001.md))
+- [ ] **WBS-007.007 / SCN-007** - validate that timeline claims have exact cited support
 
 WBS-007 remains in progress until the prioritized domain increments are complete. WBS-008 is also in progress because functional verification has begun, while E2E and non-functional checks remain outstanding.
 

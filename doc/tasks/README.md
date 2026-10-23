@@ -14,7 +14,7 @@ Task specifications turn WBS work packages into bounded, executable assignments.
 | [WBS-006](WBS-006.md) | Prepare engineering foundation | Done - [execution](WBS-006-execution-001.md) |
 | [WBS-007](WBS-007.md) | Implement domain increments | In progress |
 
-Latest execution records: [WBS-005 execution 001](WBS-005-execution-001.md), [WBS-006 execution 001](WBS-006-execution-001.md), and [SCN-005 execution 001](../../bdd/executions/SCN-005-execution-001.md). WBS-007 is the active domain task.
+Latest execution records: [WBS-005 execution 001](WBS-005-execution-001.md), [WBS-006 execution 001](WBS-006-execution-001.md), and [SCN-006 execution 001](../../bdd/executions/SCN-006-execution-001.md). WBS-007 is the active domain task.
 
 ## Delivery approach
 

@@ -23,12 +23,21 @@ class ProcessingResult <<partially implemented>> {
   +usage: Usage?
 }
 
-class Citation <<planned>> {
-  +source_url: str
+class Citation <<implemented for draft slice>> {
+  +source_id: str
+  +title: str
+  +url: str
   +heading: str
   +passage: str
+  +retrieved_at: datetime
   +snapshot_id: str
   +content_hash: str
+  +synthetic: bool
+}
+
+class DraftResult <<implemented extractive deposit>> {
+  +text: str
+  +citations: list<Citation>
 }
 
 class KBSnapshot <<implemented synthetic fixture>> {
@@ -74,6 +83,7 @@ class DeterministicOfflineAdapter <<planned>>
 class LiveLLMAdapter <<optional planned>>
 
 ProcessingResult "1" o-- "0..*" Citation
+DraftResult "1" o-- "1..*" Citation
 KBSnapshot "1" o-- "1..*" SourceDocument
 SourceDocument "1" o-- "1..*" SourceSection
 KBSnapshot --> RetrievedPassage : retrieve approved sections
@@ -86,7 +96,7 @@ SupportTicket --> ProcessingResult : process
 note right of ProcessingResult
 Identity and four classification fields are
 implemented as frozen Pydantic contracts.
-Draft, citation, safety, review, configuration,
+Draft integration, safety, review, configuration,
 latency, and usage fields remain planned by REQ-010.
 end note
 @enduml
