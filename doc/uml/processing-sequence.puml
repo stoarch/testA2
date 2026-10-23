@@ -1,0 +1,56 @@
+@startuml
+title Valetax Support Ticket Co-Pilot - Processing Sequence
+actor Agent
+boundary CLI
+control Orchestrator
+control "Pre-policy Gate" as Pre
+control Classifier
+control Retriever
+control "Evidence Validator" as Evidence
+control Provider
+control "Post-policy Gate" as Post
+control Router
+
+Agent -> CLI : submit ticket
+CLI -> Orchestrator : validate and process
+Orchestrator -> Pre : input + ticket text
+
+alt invalid input, unsupported language, injection, or protected intent
+  Pre --> Orchestrator : safe result + reason
+  Orchestrator -> Router : require human review
+else eligible support request
+  Pre --> Orchestrator : allowed
+  Orchestrator -> Classifier : classify fields
+  Classifier -> Provider : structured classification
+  Provider --> Classifier : labels / typed failure
+  Classifier --> Orchestrator : classifications
+  Orchestrator -> Retriever : retrieve allowlisted sections
+  Retriever --> Orchestrator : passages + provenance / failure
+
+  alt missing, contradictory, or failed evidence
+    Orchestrator -> Router : abstain + reason
+  else sufficient evidence
+    Orchestrator -> Evidence : validate evidence coverage
+    Evidence --> Orchestrator : accepted passages
+    Orchestrator -> Provider : draft only from evidence
+    Provider --> Orchestrator : draft candidate / typed failure
+    Orchestrator -> Post : validate claims, citations, and policy
+
+    alt supported and safe
+      Post --> Orchestrator : validated draft
+      Orchestrator -> Router : agent review decision
+    else unsafe or unsupported output
+      Post --> Orchestrator : reject + reason
+      Orchestrator -> Router : abstain and escalate
+    end
+  end
+end
+
+Router --> Orchestrator : route decision
+Orchestrator --> CLI : validated structured JSON
+CLI --> Agent : draft, abstention, evidence, and reasons
+
+note over CLI,Agent
+The co-pilot never sends directly to a customer.
+end note
+@enduml

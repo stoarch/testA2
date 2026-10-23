@@ -7,7 +7,7 @@
 | REQ-003 | [SCN-004](../../bdd/scenarios/SCN-004.md) | Field validation | Model response schema | Classification journey | Per-field metrics |
 | REQ-004 | [SCN-005](../../bdd/scenarios/SCN-005.md) | Approved-source filter | Retriever/index | Grounded-answer journey | Source allowlist audit |
 | REQ-005 | [SCN-006](../../bdd/scenarios/SCN-006.md), [SCN-007](../../bdd/scenarios/SCN-007.md) | Claim/citation validator | Retriever + model | Grounded-answer journey | REQ-102/103 |
-| REQ-006 | [SCN-008](../../bdd/scenarios/SCN-008.md), [SCN-009](../../bdd/scenarios/SCN-009.md) | Coverage/abstention gate | Retriever | Gap journey | Abstention precision/recall |
+| REQ-006 | [SCN-008](../../bdd/scenarios/SCN-008.md), [SCN-009](../../bdd/scenarios/SCN-009.md), [SCN-028](../../bdd/scenarios/SCN-028.md) | Coverage/abstention gate | Retriever | Gap journey | Abstention precision/recall |
 | REQ-007 | [SCN-010](../../bdd/scenarios/SCN-010.md), [SCN-011](../../bdd/scenarios/SCN-011.md) | Safety detector and output filter | Model guardrail | Trading-advice journey | REQ-101 |
 | REQ-008 | [SCN-012](../../bdd/scenarios/SCN-012.md), [SCN-013](../../bdd/scenarios/SCN-013.md) | Sensitive-intent routing | Model guardrail | KYC/complaint journey | REQ-101 |
 | REQ-009 | [SCN-014](../../bdd/scenarios/SCN-014.md), [SCN-015](../../bdd/scenarios/SCN-015.md) | Routing rules/reasons | Queue stub/adapter | Review-routing journey | Review-rate report |
@@ -17,12 +17,18 @@
 | REQ-013 | [SCN-019](../../bdd/scenarios/SCN-019.md) | Metric calculations | Provider/pricing inputs | Evaluation command | Reproducible report |
 | REQ-014 | [SCN-020](../../bdd/scenarios/SCN-020.md) | Cost-model formulas | Pricing/config source | Report generation | Scenario/sensitivity review |
 | REQ-015 | Design review | Ingestion/versioning units | Source fetch/index | KB update rehearsal | Maintainability review |
-| REQ-016 | [SCN-021](../../bdd/scenarios/SCN-021.md) | Failure-path tests | Forced dependency failures | Safe-failure journey | Zero unsupported fallback drafts |
+| REQ-016 | [SCN-021](../../bdd/scenarios/SCN-021.md), [SCN-025](../../bdd/scenarios/SCN-025.md) | Failure-path tests | Forced dependency failures | Safe-failure journey | Zero unsupported fallback drafts |
+| REQ-017 | Design review | No-send interface test | CLI contract | Verify no customer-send operation | Architecture review |
+| REQ-018 | [SCN-026](../../bdd/scenarios/SCN-026.md), [SCN-027](../../bdd/scenarios/SCN-027.md) | Input/language validation | CLI schema | Invalid-input journey | REQ-104/113 |
+| REQ-019 | [SCN-023](../../bdd/scenarios/SCN-023.md), [SCN-024](../../bdd/scenarios/SCN-024.md) | Injection detector and policy tests | Retriever/provider boundaries | Injection journeys | REQ-111 |
+| REQ-020 | Design review | Provenance/hash units | Persisted snapshot | Offline-fixture journey | REQ-103/113 |
+| REQ-021 | [SCN-022](../../bdd/scenarios/SCN-022.md) | Pre/post policy gates | Provider result validation | Mixed-intent journey | REQ-101/111 |
 
 ## Test order
 
 1. Write BDD examples for observable behavior.
 2. Implement each rule through red → green → refactor unit/component TDD.
 3. Add provider/retrieval contract tests at external boundaries.
-4. Keep E2E coverage focused on grounded answer, abstention, trading advice, complaint/KYC, conflict, safe failure, and business-case generation.
+4. Keep E2E coverage focused on grounded answer, abstention, trading advice, mixed intent, complaint/KYC, prompt injection, invalid input, provider/retrieval failure, and business-case generation.
+5. Run the 30+ ticket evaluation set only after deterministic lower-level checks pass.
 

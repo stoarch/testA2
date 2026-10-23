@@ -1,10 +1,20 @@
 # One-Page Business-Case Requirements
 
+The current one-page artifact is [`reports/business-case.md`](../../reports/business-case.md). It remains a draft until measured inputs are available.
+
 The final one-page artifact must answer: **Is the co-pilot worth running at approximately 10,000 tickets per month, and with which measured configuration?**
 
 ## Configurations to compare
 
-At minimum, report the implemented Phase 1 configuration. Prefer comparison with one meaningful alternative when time permits, such as a different model, retrieval depth, or human-review threshold. Do not invent results for an untested configuration.
+Compare all three master-prompt configurations without inventing results:
+
+| ID | Configuration |
+|---|---|
+| A | Deterministic retrieval and template drafts |
+| B | Guarded LLM-assisted drafting |
+| C | Hybrid routing with selective LLM usage |
+
+For every configuration, show low/base/high assumptions. Mark untested configurations as modeled estimates, not measured results.
 
 ## Required measured inputs
 
@@ -55,6 +65,7 @@ Recommend a configuration only if:
 - Quality/safety/review-rate summary
 - Monthly cost, value, net value, and cost per ticket
 - Top assumptions and sensitivity range
+- Low/base/high scenarios for all three configurations
 - Phase 2 scale/operational investments
 - Go / conditional go / no-go conclusion
 

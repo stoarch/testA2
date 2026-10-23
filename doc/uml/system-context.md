@@ -1,25 +1,8 @@
 # System Context
 
-This view identifies the Phase 1 co-pilot boundary and its external actors and data sources.
+- Authoritative source: [system-context.puml](system-context.puml)
+- Related requirements: `REQ-001`-`REQ-021`, `REQ-109`, `REQ-112`
 
-```mermaid
-flowchart LR
-    customer["Customer"]
-    agent["Support Agent /<br/>Human Reviewer"]
-    ops["Support Operations /<br/>Compliance"]
-    copilot["Support-ticket Co-pilot"]
-    kb["Approved Valetax<br/>Knowledge Pages"]
-    llm["LLM Provider"]
-    metrics["Evaluation and<br/>Business-case Outputs"]
+The co-pilot is an agent-assist system. Customers communicate with support agents, not directly with the co-pilot. Approved public pages and an optional live provider sit outside the trusted local boundary. Only minimized provider requests and redacted measurements may cross their respective boundaries.
 
-    customer -->|"Incoming ticket"| agent
-    agent -->|"Submit ticket · REQ-001"| copilot
-    copilot -->|"Classification, cited draft or abstention,<br/>review reasons · REQ-002–010"| agent
-    copilot -->|"Retrieve approved passages · REQ-004"| kb
-    copilot -->|"Constrained inference"| llm
-    ops -->|"Safety and routing policy"| copilot
-    copilot -->|"Measured results · REQ-013/014"| metrics
-```
-
-The co-pilot assists agents; it does not execute transactions, decide complaints/KYC/AML outcomes, or provide trading advice.
-
+The system does not execute transactions, transmit replies automatically, provide trading advice, or decide complaint, KYC, or AML outcomes.

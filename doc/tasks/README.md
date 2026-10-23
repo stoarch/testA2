@@ -8,8 +8,11 @@ Task specifications turn WBS work packages into bounded, executable assignments.
 |---|---|---|
 | [WBS-001](WBS-001.md) | Establish project and documentation baseline | Done |
 | [WBS-002](WBS-002.md) | Define and approve co-pilot requirements | Done |
+| WBS-003 | Resolve architecture decisions | Done - [execution](WBS-003-execution-001.md) |
+| WBS-004 | Refine system models | Done for baseline - [execution](WBS-004-execution-001.md) |
+| [WBS-005](WBS-005.md) | Plan MVP implementation | In progress |
 
-Latest execution records: [WBS-001 execution 001](WBS-001-execution-001.md) and [WBS-002 execution 002](WBS-002-execution-002.md).
+Latest execution records: [WBS-003 execution 001](WBS-003-execution-001.md) and [WBS-004 execution 001](WBS-004-execution-001.md). WBS-005 is the active planning task.
 
 ## Delivery approach
 

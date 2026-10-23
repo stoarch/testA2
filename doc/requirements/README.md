@@ -1,6 +1,6 @@
 # Support Co-pilot Requirements Baseline
 
-This baseline derives from [`task-desc.md`](../task-desc.md). It defines a support-ticket co-pilot for a retail forex/CFD broker: ship a demonstrable prototype quickly, then define how it scales to roughly 10,000 tickets per month.
+This baseline derives from [`master-prompt.md`](../master-prompt.md), with [`task-desc.md`](../task-desc.md) retained as the original product brief. It defines a support-ticket co-pilot for a retail forex/CFD broker: ship a demonstrable prototype quickly, then define how it scales to roughly 10,000 tickets per month.
 
 ## Documents
 

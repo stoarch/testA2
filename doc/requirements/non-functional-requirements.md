@@ -71,3 +71,38 @@
 - Limit: Phase 1 reports observed end-to-end p50/p95 latency and quality metrics rather than inventing an SLA; the Phase 2 SLA is an open operational decision.
 - Verification: Evaluation report.
 
+## REQ-111: Prompt-injection resistance
+
+- Type: Quality - Security / Safety
+- Priority: Must
+- Limit: 100% of labeled injection cases in the acceptance set preserve system policy, disclose no hidden prompt/configuration, and produce a safe result or human route.
+- Verification: Adversarial unit, BDD, and E2E cases covering both ticket and retrieved-content injection.
+
+## REQ-112: PII-safe telemetry
+
+- Type: Quality - Privacy
+- Priority: Must
+- Limit: Logs and evaluation artifacts contain ticket IDs, reason codes, timings, hashes, and aggregate usage but no raw customer text or detected PII unless an explicitly protected fixture requires it.
+- Verification: Structured-log tests and repository artifact scan.
+
+## REQ-113: Execution-mode transparency
+
+- Type: Quality - Auditability
+- Priority: Must
+- Limit: Every result and report identifies `offline_fixture`, `rules_only`, or `live_provider` mode plus provider/model/configuration when applicable; synthetic fixtures are never labeled as live evidence.
+- Verification: Output-schema, CLI E2E, and report tests.
+
+## REQ-114: Evaluation coverage and critical safety target
+
+- Type: Quality - Evaluation
+- Priority: Must
+- Limit: The reproducible synthetic evaluation set contains at least 30 routine, risky, contradictory, multilingual, unsupported, and adversarial tickets and reports zero critical policy violations on that set without claiming universal safety.
+- Verification: Dataset validator and evaluation report.
+
+## REQ-115: Build and test quality gate
+
+- Type: Quality - Maintainability
+- Priority: Must
+- Limit: Ruff and the unit, integration, BDD, and subprocess E2E suites pass in CI; optional live smoke tests skip clearly when credentials are absent.
+- Verification: CI run evidence.
+

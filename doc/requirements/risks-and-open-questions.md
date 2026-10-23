@@ -21,6 +21,9 @@
 | RISK-006 | Business case overstates savings | Medium | High | Use measured acceptance/review rates and sensitivity ranges |
 | RISK-007 | Customer ticket data reaches a provider under unclear controls | Medium | Critical | Redaction/minimization and production provider review |
 | RISK-008 | Average monthly volume hides peaks | Medium | Medium | Make peak factor/headroom explicit in Phase 2 design |
+| RISK-009 | Ticket or retrieved content attempts prompt injection | High | Critical | Treat content as data; deterministic pre/post gates; adversarial evaluation |
+| RISK-010 | Synthetic fixtures are mistaken for live evidence or measured provider quality | Medium | High | Mandatory execution-mode and synthetic provenance labels |
+| RISK-011 | Logs retain raw customer text or PII | Medium | Critical | Redacted structured telemetry and artifact scanning |
 
 ## Open questions
 

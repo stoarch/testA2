@@ -1,6 +1,6 @@
 # Work Breakdown Structure
 
-This WBS implements the [support-ticket co-pilot definition](task-desc.md). The delivery constraint is a 3–5 hour prototype followed by a scale-up design for approximately 10,000 tickets per month.
+This WBS implements the governing [master prompt](master-prompt.md), with the original [support-ticket brief](task-desc.md) retained as product context. The delivery constraint is a 3-5 hour MVP followed by a scale-up design for approximately 10,000 tickets per month.
 
 ## Status values
 
@@ -16,8 +16,8 @@ This WBS implements the [support-ticket co-pilot definition](task-desc.md). The 
 |---|---|---|---|---|
 | WBS-001 | Establish project and documentation baseline | Execute [WBS-001](tasks/WBS-001.md): source brief, ADR, Mermaid, WBS, dashboard, and task structures exist and cross-link correctly | — | Done |
 | WBS-002 | Define and approve co-pilot requirements | Execute [WBS-002](tasks/WBS-002.md): actors, behavior, hard safety rules, KB limits, BDD scenarios, quality limits, business-case requirements, and verification mapping | WBS-001 | Done |
-| WBS-003 | Resolve architecture decisions | Options and consequences are recorded for consequential technical choices; accepted ADRs reference relevant requirements | WBS-002 | In progress |
-| WBS-004 | Refine system models | Context, component, sequence, and deployment diagrams contain approved elements and trace to requirements/ADRs | WBS-002, WBS-003 | Not started |
+| WBS-003 | Resolve architecture decisions | Five master-prompt decision areas are accepted and traced ([execution](tasks/WBS-003-execution-001.md)) | WBS-002 | Done |
+| WBS-004 | Refine system models | PlantUML component, class, sequence, activity, context, and deployment views identify trust boundaries and implementation state ([execution](tasks/WBS-004-execution-001.md)) | WBS-002, WBS-003 | Done |
 | WBS-005 | Plan implementation | Implementation tasks have owners, estimates, dependencies, and testable completion criteria | WBS-002, WBS-003 | In progress |
 | WBS-006 | Prepare engineering foundation | Repository layout, build, configuration, quality checks, and local developer workflow are documented and reproducible | WBS-005 | In progress |
 | WBS-007 | Implement domain increments | Each prioritized requirement is delivered in a small, independently verifiable increment | WBS-005, WBS-006 | In progress |
@@ -49,6 +49,21 @@ Latest execution: [`WBS-002 execution 002`](tasks/WBS-002-execution-002.md). The
 - [ ] **WBS-007.004 / SCN-004** - return every required classification field
 
 WBS-007 remains in progress until the prioritized domain increments are complete. WBS-008 is also in progress because functional verification has begun, while E2E and non-functional checks remain outstanding.
+
+## Master-prompt delivery checklist
+
+- [x] Five required architecture decision areas documented
+- [x] Authoritative PlantUML component, class, sequence, and activity views
+- [x] Trust boundaries and implemented/planned distinctions documented
+- [x] Missing master-prompt BDD cases specified (28 total scenarios)
+- [ ] Pydantic contracts and real CLI
+- [ ] Persisted KB snapshot ingestion and provenance
+- [ ] Deterministic compliance gates and human routing
+- [ ] Provider abstraction and deterministic offline adapter
+- [ ] Integration and subprocess E2E tests
+- [ ] At least 30 synthetic evaluation tickets and metrics
+- [ ] Measured one-page business case and four-outcome demo
+- [ ] CI lint/test gate and PlantUML rendering
 
 ## Definition of ready for implementation
 

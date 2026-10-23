@@ -1,0 +1,39 @@
+@startuml
+title Valetax Support Ticket Co-Pilot - Processing Activity
+start
+:Accept ticket identifier and text;
+:Validate schema and supported input;
+if (Valid input?) then (no)
+  :Return typed safe error;
+  :Require human review;
+  stop
+endif
+:Run deterministic pre-policy and injection checks;
+if (Protected or adversarial intent?) then (yes)
+  :Refuse or acknowledge without decision;
+  :Require human review with reason;
+  stop
+endif
+:Classify category, urgency, language, sentiment;
+:Retrieve allowlisted snapshot sections;
+if (Retrieval available?) then (no)
+  :Abstain with dependency failure;
+  :Require human review;
+  stop
+endif
+if (Evidence sufficient and consistent?) then (no)
+  :Abstain with gap or conflict reason;
+  :Require human review;
+  stop
+endif
+:Draft only from accepted evidence;
+:Run claim, citation, prompt-injection, and policy validation;
+if (Draft safe and fully supported?) then (yes)
+  :Return cited draft for agent review;
+else (no)
+  :Discard draft;
+  :Return abstention and human route;
+endif
+:Record redacted audit metadata and measurements;
+stop
+@enduml

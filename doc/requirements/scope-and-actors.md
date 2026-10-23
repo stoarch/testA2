@@ -23,10 +23,14 @@ For each incoming ticket, produce structured classification, a cited knowledge-g
 
 - Minimal CLI or simple web page
 - Python preferred; provider-agnostic LLM integration
+- Python 3.12+, Pydantic contracts, argparse or Typer CLI, pytest/pytest-bdd, and Ruff
 - Four specified public Valetax pages as the knowledge base
-- Mocks/stubs allowed when production behavior is explained
+- Section-level lexical retrieval from versioned JSON/Markdown snapshots
+- Deterministic offline adapter; optional live provider behind a narrow protocol
+- Mocks/stubs allowed when production behavior and synthetic status are explicit
 - Ticket classification, grounded cited draft or abstention, and human routing
 - Evaluation evidence and a one-page business case
+- At least 30 labeled synthetic evaluation tickets
 - Work completed within the 3–5 hour challenge timebox
 
 ## Phase 2: scale up
@@ -44,4 +48,11 @@ For each incoming ticket, produce structured classification, a cited knowledge-g
 - Policy, fee, or timeline claims absent from the approved knowledge base
 - Trading execution, deposits, withdrawals, account opening, or KYC processing
 - A production-scale implementation inside the 3–5 hour Phase 1 timebox
+- Vector databases, orchestration frameworks, microservices, Kubernetes, or complex UI in Phase 1
+
+## Processing pipeline
+
+`Ticket -> Validation -> Policy Check -> Classification -> Retrieval -> Evidence Validation -> Draft -> Safety Validation -> Routing -> Result`
+
+Ticket text, retrieved pages, and live-provider responses cross trust boundaries and are validated as untrusted data. Results return only to an agent/reviewer interface.
 

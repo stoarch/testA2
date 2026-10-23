@@ -1,0 +1,77 @@
+@startuml
+title Valetax Support Ticket Co-Pilot - Domain and Port Classes
+hide empty members
+
+class SupportTicket <<implemented>> {
+  +ticket_id: str
+  +text: str
+}
+
+class ProcessingResult <<partially implemented>> {
+  +ticket_id: str
+  +category: str?
+  +urgency: str
+  +language: str
+  +sentiment: str
+  +answer_status: str
+  +citations: list<Citation>
+  +safety_flags: list<str>
+  +human_review_required: bool
+  +review_reasons: list<str>
+  +configuration_id: str
+  +latency_ms: float
+  +usage: Usage?
+}
+
+class Citation <<planned>> {
+  +source_url: str
+  +heading: str
+  +passage: str
+  +snapshot_id: str
+  +content_hash: str
+}
+
+class KBSnapshot <<planned>> {
+  +snapshot_id: str
+  +captured_at: datetime
+  +documents: list<SourceDocument>
+  +synthetic: bool
+}
+
+class SourceDocument <<planned>> {
+  +url: str
+  +title: str
+  +sections: list<SourceSection>
+  +content_hash: str
+}
+
+class SourceSection <<planned>> {
+  +heading: str
+  +text: str
+}
+
+interface ClassificationProvider <<planned>> {
+  +classify(ticket, configuration): Classifications
+}
+
+interface DraftProvider <<planned>> {
+  +draft(ticket, evidence, configuration): DraftCandidate
+}
+
+class DeterministicOfflineAdapter <<planned>>
+class LiveLLMAdapter <<optional planned>>
+
+ProcessingResult "1" o-- "0..*" Citation
+KBSnapshot "1" o-- "1..*" SourceDocument
+SourceDocument "1" o-- "1..*" SourceSection
+ClassificationProvider <|.. DeterministicOfflineAdapter
+DraftProvider <|.. DeterministicOfflineAdapter
+ClassificationProvider <|.. LiveLLMAdapter
+DraftProvider <|.. LiveLLMAdapter
+SupportTicket --> ProcessingResult : process
+
+note right of ProcessingResult
+Only ticket_id and category exist in code today.
+Other fields are planned by REQ-010.
+end note
+@enduml

@@ -1,20 +1,36 @@
 # UML Models
 
-The UML-style views are Markdown files containing Mermaid diagrams derived from the approved support co-pilot requirements. Technology/vendor details remain intentionally open for WBS-003 architecture decisions.
+PlantUML is the authoritative diagram format under [ADR-0008](../adr/0008-plantuml-as-authoritative-model-source.md). Markdown companion pages describe purpose, traceability, and synchronization rules without duplicating diagram source.
 
-## Views
+## Required views
 
-| Diagram | Purpose | Update when |
+| View | PlantUML source | Purpose | State |
+|---|---|---|---|
+| Component | [component-overview.puml](component-overview.puml) | Modules, dependencies, trust boundaries, and implemented/planned status | Baseline complete |
+| Class | [domain-class.puml](domain-class.puml) | Domain contracts and provider ports | Baseline complete |
+| Sequence | [processing-sequence.puml](processing-sequence.puml) | Normal, abstention, refusal, escalation, and failure branches | Baseline complete |
+| Activity | [processing-activity.puml](processing-activity.puml) | Deterministic processing and safe-stop decisions | Baseline complete |
+
+## Supporting views
+
+| View | PlantUML source | Purpose |
 |---|---|---|
-| [System context](system-context.md) | External actors, system boundary, and integrations | A user type, external dependency, or system responsibility changes |
-| [Component overview](component-overview.md) | Major runtime components and dependencies | Component ownership or interfaces change |
-| [Primary flow](primary-flow.md) | End-to-end behavior for the main use case | Request order, error behavior, or integration calls change |
-| [Deployment](deployment.md) | Runtime nodes and deployment relationships | Hosting, data, network, or operational topology changes |
+| System context | [system-context.puml](system-context.puml) | Actors, external systems, and agent-assist boundary |
+| Deployment | [deployment.puml](deployment.puml) | Phase 1 runtime and planned Phase 2 topology |
 
-## Conventions
+## Companion documentation
 
-- Use conservative Mermaid syntax supported by common Markdown renderers.
-- Keep element names consistent across views.
-- Explain important assumptions outside the diagram instead of hiding them in node labels.
-- Add related `REQ-###`, `ADR-####`, and `WBS-###` IDs where useful.
+- [System context](system-context.md)
+- [Component overview](component-overview.md)
+- [Domain class model](domain-class.md)
+- [Processing sequence](primary-flow.md)
+- [Processing activity](processing-activity.md)
+- [Deployment](deployment.md)
 
+## Synchronization rules
+
+- Mark elements `implemented`, `partially implemented`, `planned`, or `optional planned` when the distinction matters.
+- Treat ticket text, retrieved pages, and live providers as untrusted/external trust boundaries.
+- Keep the processing order aligned with ADR-0004 and executable application code.
+- Update the class view whenever Pydantic/domain contracts change.
+- Render all `.puml` files during CI once PlantUML tooling is added under WBS-006.

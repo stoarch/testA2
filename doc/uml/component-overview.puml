@@ -1,0 +1,50 @@
+@startuml
+title Valetax Support Ticket Co-Pilot - Component View
+skinparam componentStyle rectangle
+skinparam packageStyle rectangle
+
+actor "Support Agent\nHuman Reviewer" as Agent
+cloud "Approved Valetax Pages" as Pages <<untrusted external content>>
+cloud "Optional Live LLM" as LiveLLM <<external trust boundary>>
+
+package "Trusted Local Application Boundary" {
+  [CLI] as CLI <<planned>>
+  [Application Orchestrator] as App <<planned>>
+  [Input Validator] as Input <<planned>>
+  [Pre-generation Policy Gate] as PrePolicy <<planned>>
+  [Category Classifier] as Classifier <<partially implemented>>
+  [Section Retriever] as Retriever <<planned>>
+  [Evidence Validator] as Evidence <<planned>>
+  [Drafting Service] as Draft <<planned>>
+  [Post-generation Safety Gate] as PostPolicy <<planned>>
+  [Human Router] as Router <<planned>>
+  [Result Validator] as Result <<planned>>
+  [Provider Protocol] as Provider <<planned>>
+  [Deterministic Offline Adapter] as Offline <<planned>>
+  database "Versioned KB Snapshots" as Snapshot <<planned>>
+  database "Redacted Audit Metrics" as Audit <<planned>>
+}
+
+Agent --> CLI : ticket / review
+CLI --> App
+App --> Input --> PrePolicy --> Classifier
+Classifier --> Retriever --> Evidence --> Draft --> PostPolicy --> Router --> Result
+Retriever --> Snapshot
+Provider <|.. Offline
+Provider <|.. LiveLLM
+Classifier --> Provider
+Draft --> Provider
+Result --> CLI : validated JSON
+Result --> Audit : metadata only
+Pages --> Snapshot : allowlisted snapshot ingestion
+Router --> Agent : draft, abstention, or escalation
+
+note right of CLI
+No automatic customer transmission.
+end note
+
+note bottom of PrePolicy
+Ticket text and retrieved text are untrusted data.
+Deterministic gates enforce critical policy.
+end note
+@enduml

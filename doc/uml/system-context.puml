@@ -1,0 +1,24 @@
+@startuml
+title Valetax Support Ticket Co-Pilot - System Context
+left to right direction
+actor Customer
+actor "Support Agent / Human Reviewer" as Agent
+actor "Support Operations / Compliance" as Ops
+rectangle "Support Ticket Co-Pilot\n(agent-assist only)" as Copilot
+cloud "Approved Valetax Pages" as KB <<external untrusted content>>
+cloud "Optional LLM Provider" as LLM <<external processor>>
+database "Evaluation and Business-case Outputs" as Reports
+
+Customer --> Agent : support ticket
+Agent --> Copilot : submit ticket
+Copilot --> Agent : structured classification,\ncited draft or abstention,\nhuman-review reason
+Ops --> Copilot : policy, thresholds, review
+Copilot --> KB : allowlisted snapshot fetch
+Copilot --> LLM : minimized constrained request
+Copilot --> Reports : redacted measurements
+
+note bottom of Copilot
+No transactions, customer sending,
+trading advice, or complaint/KYC/AML decisions.
+end note
+@enduml

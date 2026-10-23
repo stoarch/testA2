@@ -35,3 +35,10 @@ Feature: Human review, conflicts, and failures
     Then no customer answer is drafted from model memory
     And a typed error result requires human review
 
+  @REQ-016 @must
+  Scenario: SCN-025 Fail safely on provider outage
+    Given the configured live provider is unavailable
+    When a ticket requires provider processing
+    Then no customer answer is drafted from implicit model memory
+    And a typed provider error requires human review
+

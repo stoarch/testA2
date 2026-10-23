@@ -25,3 +25,17 @@ Feature: Ticket intake and classification
     When it is classified
     Then category, urgency, language, and sentiment are all present
 
+  @REQ-018 @must
+  Scenario: SCN-026 Route an unsupported language
+    Given a valid ticket is written in a language unsupported by the active configuration
+    When the ticket is processed
+    Then the co-pilot does not fabricate a classification or draft
+    And human review is required with reason "unsupported_language"
+
+  @REQ-018 @must
+  Scenario: SCN-027 Reject invalid ticket input
+    Given a ticket has a missing identifier or empty text
+    When the ticket is submitted
+    Then a typed validation error is returned
+    And no retrieval or provider call is attempted
+

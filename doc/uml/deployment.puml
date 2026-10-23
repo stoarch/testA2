@@ -1,0 +1,38 @@
+@startuml
+title Valetax Support Ticket Co-Pilot - Phase 1 and Phase 2 Deployment
+
+node "Phase 1 Local MVP" {
+  artifact "Python package + CLI" as CLI
+  database "Versioned JSON/Markdown KB snapshot" as LocalKB
+  database "Synthetic fixtures and evaluation results" as Fixtures
+  CLI --> LocalKB
+  CLI --> Fixtures
+}
+
+cloud "Optional live LLM provider" as Provider
+cloud "Approved public pages" as Pages
+CLI --> Provider : opt-in only
+Pages --> LocalKB : snapshot and hash
+
+node "Phase 2 Planned Trust Boundary" {
+  component "Authenticated Intake" as Intake
+  queue "Work Queue" as Queue
+  component "Stateless Workers" as Workers
+  queue "Dead-letter Queue" as DLQ
+  database "Versioned KB / SOP Index" as Index
+  database "Redacted Audit and Metrics" as Audit
+  component "Human Approval Queue" as Review
+  component "Rate Limit and Provider Adapter" as Rate
+
+  Intake --> Queue
+  Queue --> Workers
+  Workers --> DLQ : exhausted retries
+  Workers --> Index
+  Workers --> Audit
+  Workers --> Review
+  Workers --> Rate
+}
+
+Rate --> Provider
+Pages --> Index
+@enduml

@@ -128,3 +128,43 @@
 - Statement: On model, retrieval, parsing, or citation-validation failure, the co-pilot shall return a safe error result, draft no unsupported answer, and require human review.
 - Acceptance evidence: [SCN-021](../../bdd/scenarios/SCN-021.md)
 
+## REQ-017: Prevent automatic customer transmission
+
+- Type: Functional / Safety
+- Priority: Must
+- Source: Master prompt - no automatic transmission of replies
+- Statement: The co-pilot shall return drafts and decisions only to the support-agent interface and shall expose no customer-send operation in the MVP.
+- Acceptance evidence: CLI subprocess E2E review plus architecture boundary inspection.
+
+## REQ-018: Validate input and unsupported language
+
+- Type: Functional / Safety
+- Priority: Must
+- Source: Master prompt BDD minimums
+- Statement: The co-pilot shall reject missing or invalid ticket data with a typed safe error and shall abstain or route when the detected language is unsupported by the configured processing path.
+- Acceptance evidence: [SCN-026](../../bdd/scenarios/SCN-026.md), [SCN-027](../../bdd/scenarios/SCN-027.md)
+
+## REQ-019: Resist prompt injection
+
+- Type: Functional / Safety
+- Priority: Must
+- Source: Master prompt mandatory compliance rules
+- Statement: The co-pilot shall treat ticket text and retrieved content as untrusted data, ignore instructions that attempt to override policy or reveal hidden configuration, and route unsafe or materially ambiguous cases.
+- Acceptance evidence: [SCN-023](../../bdd/scenarios/SCN-023.md), [SCN-024](../../bdd/scenarios/SCN-024.md)
+
+## REQ-020: Preserve snapshot provenance and execution mode
+
+- Type: Functional / Auditability
+- Priority: Must
+- Source: Master prompt authorized knowledge base
+- Statement: Every retrieved passage shall preserve URL, title, heading, exact passage, retrieval timestamp, content hash, and snapshot ID; synthetic fixtures shall be explicitly labeled and never represented as live evidence.
+- Acceptance evidence: Snapshot integration test and synthetic-mode CLI E2E test.
+
+## REQ-021: Apply deterministic policy gates
+
+- Type: Functional / Safety
+- Priority: Must
+- Source: Master prompt mandatory compliance rules
+- Statement: The co-pilot shall apply deterministic pre-generation checks to inputs and intents and deterministic post-generation checks to prohibited content, evidence support, citations, and result schema.
+- Acceptance evidence: [SCN-022](../../bdd/scenarios/SCN-022.md), safety unit tests, and adversarial E2E tests.
+

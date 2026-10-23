@@ -1,40 +1,6 @@
 # Deployment View
 
-This view separates the timeboxed local prototype from the Phase 2 production shape. It does not select a cloud or LLM vendor.
+- Authoritative source: [deployment.puml](deployment.puml)
+- Related decisions: [ADR-0004](../adr/0004-mvp-architecture-and-cli.md), [ADR-0005](../adr/0005-kb-snapshot-and-lexical-retrieval.md), [ADR-0007](../adr/0007-provider-abstraction-and-offline-fallback.md)
 
-```mermaid
-flowchart LR
-    subgraph phase1["Phase 1 · Local Prototype"]
-        ui["CLI or Simple Web UI"]
-        app["Python Co-pilot Process"]
-        snapshot[("Four-page KB Snapshot")]
-        eval[("Fixtures and Evaluation Results")]
-        ui --> app
-        app --> snapshot
-        app --> eval
-    end
-
-    provider["Configured LLM Provider"]
-    pages["Public Valetax Pages"]
-    app --> provider
-    pages --> snapshot
-
-    subgraph phase2["Phase 2 · Scale Design"]
-        gateway["Authenticated Agent Interface"]
-        queue["Work Queue"]
-        workers["Stateless Processing Workers"]
-        index[("Versioned Search Index")]
-        audit[("Metrics / Audit Store")]
-        review["Human Review Queue"]
-        gateway --> queue --> workers
-        workers --> index
-        workers --> audit
-        workers --> review
-    end
-
-    pages --> index
-    workers --> provider
-```
-
-Production data controls, SLA, peak factor, retention, and provider terms remain explicit pre-production decisions.
-
+Phase 1 is a local Python package and CLI using persisted snapshots and deterministic fixtures. Live-provider use is optional and opt-in. Phase 2 is a plan—not implemented infrastructure—and introduces authenticated intake, queues, idempotent workers, retry/DLQ handling, versioned knowledge, human approval, redacted audit storage, and provider rate limiting.

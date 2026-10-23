@@ -34,6 +34,8 @@ SCN-001 and SCN-002 are implemented and passing. Other scenarios retain undefine
 | [SCN-002](scenarios/SCN-002.md) | REQ-002 | Classify a supported topic |
 | [SCN-003](scenarios/SCN-003.md) | REQ-002 | Preserve an unsupported topic |
 | [SCN-004](scenarios/SCN-004.md) | REQ-003 | Return all required classifications |
+| [SCN-026](scenarios/SCN-026.md) | REQ-018 | Route an unsupported language |
+| [SCN-027](scenarios/SCN-027.md) | REQ-018 | Reject invalid ticket input |
 
 ## Grounded response drafting
 
@@ -44,6 +46,8 @@ SCN-001 and SCN-002 are implemented and passing. Other scenarios retain undefine
 | [SCN-007](scenarios/SCN-007.md) | REQ-005 | Cite a timeline claim |
 | [SCN-008](scenarios/SCN-008.md) | REQ-006 | Abstain on an uncovered fee |
 | [SCN-009](scenarios/SCN-009.md) | REQ-006 | Abstain on missing verification detail |
+| [SCN-024](scenarios/SCN-024.md) | REQ-019 | Resist retrieved-content prompt injection |
+| [SCN-028](scenarios/SCN-028.md) | REQ-006 | Abstain on an uncovered timeline |
 
 ## Regulated-content boundaries
 
@@ -53,6 +57,8 @@ SCN-001 and SCN-002 are implemented and passing. Other scenarios retain undefine
 | [SCN-011](scenarios/SCN-011.md) | REQ-007 | Do not recommend leverage |
 | [SCN-012](scenarios/SCN-012.md) | REQ-008 | Route a KYC outcome request |
 | [SCN-013](scenarios/SCN-013.md) | REQ-008 | Route a complaint decision |
+| [SCN-022](scenarios/SCN-022.md) | REQ-007/021 | Route a mixed trading and support request |
+| [SCN-023](scenarios/SCN-023.md) | REQ-019 | Resist ticket prompt injection |
 
 ## Human review, conflicts, and failures
 
@@ -63,6 +69,7 @@ SCN-001 and SCN-002 are implemented and passing. Other scenarios retain undefine
 | [SCN-016](scenarios/SCN-016.md) | REQ-010 | Produce auditable output |
 | [SCN-017](scenarios/SCN-017.md) | REQ-011 | Do not silently reconcile source conflicts |
 | [SCN-021](scenarios/SCN-021.md) | REQ-016 | Fail safely when retrieval is unavailable |
+| [SCN-025](scenarios/SCN-025.md) | REQ-016 | Fail safely on provider outage |
 
 ## Prototype evaluation and decision support
 
