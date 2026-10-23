@@ -6,4 +6,4 @@
 
 The component model separates the CLI, application orchestration, domain policy, provider protocols, infrastructure adapters, and validated result presentation. Ticket and retrieved content enter from untrusted boundaries. Deterministic pre-generation and post-generation gates remain independent of any LLM provider.
 
-Only ticket identity and initial withdrawal classification are currently implemented. Other components are architectural commitments or planned MVP work and are labeled accordingly in the PlantUML source.
+The CLI, Pydantic input/classification contracts, deterministic classifier, synthetic JSON snapshot repository, allowlist, hash validation, and section retriever are implemented. Live snapshot fetching, orchestration, evidence validation, drafting, safety routing, providers, and audit storage remain architectural commitments or planned MVP work and are labeled accordingly in the PlantUML source.

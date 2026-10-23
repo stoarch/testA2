@@ -31,23 +31,35 @@ class Citation <<planned>> {
   +content_hash: str
 }
 
-class KBSnapshot <<planned>> {
+class KBSnapshot <<implemented synthetic fixture>> {
   +snapshot_id: str
   +captured_at: datetime
   +documents: list<SourceDocument>
   +synthetic: bool
 }
 
-class SourceDocument <<planned>> {
+class SourceDocument <<implemented>> {
   +url: str
   +title: str
   +sections: list<SourceSection>
   +content_hash: str
 }
 
-class SourceSection <<planned>> {
+class SourceSection <<implemented>> {
   +heading: str
   +text: str
+}
+
+class RetrievedPassage <<implemented>> {
+  +source_id: str
+  +title: str
+  +url: str
+  +heading: str
+  +passage: str
+  +retrieved_at: datetime
+  +content_hash: str
+  +snapshot_id: str
+  +synthetic: bool
 }
 
 interface ClassificationProvider <<planned>> {
@@ -64,6 +76,7 @@ class LiveLLMAdapter <<optional planned>>
 ProcessingResult "1" o-- "0..*" Citation
 KBSnapshot "1" o-- "1..*" SourceDocument
 SourceDocument "1" o-- "1..*" SourceSection
+KBSnapshot --> RetrievedPassage : retrieve approved sections
 ClassificationProvider <|.. DeterministicOfflineAdapter
 DraftProvider <|.. DeterministicOfflineAdapter
 ClassificationProvider <|.. LiveLLMAdapter

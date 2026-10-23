@@ -11,6 +11,10 @@
 
 The prototype must use these pages as they are. Each snapshot records capture time, content hash, source URL/title, section headings, and exact passages because live content can change. Offline synthetic fixtures use separate identifiers and an explicit `synthetic: true` marker.
 
+## Implementation status
+
+The current repository implements JSON persistence, SHA-256 integrity validation, the exact four-URL allowlist, section-level lexical retrieval, and complete retrieved-passage provenance for an explicitly synthetic fixture. Live page fetching, refresh scheduling, and production source snapshots remain planned.
+
 ## Known gaps, overlaps, and inconsistencies
 
 | ID | Observation | Required system behavior |

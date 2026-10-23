@@ -48,6 +48,11 @@ Latest execution: [`WBS-002 execution 002`](tasks/WBS-002-execution-002.md). The
 - [x] **WBS-007.003 / SCN-003** - preserve an unsupported topic; unit and tagged BDD tests pass ([execution evidence](../bdd/executions/SCN-003-execution-001.md))
 - [x] **WBS-007.004 / SCN-004** - return every required classification field through Pydantic and CLI boundaries ([execution evidence](../bdd/executions/SCN-004-execution-001.md))
 
+## Grounded retrieval and drafting increments
+
+- [x] **WBS-007.005 / SCN-005** - persist a synthetic KB snapshot and retrieve only allowlisted passages with provenance ([execution evidence](../bdd/executions/SCN-005-execution-001.md))
+- [ ] **WBS-007.006 / SCN-006** - draft an answer supported by retrieved deposit evidence
+
 WBS-007 remains in progress until the prioritized domain increments are complete. WBS-008 is also in progress because functional verification has begun, while E2E and non-functional checks remain outstanding.
 
 ## Master-prompt delivery checklist
@@ -57,7 +62,8 @@ WBS-007 remains in progress until the prioritized domain increments are complete
 - [x] Trust boundaries and implemented/planned distinctions documented
 - [x] Missing master-prompt BDD cases specified (28 total scenarios)
 - [x] Pydantic classification contracts and real CLI
-- [ ] Persisted KB snapshot ingestion and provenance
+- [x] Persisted synthetic KB snapshot loading, hashing, retrieval, and provenance
+- [ ] Live KB snapshot fetching and refresh
 - [ ] Deterministic compliance gates and human routing
 - [ ] Provider abstraction and deterministic offline adapter
 - [ ] Integration and subprocess E2E tests

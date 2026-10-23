@@ -5,7 +5,7 @@
 | REQ-001 | [SCN-001](../../bdd/scenarios/SCN-001.md) ([passing execution](../../bdd/executions/SCN-001-execution-001.md)) | [Ticket identity unit test](../../tests/unit/test_ticket_processing.py) | UI/CLI adapter | Submit ticket | REQ-104 |
 | REQ-002 | [SCN-002](../../bdd/scenarios/SCN-002.md) ([passing execution](../../bdd/executions/SCN-002-execution-001.md)), [SCN-003](../../bdd/scenarios/SCN-003.md) ([passing execution](../../bdd/executions/SCN-003-execution-001.md)) | [Category unit tests](../../tests/unit/test_ticket_processing.py) | Model response schema | Classification journey | Labeled confusion matrix |
 | REQ-003 | [SCN-004](../../bdd/scenarios/SCN-004.md) ([passing execution](../../bdd/executions/SCN-004-execution-001.md)) | [Field classification unit test](../../tests/unit/test_ticket_processing.py) | [Pydantic result schema](../../src/support_copilot/contracts.py) | [CLI classification journey](../../tests/e2e/test_cli.py) | Per-field metrics remain planned |
-| REQ-004 | [SCN-005](../../bdd/scenarios/SCN-005.md) | Approved-source filter | Retriever/index | Grounded-answer journey | Source allowlist audit |
+| REQ-004 | [SCN-005](../../bdd/scenarios/SCN-005.md) ([passing execution](../../bdd/executions/SCN-005-execution-001.md)) | [Approved-source filter](../../tests/unit/test_knowledge_base.py) | [Persisted snapshot](../../tests/integration/test_snapshot_repository.py) | Grounded-answer journey remains planned | Exact four-URL allowlist |
 | REQ-005 | [SCN-006](../../bdd/scenarios/SCN-006.md), [SCN-007](../../bdd/scenarios/SCN-007.md) | Claim/citation validator | Retriever + model | Grounded-answer journey | REQ-102/103 |
 | REQ-006 | [SCN-008](../../bdd/scenarios/SCN-008.md), [SCN-009](../../bdd/scenarios/SCN-009.md), [SCN-028](../../bdd/scenarios/SCN-028.md) | Coverage/abstention gate | Retriever | Gap journey | Abstention precision/recall |
 | REQ-007 | [SCN-010](../../bdd/scenarios/SCN-010.md), [SCN-011](../../bdd/scenarios/SCN-011.md) | Safety detector and output filter | Model guardrail | Trading-advice journey | REQ-101 |
@@ -21,7 +21,7 @@
 | REQ-017 | Design review | No-send interface test | CLI contract | Verify no customer-send operation | Architecture review |
 | REQ-018 | [SCN-026](../../bdd/scenarios/SCN-026.md), [SCN-027](../../bdd/scenarios/SCN-027.md) | Input/language validation | CLI schema | Invalid-input journey | REQ-104/113 |
 | REQ-019 | [SCN-023](../../bdd/scenarios/SCN-023.md), [SCN-024](../../bdd/scenarios/SCN-024.md) | Injection detector and policy tests | Retriever/provider boundaries | Injection journeys | REQ-111 |
-| REQ-020 | Design review | Provenance/hash units | Persisted snapshot | Offline-fixture journey | REQ-103/113 |
+| REQ-020 | [SCN-005](../../bdd/scenarios/SCN-005.md) | [Provenance/hash units](../../tests/unit/test_knowledge_base.py) | [Persisted synthetic snapshot](../../tests/integration/test_snapshot_repository.py) | Offline-fixture CLI journey remains planned | Synthetic mode explicit; REQ-103/113 remain |
 | REQ-021 | [SCN-022](../../bdd/scenarios/SCN-022.md) | Pre/post policy gates | Provider result validation | Mixed-intent journey | REQ-101/111 |
 
 ## Test order

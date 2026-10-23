@@ -49,8 +49,9 @@ If live fetching is unavailable, the demo may use explicitly labeled synthetic f
 
 ### Follow-up work
 
-- [ ] Implement allowlisted ingestion, hashing, and provenance storage.
-- [ ] Add persisted-snapshot integration tests and conflict fixtures.
+- [x] Implement allowlisted synthetic snapshot loading, hashing, provenance storage, and section retrieval.
+- [x] Add a persisted-snapshot integration test.
+- [ ] Add live fetching/refresh and conflict fixtures.
 
 ## Validation
 

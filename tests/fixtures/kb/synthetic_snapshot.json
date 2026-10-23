@@ -1,0 +1,55 @@
+{
+  "snapshot_id": "snapshot-synthetic-001",
+  "captured_at": "2026-10-24T00:00:00Z",
+  "synthetic": true,
+  "documents": [
+    {
+      "source_id": "KB-001",
+      "title": "How to Deposit",
+      "url": "https://valetax.com/how-to-deposit/",
+      "content_hash": "a258da83bd0219d6901c5ed03203091331e636785552abdf94bbf11493ce69c9",
+      "sections": [
+        {
+          "heading": "Deposit overview",
+          "text": "Synthetic fixture for testing: deposits are initiated from the account deposit area."
+        }
+      ]
+    },
+    {
+      "source_id": "KB-002",
+      "title": "How to Withdraw",
+      "url": "https://valetax.com/how-to-withdraw/",
+      "content_hash": "58b7176d588957c4cf5670014a4bf94fcadf762c378655047b44600da36f12fc",
+      "sections": [
+        {
+          "heading": "Withdrawal overview",
+          "text": "Synthetic fixture for testing: withdrawal requests are initiated from the withdrawal area."
+        }
+      ]
+    },
+    {
+      "source_id": "KB-003",
+      "title": "How to Open an Account",
+      "url": "https://valetax.com/how-to-open-an-account/",
+      "content_hash": "1c1e670c7f4aacbeae9785b2c8ba539c6a6292fa5bd799f22a6f6c37791bc53d",
+      "sections": [
+        {
+          "heading": "Account opening overview",
+          "text": "Synthetic fixture for testing: account opening begins with registration."
+        }
+      ]
+    },
+    {
+      "source_id": "KB-004",
+      "title": "How to Verify Account",
+      "url": "https://valetax.com/how-to-verify-account/",
+      "content_hash": "605aad8823ff1d1dcb07dd248661163976bf8f159453fc13fb6b643602e477d6",
+      "sections": [
+        {
+          "heading": "Verification overview",
+          "text": "Synthetic fixture for testing: verification includes profile fields and document upload."
+        }
+      ]
+    }
+  ]
+}

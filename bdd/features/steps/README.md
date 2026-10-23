@@ -8,11 +8,12 @@ Step definitions are added one scenario at a time through red-green-refactor.
 | SCN-002 | [`ticket_classification_steps.py`](ticket_classification_steps.py) | Passing |
 | SCN-003 | [`ticket_classification_steps.py`](ticket_classification_steps.py) | Passing |
 | SCN-004 | [`ticket_classification_steps.py`](ticket_classification_steps.py) | Passing |
+| SCN-005 | [`knowledge_base_steps.py`](knowledge_base_steps.py) | Passing |
 
 Run the implemented first scenario with:
 
 ```text
-behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004
+behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004 --name=SCN-005
 ```
 
 The remaining scenarios intentionally have undefined steps until their implementation increments begin.
