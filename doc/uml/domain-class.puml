@@ -57,6 +57,10 @@ class TimelineEvidenceValidator <<implemented numeric timelines>> {
   +validate_timeline_claims(result): tuple<str>
 }
 
+class SourceConflictDetector <<implemented explicit durations>> {
+  +build_source_conflict_abstention(passages, requested_detail): AbstentionResult
+}
+
 class AbstentionResult <<implemented fee/verification coverage>> {
   +status: abstained
   +text: str
@@ -68,6 +72,7 @@ class AbstentionResult <<implemented fee/verification coverage>> {
 enum ReviewReason <<partially implemented>> {
   insufficient_knowledge
   low_confidence
+  source_conflict
   trading_advice
   KYC
   complaint
@@ -158,6 +163,8 @@ AuditableProcessingResult --> SafetyFlag
 AuditableProcessingResult --> ReviewReason
 DraftResult "1" o-- "1..*" Citation
 TimelineEvidenceValidator --> DraftResult : validates durations
+SourceConflictDetector --> RetrievedPassage : compares claims
+SourceConflictDetector --> AbstentionResult : returns safe result
 AbstentionResult "1" o-- "0..*" Citation
 AbstentionResult --> ReviewReason
 SafetyResult "1" o-- "0..*" Citation

@@ -22,6 +22,7 @@ The governing specification is [`doc/master-prompt.md`](doc/master-prompt.md). C
 - Route coverage abstentions to human review with canonical reason `insufficient_knowledge` (`SCN-014`).
 - Route configured low-confidence classification or grounding results and retain the threshold (`SCN-015`).
 - Return a frozen auditable result with classifications, decision metadata, evidence, configuration, latency, and optional token usage (`SCN-016`).
+- Abstain from explicit conflicting approved-source duration claims, expose both sources, and require review with `source_conflict` (`SCN-017`).
 - Provide a credential-free CLI that emits schema-valid JSON for agent review.
 
 Live retrieval, general semantic claim validation, generative drafting, broad safety-intent coverage/routing, evaluation, and business-case runtime behavior remain planned unless the dashboard says otherwise.
@@ -33,7 +34,7 @@ Prerequisite: Python 3.12+.
 ```text
 python -m pip install -e ".[dev]"
 python -m pytest -q
-python -m behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004 --name=SCN-005 --name=SCN-006 --name=SCN-007 --name=SCN-008 --name=SCN-009 --name=SCN-010 --name=SCN-011 --name=SCN-012 --name=SCN-013 --name=SCN-014 --name=SCN-015 --name=SCN-016
+python -m behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004 --name=SCN-005 --name=SCN-006 --name=SCN-007 --name=SCN-008 --name=SCN-009 --name=SCN-010 --name=SCN-011 --name=SCN-012 --name=SCN-013 --name=SCN-014 --name=SCN-015 --name=SCN-016 --name=SCN-017
 python bdd/validate_gherkin.py
 python scripts/validate_architecture_docs.py
 ruff check src tests bdd/features/steps

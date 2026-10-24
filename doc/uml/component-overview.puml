@@ -14,7 +14,7 @@ package "Trusted Local Application Boundary" {
   [Pre-generation Policy Gate] as PrePolicy <<implemented trading/KYC/complaint slices>>
   [Category Classifier] as Classifier <<partially implemented>>
   [Section Retriever] as Retriever <<implemented for synthetic snapshot>>
-  [Evidence Validator] as Evidence <<implemented numeric timelines>>
+  [Evidence Validator] as Evidence <<implemented timelines and explicit conflicts>>
   [Drafting Service] as Draft <<implemented extractive deposit>>
   [Post-generation Safety Gate] as PostPolicy <<planned>>
   [Human Router] as Router <<implemented coverage/safety/confidence slices>>
