@@ -44,7 +44,7 @@ class TimelineEvidenceValidator <<implemented numeric timelines>> {
   +validate_timeline_claims(result): tuple<str>
 }
 
-class AbstentionResult <<implemented uncovered fee>> {
+class AbstentionResult <<implemented fee/verification coverage>> {
   +status: abstained
   +text: str
   +citations: list<Citation>

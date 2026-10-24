@@ -5,6 +5,8 @@ import pytest
 from support_copilot.abstention import (
     FeeEvidencePresentError,
     ReviewReason,
+    VerificationEvidencePresentError,
+    build_missing_verification_detail_abstention,
     build_uncovered_fee_abstention,
 )
 from support_copilot.knowledge_base import RetrievedPassage
@@ -40,3 +42,25 @@ def test_uncovered_fee_returns_safe_abstention_and_requires_review() -> None:
 def test_uncovered_fee_abstention_rejects_evidence_with_a_fee_amount() -> None:
     with pytest.raises(FeeEvidencePresentError, match="fee amount"):
         build_uncovered_fee_abstention([_passage("The withdrawal fee is 2%.")])
+
+
+def test_missing_verification_detail_abstains_without_inferring_requirement() -> None:
+    result = build_missing_verification_detail_abstention(
+        [_passage("Verification includes profile fields and document upload.")],
+        requested_detail="notarized utility bill",
+    )
+
+    assert result.status == "abstained"
+    assert "does not establish the requested verification requirement" in result.text
+    assert "notarized" not in result.text.casefold()
+    assert "utility bill" not in result.text.casefold()
+    assert result.human_review_required is True
+    assert result.review_reasons == (ReviewReason.INSUFFICIENT_KB_COVERAGE,)
+
+
+def test_missing_verification_detail_rejects_directly_supported_evidence() -> None:
+    with pytest.raises(VerificationEvidencePresentError, match="verification detail"):
+        build_missing_verification_detail_abstention(
+            [_passage("Verification requires a notarized utility bill.")],
+            requested_detail="notarized utility bill",
+        )

@@ -17,6 +17,10 @@ _UNCOVERED_FEE_MESSAGE = (
     "The available knowledge base does not establish the requested fee. "
     "A human reviewer must confirm it."
 )
+_MISSING_VERIFICATION_DETAIL_MESSAGE = (
+    "The available knowledge base does not establish the requested verification requirement. "
+    "A human reviewer must confirm it."
+)
 
 
 class ReviewReason(StrEnum):
@@ -37,8 +41,16 @@ class FeeEvidencePresentError(ValueError):
     pass
 
 
+class VerificationEvidencePresentError(ValueError):
+    pass
+
+
 def _contains_explicit_fee_amount(passages: Sequence[RetrievedPassage]) -> bool:
     return any(_FEE_AMOUNT_PATTERN.search(passage.passage) for passage in passages)
+
+
+def _normalize_phrase(text: str) -> str:
+    return " ".join(text.casefold().split())
 
 
 def build_uncovered_fee_abstention(
@@ -51,5 +63,24 @@ def build_uncovered_fee_abstention(
 
     return AbstentionResult(
         text=_UNCOVERED_FEE_MESSAGE,
+        review_reasons=(ReviewReason.INSUFFICIENT_KB_COVERAGE,),
+    )
+
+
+def build_missing_verification_detail_abstention(
+    passages: Sequence[RetrievedPassage],
+    requested_detail: str,
+) -> AbstentionResult:
+    normalized_detail = _normalize_phrase(requested_detail)
+    if not normalized_detail:
+        raise ValueError("Requested verification detail cannot be empty")
+
+    if any(normalized_detail in _normalize_phrase(passage.passage) for passage in passages):
+        raise VerificationEvidencePresentError(
+            "Cannot abstain when evidence contains the requested verification detail"
+        )
+
+    return AbstentionResult(
+        text=_MISSING_VERIFICATION_DETAIL_MESSAGE,
         review_reasons=(ReviewReason.INSUFFICIENT_KB_COVERAGE,),
     )

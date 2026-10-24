@@ -12,11 +12,12 @@ Step definitions are added one scenario at a time through red-green-refactor.
 | SCN-006 | [`drafting_steps.py`](drafting_steps.py) | Passing |
 | SCN-007 | [`evidence_validation_steps.py`](evidence_validation_steps.py) | Passing |
 | SCN-008 | [`abstention_steps.py`](abstention_steps.py) | Passing |
+| SCN-009 | [`abstention_steps.py`](abstention_steps.py) | Passing |
 
 Run the implemented first scenario with:
 
 ```text
-behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004 --name=SCN-005 --name=SCN-006 --name=SCN-007 --name=SCN-008
+behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004 --name=SCN-005 --name=SCN-006 --name=SCN-007 --name=SCN-008 --name=SCN-009
 ```
 
 The remaining scenarios intentionally have undefined steps until their implementation increments begin.

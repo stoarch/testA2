@@ -24,10 +24,19 @@ def step_customer_asks_for_uncovered_fee(context) -> None:
 
 
 @when("the ticket is processed")
-def step_uncovered_fee_ticket_is_processed(context) -> None:
-    from support_copilot.abstention import build_uncovered_fee_abstention
+def step_abstention_ticket_is_processed(context) -> None:
+    if hasattr(context, "fee_passages"):
+        from support_copilot.abstention import build_uncovered_fee_abstention
 
-    context.abstention_result = build_uncovered_fee_abstention(context.fee_passages)
+        context.abstention_result = build_uncovered_fee_abstention(context.fee_passages)
+        return
+
+    from support_copilot.abstention import build_missing_verification_detail_abstention
+
+    context.abstention_result = build_missing_verification_detail_abstention(
+        context.verification_passages,
+        requested_detail=context.requested_verification_detail,
+    )
 
 
 @then("the co-pilot states that the available knowledge base does not establish the fee")
@@ -42,6 +51,39 @@ def step_result_does_not_invent_amount(context) -> None:
 
 @then("human review is required")
 def step_human_review_is_required(context) -> None:
+    from support_copilot.abstention import ReviewReason
+
+    assert context.abstention_result.human_review_required is True
+    assert context.abstention_result.review_reasons == (
+        ReviewReason.INSUFFICIENT_KB_COVERAGE,
+    )
+
+
+@given("a customer asks for verification requirements not stated on the verification page")
+def step_customer_asks_for_missing_verification_detail(context) -> None:
+    from support_copilot.knowledge_base import load_snapshot, retrieve_passages
+
+    fixture_path = PROJECT_ROOT / "tests" / "fixtures" / "kb" / "synthetic_snapshot.json"
+    snapshot = load_snapshot(fixture_path)
+    context.requested_verification_detail = "notarized utility bill"
+    context.verification_passages = retrieve_passages(
+        snapshot,
+        query="Does verification require a notarized utility bill?",
+        retrieved_at=datetime(2026, 10, 24, 1, tzinfo=UTC),
+    )
+    assert context.verification_passages
+
+
+@then("the co-pilot does not infer the missing requirement from general model knowledge")
+def step_result_does_not_infer_verification_requirement(context) -> None:
+    assert context.requested_verification_detail not in context.abstention_result.text.casefold()
+    assert "does not establish the requested verification requirement" in (
+        context.abstention_result.text
+    )
+
+
+@then("it routes the ticket to a human")
+def step_result_routes_to_human(context) -> None:
     from support_copilot.abstention import ReviewReason
 
     assert context.abstention_result.human_review_required is True
