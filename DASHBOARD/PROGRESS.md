@@ -1,14 +1,14 @@
 # Project Progress Dashboard
 
 - Last updated: 2026-10-24
-- Overall state: In progress - engineering foundation complete and first seven implementation scenarios green
+- Overall state: In progress - engineering foundation complete and first eight implementation scenarios green
 - Current phase: Domain implementation
-- Current task: [`WBS-007`](../doc/tasks/WBS-007.md) - Implement domain increments; next code slice is `WBS-007.008 / SCN-008`
+- Current task: [`WBS-007`](../doc/tasks/WBS-007.md) - Implement domain increments; next code slice is `WBS-007.009 / SCN-009`
 - Completed work packages: WBS-001, WBS-002, WBS-003, WBS-004, WBS-005, WBS-006
 - Latest architecture execution: [`WBS-004 execution 001`](../doc/tasks/WBS-004-execution-001.md)
 - Latest planning execution: [`WBS-005 execution 001`](../doc/tasks/WBS-005-execution-001.md)
 - Latest foundation execution: [`WBS-006 execution 001`](../doc/tasks/WBS-006-execution-001.md)
-- Latest code execution: [`SCN-007 execution 001`](../bdd/executions/SCN-007-execution-001.md)
+- Latest code execution: [`SCN-008 execution 001`](../bdd/executions/SCN-008-execution-001.md)
 - Source of truth: [`doc/master-prompt.md`](../doc/master-prompt.md)
 - Work plan: [`doc/WBS.md`](../doc/WBS.md)
 - Architecture decisions: [`doc/adr/README.md`](../doc/adr/README.md)
@@ -25,15 +25,15 @@
 | UML models | Done for baseline | WBS-004 passed; six authoritative PlantUML views include trust boundaries and implementation state |
 | Delivery plan | Done | WBS-005 defines ten owned, estimated, dependency-ordered, verifiable increments in a 4h25m timebox |
 | Engineering foundation | Done | Python 3.12+ packaging, Pydantic, CLI, pytest, Behave, Ruff, quickstart, and CI gate are present |
-| Implementation | In progress | SCN-001 through SCN-007 are green; SCN-008 uncovered-fee abstention is next |
-| Verification | In progress | Pytest: 14 passed; selected BDD: 7 scenarios / 23 steps passed; Gherkin parity: 28 scenarios |
+| Implementation | In progress | SCN-001 through SCN-008 are green; SCN-009 missing-verification-detail abstention is next |
+| Verification | In progress | Pytest: 17 passed; selected BDD: 8 scenarios / 28 steps passed; Gherkin parity: 28 scenarios |
 
 ## Immediate next actions
 
 | Priority | Action | Owner | Target | Related item |
 |---|---|---|---|---|
-| P0 | Implement SCN-008 safe abstention for an uncovered fee through red-green-refactor | Engineer / QA | Next increment | WBS-007.008 |
-| P0 | Implement safe abstention for missing verification details | Engineer / QA | Following increment | SCN-009 / REQ-006 |
+| P0 | Implement SCN-009 safe abstention for missing verification details through red-green-refactor | Engineer / QA | Next increment | WBS-007.009 |
+| P0 | Implement deterministic trading-advice refusal and routing | Engineer / Compliance | Following increment | SCN-010 / REQ-007 |
 | P0 | Build at least 30 labeled routine/risky/conflict/multilingual/adversarial fixtures | QA / Engineer | Increment 9 | WBS-008 / REQ-114 |
 | P1 | Add PlantUML rendering to CI | Engineer | Architecture follow-up | WBS-008 |
 | P1 | Populate business-case labor and pricing assumptions | Support operations | Increment 10 | REQ-014 / OQ-005 |
@@ -87,6 +87,7 @@ Create an ADR only when the corresponding decision is ready for explicit compari
 | 2026-10-24 | Completed WBS-007.005 / SCN-005 through red-green-refactor; persisted synthetic snapshots now enforce hash integrity, retain full provenance, and retrieve only from the four approved URLs. |
 | 2026-10-24 | Completed WBS-007.006 / SCN-006 through red-green-refactor; approved deposit evidence now produces an extractive draft with a full-provenance structured citation. |
 | 2026-10-24 | Completed WBS-007.007 / SCN-007 through red-green-refactor; explicit numeric timeline claims now require an exact duration in cited evidence. |
+| 2026-10-24 | Completed WBS-007.008 / SCN-008 through red-green-refactor; uncovered fee requests now return a typed abstention with mandatory human review. |
 
 ## Reporting rules
 

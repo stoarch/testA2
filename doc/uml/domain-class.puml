@@ -44,6 +44,18 @@ class TimelineEvidenceValidator <<implemented numeric timelines>> {
   +validate_timeline_claims(result): tuple<str>
 }
 
+class AbstentionResult <<implemented uncovered fee>> {
+  +status: abstained
+  +text: str
+  +citations: list<Citation>
+  +human_review_required: true
+  +review_reasons: list<ReviewReason>
+}
+
+enum ReviewReason <<partially implemented>> {
+  insufficient_kb_coverage
+}
+
 class KBSnapshot <<implemented synthetic fixture>> {
   +snapshot_id: str
   +captured_at: datetime
@@ -89,6 +101,8 @@ class LiveLLMAdapter <<optional planned>>
 ProcessingResult "1" o-- "0..*" Citation
 DraftResult "1" o-- "1..*" Citation
 TimelineEvidenceValidator --> DraftResult : validates durations
+AbstentionResult "1" o-- "0..*" Citation
+AbstentionResult --> ReviewReason
 KBSnapshot "1" o-- "1..*" SourceDocument
 SourceDocument "1" o-- "1..*" SourceSection
 KBSnapshot --> RetrievedPassage : retrieve approved sections

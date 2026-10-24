@@ -17,7 +17,7 @@ package "Trusted Local Application Boundary" {
   [Evidence Validator] as Evidence <<implemented numeric timelines>>
   [Drafting Service] as Draft <<implemented extractive deposit>>
   [Post-generation Safety Gate] as PostPolicy <<planned>>
-  [Human Router] as Router <<planned>>
+  [Human Router] as Router <<implemented uncovered-fee slice>>
   [Result Validator] as Result <<partially implemented>>
   [Provider Protocol] as Provider <<planned>>
   [Deterministic Offline Adapter] as Offline <<planned>>
