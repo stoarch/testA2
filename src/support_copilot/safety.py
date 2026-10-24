@@ -14,8 +14,16 @@ _RECOMMENDATION_REQUEST_PATTERN = re.compile(
     flags=re.IGNORECASE,
 )
 _CURRENCY_PAIR_PATTERN = re.compile(r"\b[A-Z]{3}/[A-Z]{3}\b", flags=re.IGNORECASE)
+_LEVERAGE_RECOMMENDATION_PATTERN = re.compile(
+    r"\bleverage\b.{0,60}\bshould\s+i\s+(?:choose|use|set)\b",
+    flags=re.IGNORECASE,
+)
 _TRADING_ADVICE_REFUSAL = (
     "I'm sorry, but I can't provide trading advice on whether to buy or sell. "
+    "A human reviewer must review this request."
+)
+_LEVERAGE_ADVICE_REFUSAL = (
+    "I'm sorry, but I can't recommend a leverage setting. "
     "A human reviewer must review this request."
 )
 
@@ -43,12 +51,21 @@ def _is_direct_currency_pair_recommendation(text: str) -> bool:
     return all(pattern.search(text) for pattern in required_patterns)
 
 
+def _refusal_message(text: str) -> str | None:
+    if _is_direct_currency_pair_recommendation(text):
+        return _TRADING_ADVICE_REFUSAL
+    if _LEVERAGE_RECOMMENDATION_PATTERN.search(text):
+        return _LEVERAGE_ADVICE_REFUSAL
+    return None
+
+
 def apply_trading_advice_policy(ticket: SupportTicket) -> SafetyResult | None:
-    if not _is_direct_currency_pair_recommendation(ticket.text):
+    refusal_message = _refusal_message(ticket.text)
+    if refusal_message is None:
         return None
 
     return SafetyResult(
-        text=_TRADING_ADVICE_REFUSAL,
+        text=refusal_message,
         safety_flags=(SafetyFlag.TRADING_ADVICE,),
         review_reasons=(ReviewReason.TRADING_ADVICE,),
     )

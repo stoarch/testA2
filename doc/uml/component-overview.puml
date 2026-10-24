@@ -11,13 +11,13 @@ package "Trusted Local Application Boundary" {
   [CLI] as CLI <<implemented>>
   [Application Orchestrator] as App <<planned>>
   [Input Validator] as Input <<partially implemented>>
-  [Pre-generation Policy Gate] as PrePolicy <<implemented direct-buy slice>>
+  [Pre-generation Policy Gate] as PrePolicy <<implemented trading-advice slices>>
   [Category Classifier] as Classifier <<partially implemented>>
   [Section Retriever] as Retriever <<implemented for synthetic snapshot>>
   [Evidence Validator] as Evidence <<implemented numeric timelines>>
   [Drafting Service] as Draft <<implemented extractive deposit>>
   [Post-generation Safety Gate] as PostPolicy <<planned>>
-  [Human Router] as Router <<implemented coverage/direct-buy slices>>
+  [Human Router] as Router <<implemented coverage/trading-advice slices>>
   [Result Validator] as Result <<partially implemented>>
   [Provider Protocol] as Provider <<planned>>
   [Deterministic Offline Adapter] as Offline <<planned>>

@@ -57,7 +57,7 @@ enum ReviewReason <<partially implemented>> {
   trading_advice
 }
 
-class SafetyResult <<implemented direct-buy refusal>> {
+class SafetyResult <<implemented trading-advice refusals>> {
   +status: refused
   +text: str
   +citations: list<Citation>

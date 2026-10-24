@@ -1,4 +1,10 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.test-cache-pytest/
+.test-tmp-pytest/
+.ruff_cache/
+.venv/
+.uv-task-cache/
+*.egg-info/
 graphify-out/**

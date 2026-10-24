@@ -16,6 +16,7 @@ The governing specification is [`doc/master-prompt.md`](doc/master-prompt.md). C
 - Return a typed, human-reviewed abstention when approved evidence does not establish a requested fee (`SCN-008`).
 - Abstain without inference when approved verification evidence lacks a requested detail (`SCN-009`).
 - Refuse direct currency-pair buy recommendations and require human review (`SCN-010`).
+- Refuse personalized leverage-setting recommendations without repeating marketing claims (`SCN-011`).
 - Provide a credential-free CLI that emits schema-valid JSON for agent review.
 
 Live retrieval, general semantic claim validation, generative drafting, broad safety-intent coverage/routing, evaluation, and business-case runtime behavior remain planned unless the dashboard says otherwise.
@@ -27,7 +28,7 @@ Prerequisite: Python 3.12+.
 ```text
 python -m pip install -e ".[dev]"
 python -m pytest -q
-python -m behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004 --name=SCN-005 --name=SCN-006 --name=SCN-007 --name=SCN-008 --name=SCN-009 --name=SCN-010
+python -m behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004 --name=SCN-005 --name=SCN-006 --name=SCN-007 --name=SCN-008 --name=SCN-009 --name=SCN-010 --name=SCN-011
 python bdd/validate_gherkin.py
 python scripts/validate_architecture_docs.py
 ruff check src tests bdd/features/steps

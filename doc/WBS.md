@@ -59,7 +59,8 @@ Latest execution: [`WBS-002 execution 002`](tasks/WBS-002-execution-002.md). The
 ## Regulated-content increments
 
 - [x] **WBS-007.010 / SCN-010** - refuse a direct buy recommendation and require human review ([execution evidence](../bdd/executions/SCN-010-execution-001.md))
-- [ ] **WBS-007.011 / SCN-011** - refuse leverage recommendations and require human review
+- [x] **WBS-007.011 / SCN-011** - refuse leverage recommendations and require human review ([execution evidence](../bdd/executions/SCN-011-execution-001.md))
+- [ ] **WBS-007.012 / SCN-012** - route a KYC outcome request without deciding it and require human review
 
 WBS-007 remains in progress until the prioritized domain increments are complete. WBS-008 is also in progress because functional verification has begun, while E2E and non-functional checks remain outstanding.
 
