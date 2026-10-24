@@ -7,7 +7,15 @@ class SupportTicket <<implemented>> {
   +text: str
 }
 
-class ProcessingResult <<partially implemented>> {
+class ProcessingResult <<implemented classification>> {
+  +ticket_id: str
+  +category: TicketCategory
+  +urgency: TicketUrgency
+  +language: TicketLanguage
+  +sentiment: TicketSentiment
+}
+
+class AuditableProcessingResult <<implemented aggregate>> {
   +ticket_id: str
   +category: TicketCategory
   +urgency: TicketUrgency
@@ -20,7 +28,12 @@ class ProcessingResult <<partially implemented>> {
   +review_reasons: list<str>
   +configuration_id: str
   +latency_ms: float
-  +usage: Usage?
+  +usage: UsageData?
+}
+
+class UsageData <<implemented optional>> {
+  +input_tokens: int
+  +output_tokens: int
 }
 
 class Citation <<implemented for draft slice>> {
@@ -138,7 +151,11 @@ interface DraftProvider <<planned>> {
 class DeterministicOfflineAdapter <<planned>>
 class LiveLLMAdapter <<optional planned>>
 
-ProcessingResult "1" o-- "0..*" Citation
+ProcessingResult --> AuditableProcessingResult : compose classifications
+AuditableProcessingResult "1" o-- "0..*" Citation
+AuditableProcessingResult "1" o-- "0..1" UsageData
+AuditableProcessingResult --> SafetyFlag
+AuditableProcessingResult --> ReviewReason
 DraftResult "1" o-- "1..*" Citation
 TimelineEvidenceValidator --> DraftResult : validates durations
 AbstentionResult "1" o-- "0..*" Citation
@@ -162,7 +179,11 @@ SupportTicket --> ProcessingResult : process
 note right of ProcessingResult
 Identity and four classification fields are
 implemented as frozen Pydantic contracts.
-Draft integration, safety, review, configuration,
-latency, and usage fields remain planned by REQ-010.
+end note
+
+note right of AuditableProcessingResult
+Decision metadata, evidence, configuration,
+latency, and optional token usage compose into
+one frozen result. CLI output remains planned.
 end note
 @enduml

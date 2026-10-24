@@ -64,7 +64,8 @@ Latest execution: [`WBS-002 execution 002`](tasks/WBS-002-execution-002.md). The
 - [x] **WBS-007.013 / SCN-013** - route a complaint decision without deciding it and require human review ([execution evidence](../bdd/executions/SCN-013-execution-001.md))
 - [x] **WBS-007.014 / SCN-014** - preserve human routing and an insufficient-knowledge reason for an abstention ([execution evidence](../bdd/executions/SCN-014-execution-001.md))
 - [x] **WBS-007.015 / SCN-015** - route a configured low-confidence result and record its threshold ([execution evidence](../bdd/executions/SCN-015-execution-001.md))
-- [ ] **WBS-007.016 / SCN-016** - return a complete auditable result contract
+- [x] **WBS-007.016 / SCN-016** - return a complete auditable result contract ([execution evidence](../bdd/executions/SCN-016-execution-001.md))
+- [ ] **WBS-007.017 / SCN-017** - abstain from conflicting source claims, expose the sources, and require review
 
 WBS-007 remains in progress until the prioritized domain increments are complete. WBS-008 is also in progress because functional verification has begun, while E2E and non-functional checks remain outstanding.
 
