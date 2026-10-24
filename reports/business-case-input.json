@@ -1,0 +1,167 @@
+{
+  "report_id": "business-case-2026-10-25",
+  "monthly_volume": 10000,
+  "currency": "USD",
+  "loaded_hourly_cost": 30.0,
+  "minimum_evaluation_cases": 30,
+  "minimum_grounding_rate": 0.95,
+  "minimum_citation_rate": 0.95,
+  "configurations": [
+    {
+      "configuration_id": "A",
+      "name": "Deterministic retrieval and template drafts",
+      "evidence": {
+        "status": "measured_offline_fixture",
+        "dataset_id": "evaluation-synthetic-001",
+        "case_count": 4,
+        "grounding_rate": 1.0,
+        "citation_rate": 1.0,
+        "safety_rate": 1.0,
+        "review_rate": 0.75,
+        "critical_policy_violations": 0
+      },
+      "scenarios": [
+        {
+          "sensitivity": "low",
+          "eligible_share": 0.25,
+          "draft_acceptance_rate": 0.50,
+          "human_review_rate": 0.85,
+          "baseline_aht_minutes": 8.0,
+          "review_aht_minutes": 4.0,
+          "model_cost_per_ticket": 0.0,
+          "retrieval_cost_monthly": 100.0,
+          "infrastructure_cost_monthly": 200.0,
+          "maintenance_cost_monthly": 800.0
+        },
+        {
+          "sensitivity": "base",
+          "eligible_share": 0.40,
+          "draft_acceptance_rate": 0.65,
+          "human_review_rate": 0.75,
+          "baseline_aht_minutes": 8.0,
+          "review_aht_minutes": 3.0,
+          "model_cost_per_ticket": 0.0,
+          "retrieval_cost_monthly": 150.0,
+          "infrastructure_cost_monthly": 250.0,
+          "maintenance_cost_monthly": 1000.0
+        },
+        {
+          "sensitivity": "high",
+          "eligible_share": 0.55,
+          "draft_acceptance_rate": 0.75,
+          "human_review_rate": 0.65,
+          "baseline_aht_minutes": 9.0,
+          "review_aht_minutes": 2.5,
+          "model_cost_per_ticket": 0.0,
+          "retrieval_cost_monthly": 200.0,
+          "infrastructure_cost_monthly": 300.0,
+          "maintenance_cost_monthly": 1200.0
+        }
+      ]
+    },
+    {
+      "configuration_id": "B",
+      "name": "Guarded LLM-assisted drafting",
+      "evidence": {
+        "status": "not_measured",
+        "dataset_id": null,
+        "case_count": 0,
+        "grounding_rate": null,
+        "citation_rate": null,
+        "safety_rate": null,
+        "review_rate": null,
+        "critical_policy_violations": null
+      },
+      "scenarios": [
+        {
+          "sensitivity": "low",
+          "eligible_share": 0.35,
+          "draft_acceptance_rate": 0.45,
+          "human_review_rate": 0.80,
+          "baseline_aht_minutes": 8.0,
+          "review_aht_minutes": 4.0,
+          "model_cost_per_ticket": 0.08,
+          "retrieval_cost_monthly": 150.0,
+          "infrastructure_cost_monthly": 350.0,
+          "maintenance_cost_monthly": 1800.0
+        },
+        {
+          "sensitivity": "base",
+          "eligible_share": 0.55,
+          "draft_acceptance_rate": 0.65,
+          "human_review_rate": 0.60,
+          "baseline_aht_minutes": 8.0,
+          "review_aht_minutes": 3.0,
+          "model_cost_per_ticket": 0.05,
+          "retrieval_cost_monthly": 150.0,
+          "infrastructure_cost_monthly": 350.0,
+          "maintenance_cost_monthly": 1800.0
+        },
+        {
+          "sensitivity": "high",
+          "eligible_share": 0.70,
+          "draft_acceptance_rate": 0.78,
+          "human_review_rate": 0.45,
+          "baseline_aht_minutes": 9.0,
+          "review_aht_minutes": 2.5,
+          "model_cost_per_ticket": 0.03,
+          "retrieval_cost_monthly": 150.0,
+          "infrastructure_cost_monthly": 350.0,
+          "maintenance_cost_monthly": 1800.0
+        }
+      ]
+    },
+    {
+      "configuration_id": "C",
+      "name": "Hybrid routing with selective LLM usage",
+      "evidence": {
+        "status": "not_measured",
+        "dataset_id": null,
+        "case_count": 0,
+        "grounding_rate": null,
+        "citation_rate": null,
+        "safety_rate": null,
+        "review_rate": null,
+        "critical_policy_violations": null
+      },
+      "scenarios": [
+        {
+          "sensitivity": "low",
+          "eligible_share": 0.35,
+          "draft_acceptance_rate": 0.55,
+          "human_review_rate": 0.75,
+          "baseline_aht_minutes": 8.0,
+          "review_aht_minutes": 3.5,
+          "model_cost_per_ticket": 0.035,
+          "retrieval_cost_monthly": 140.0,
+          "infrastructure_cost_monthly": 300.0,
+          "maintenance_cost_monthly": 1400.0
+        },
+        {
+          "sensitivity": "base",
+          "eligible_share": 0.55,
+          "draft_acceptance_rate": 0.72,
+          "human_review_rate": 0.55,
+          "baseline_aht_minutes": 8.5,
+          "review_aht_minutes": 3.0,
+          "model_cost_per_ticket": 0.022,
+          "retrieval_cost_monthly": 140.0,
+          "infrastructure_cost_monthly": 300.0,
+          "maintenance_cost_monthly": 1400.0
+        },
+        {
+          "sensitivity": "high",
+          "eligible_share": 0.70,
+          "draft_acceptance_rate": 0.82,
+          "human_review_rate": 0.40,
+          "baseline_aht_minutes": 9.0,
+          "review_aht_minutes": 2.2,
+          "model_cost_per_ticket": 0.015,
+          "retrieval_cost_monthly": 140.0,
+          "infrastructure_cost_monthly": 300.0,
+          "maintenance_cost_monthly": 1400.0
+        }
+      ]
+    }
+  ]
+}

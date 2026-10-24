@@ -68,6 +68,41 @@ class OfflineEvaluationService <<implemented>> {
   +run_offline_evaluation(dataset_path, snapshot_path): EvaluationReport
 }
 
+class BusinessCaseInput <<implemented assumptions>> {
+  +monthly_volume: int
+  +loaded_hourly_cost: float
+  +configurations: list<ConfigurationPlan>
+}
+
+class ConfigurationPlan <<implemented comparison option>> {
+  +configuration_id: A | B | C
+  +name: str
+  +scenarios: list<OperatingScenarioAssumptions>
+}
+
+class ConfigurationEvidence <<implemented gate input>> {
+  +status: measured_offline_fixture | measured_live | not_measured
+  +case_count: int
+  +grounding_rate: float?
+  +citation_rate: float?
+  +critical_policy_violations: int?
+}
+
+class ScenarioProjection <<implemented estimate>> {
+  +configuration_id: A | B | C
+  +sensitivity: low | base | high
+  +monthly_run_cost: float
+  +monthly_net_value: float
+  +break_even_acceptance_rate: float?
+}
+
+class BusinessCaseReport <<implemented evidence gate>> {
+  +monthly_volume: int
+  +projections: list<ScenarioProjection>
+  +recommendation_configuration_id: str?
+  +conclusion: go | conditional_go | no_go
+}
+
 class Citation <<implemented for draft slice>> {
   +source_id: str
   +title: str
@@ -224,6 +259,9 @@ OfflineEvaluationService --> EvaluationDataset : loads labels
 OfflineEvaluationService --> OfflineApplicationService : processes cases
 OfflineEvaluationService --> EvaluationReport : aggregates
 EvaluationReport --> AuditableProcessingResult : measures outcomes
+BusinessCaseInput "1" o-- "3" ConfigurationPlan : defines A/B/C
+ConfigurationPlan "1" o-- "1" ConfigurationEvidence
+BusinessCaseReport "1" o-- "9" ScenarioProjection : low/base/high
 
 note right of ProcessingResult
 Identity and four classification fields are
@@ -240,5 +278,11 @@ note right of EvaluationReport
 Aggregate-only output records explicit denominators,
 p50/p95 latency, execution mode, and measured or
 unavailable cost without exposing raw ticket text.
+end note
+
+note right of BusinessCaseReport
+Financial outputs are immutable estimates.
+Recommendation remains gated by measured safety,
+grounding, citation, workload, and positive value.
 end note
 @enduml

@@ -4,6 +4,7 @@ import sys
 from pathlib import Path
 
 from support_copilot.audit import AuditableProcessingResult
+from support_copilot.business_case import BusinessCaseReport
 from support_copilot.contracts import ProcessingResult
 from support_copilot.evaluation import EvaluationReport
 
@@ -105,3 +106,33 @@ def test_cli_evaluation_mode_returns_schema_valid_aggregate_report() -> None:
     assert report.case_count == 4
     assert report.cost.status == "unavailable"
     assert "text" not in completed.stdout
+
+
+def test_cli_business_case_mode_compares_target_volume_without_false_recommendation() -> None:
+    environment = os.environ.copy()
+    environment["PYTHONPATH"] = str(PROJECT_ROOT / "src")
+    input_path = PROJECT_ROOT / "reports" / "business-case-input.json"
+
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "support_copilot",
+            "--business-case-input",
+            str(input_path),
+            "--business-case-format",
+            "json",
+        ],
+        cwd=PROJECT_ROOT,
+        env=environment,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert completed.returncode == 0, completed.stderr
+    report = BusinessCaseReport.model_validate_json(completed.stdout)
+    assert report.monthly_volume == 10_000
+    assert len(report.projections) == 9
+    assert report.recommendation_configuration_id is None
+    assert report.conclusion == "no_go"

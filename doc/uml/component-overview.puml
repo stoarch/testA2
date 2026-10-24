@@ -20,6 +20,7 @@ package "Trusted Local Application Boundary" {
   [Human Router] as Router <<implemented coverage/safety/confidence slices>>
   [Result Validator] as Result <<implemented offline JSON>>
   [Evaluation Harness] as Evaluation <<implemented bounded offline>>
+  [Business Case Generator] as BusinessCase <<implemented estimate + evidence gate>>
   [Provider Protocol] as Provider <<planned>>
   [Deterministic Offline Adapter] as Offline <<planned>>
   database "Versioned KB Snapshots" as Snapshot <<implemented synthetic fixture>>
@@ -39,6 +40,9 @@ Result --> CLI : validated JSON
 CLI --> Evaluation : labeled set + snapshot
 Evaluation --> App : process each case
 Evaluation --> CLI : aggregate JSON report
+CLI --> BusinessCase : explicit assumptions
+Evaluation --> BusinessCase : measured evidence
+BusinessCase --> CLI : JSON / Markdown report
 Result --> Audit : metadata only
 Pages --> Snapshot : allowlisted snapshot ingestion
 Router --> Agent : draft, abstention, or escalation

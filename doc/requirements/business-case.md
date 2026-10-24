@@ -1,6 +1,6 @@
 # One-Page Business-Case Requirements
 
-The current one-page artifact is [`reports/business-case.md`](../../reports/business-case.md). It remains a draft until measured inputs are available.
+The generated one-page artifact is [`reports/business-case.md`](../../reports/business-case.md). Its financial values remain explicit estimates until operating inputs are measured, and its evidence gate currently returns no-go.
 
 The final one-page artifact must answer: **Is the co-pilot worth running at approximately 10,000 tickets per month, and with which measured configuration?**
 

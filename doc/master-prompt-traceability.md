@@ -14,7 +14,7 @@ This matrix maps the governing [master prompt](master-prompt.md) to repository e
 | TDD red-green-refactor | [Execution evidence](../bdd/executions/README.md) | Active |
 | Integration and E2E | [Verification matrix](requirements/verification-matrix.md) | Planned |
 | 30+ ticket evaluation | REQ-114, ADR-0003 | Planned |
-| One-page business case | [Business case](../reports/business-case.md) | Draft; measured inputs missing |
+| One-page business case | [Business case](../reports/business-case.md) | Generated low/base/high comparison; no-go because evidence and operating inputs remain insufficient |
 | Phase 2 scaling | [Scaling plan](phase-2-scaling.md), [deployment view](uml/deployment.puml) | Planned |
 | README/quickstart | [Repository README](../README.md) | Current-state quickstart done |
 | Known limitations/walkthrough | [Limitations](known-limitations.md), [walkthrough](walkthrough.md) | Done for current state |
