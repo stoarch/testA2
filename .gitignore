@@ -3,6 +3,7 @@ __pycache__/
 .pytest_cache/
 .test-cache-pytest/
 .test-tmp-pytest/
+test-artifacts/
 .ruff_cache/
 .venv/
 .uv-task-cache/

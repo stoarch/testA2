@@ -18,6 +18,12 @@ _LEVERAGE_RECOMMENDATION_PATTERN = re.compile(
     r"\bleverage\b.{0,60}\bshould\s+i\s+(?:choose|use|set)\b",
     flags=re.IGNORECASE,
 )
+_KYC_CONTEXT_PATTERN = re.compile(r"\b(?:KYC|verification)\b", flags=re.IGNORECASE)
+_OUTCOME_DECISION_PATTERN = re.compile(
+    r"(?:\bshould\b.{0,80}\b(?:be\s+)?(?:approved|rejected)\b)"
+    r"|(?:\b(?:approve|reject)\b.{0,80})",
+    flags=re.IGNORECASE,
+)
 _TRADING_ADVICE_REFUSAL = (
     "I'm sorry, but I can't provide trading advice on whether to buy or sell. "
     "A human reviewer must review this request."
@@ -26,16 +32,20 @@ _LEVERAGE_ADVICE_REFUSAL = (
     "I'm sorry, but I can't recommend a leverage setting. "
     "A human reviewer must review this request."
 )
+_KYC_ACKNOWLEDGEMENT = (
+    "Your verification request has been received and requires review by a human reviewer."
+)
 
 
 class SafetyFlag(StrEnum):
     TRADING_ADVICE = "trading_advice"
+    KYC_DECISION = "kyc_decision"
 
 
 class SafetyResult(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True, str_strip_whitespace=True)
 
-    status: Literal["refused"] = "refused"
+    status: Literal["refused", "routed"]
     text: str = Field(min_length=1)
     citations: tuple[Citation, ...] = ()
     safety_flags: tuple[SafetyFlag, ...] = Field(min_length=1)
@@ -59,13 +69,49 @@ def _refusal_message(text: str) -> str | None:
     return None
 
 
+def _build_safety_result(
+    *,
+    status: Literal["refused", "routed"],
+    text: str,
+    safety_flag: SafetyFlag,
+    review_reason: ReviewReason,
+) -> SafetyResult:
+    return SafetyResult(
+        status=status,
+        text=text,
+        safety_flags=(safety_flag,),
+        review_reasons=(review_reason,),
+    )
+
+
 def apply_trading_advice_policy(ticket: SupportTicket) -> SafetyResult | None:
     refusal_message = _refusal_message(ticket.text)
     if refusal_message is None:
         return None
 
-    return SafetyResult(
+    return _build_safety_result(
+        status="refused",
         text=refusal_message,
-        safety_flags=(SafetyFlag.TRADING_ADVICE,),
-        review_reasons=(ReviewReason.TRADING_ADVICE,),
+        safety_flag=SafetyFlag.TRADING_ADVICE,
+        review_reason=ReviewReason.TRADING_ADVICE,
+    )
+
+
+def _is_kyc_outcome_request(text: str) -> bool:
+    return bool(_KYC_CONTEXT_PATTERN.search(text) and _OUTCOME_DECISION_PATTERN.search(text))
+
+
+def apply_safety_policy(ticket: SupportTicket) -> SafetyResult | None:
+    trading_result = apply_trading_advice_policy(ticket)
+    if trading_result is not None:
+        return trading_result
+
+    if not _is_kyc_outcome_request(ticket.text):
+        return None
+
+    return _build_safety_result(
+        status="routed",
+        text=_KYC_ACKNOWLEDGEMENT,
+        safety_flag=SafetyFlag.KYC_DECISION,
+        review_reason=ReviewReason.KYC,
     )

@@ -26,9 +26,9 @@ def step_customer_asks_for_uncovered_fee(context) -> None:
 @when("the ticket is processed")
 def step_abstention_ticket_is_processed(context) -> None:
     if hasattr(context, "safety_ticket"):
-        from support_copilot.safety import apply_trading_advice_policy
+        from support_copilot.safety import apply_safety_policy
 
-        context.safety_result = apply_trading_advice_policy(context.safety_ticket)
+        context.safety_result = apply_safety_policy(context.safety_ticket)
         assert context.safety_result is not None
         return
 

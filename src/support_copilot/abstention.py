@@ -26,6 +26,7 @@ _MISSING_VERIFICATION_DETAIL_MESSAGE = (
 class ReviewReason(StrEnum):
     INSUFFICIENT_KB_COVERAGE = "insufficient_kb_coverage"
     TRADING_ADVICE = "trading_advice"
+    KYC = "KYC"
 
 
 class AbstentionResult(BaseModel):
