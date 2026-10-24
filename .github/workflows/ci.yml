@@ -23,7 +23,7 @@ jobs:
       - name: Unit and subprocess E2E tests
         run: python -m pytest -q
       - name: Implemented BDD scenarios
-        run: python -m behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004 --name=SCN-005 --name=SCN-006 --name=SCN-007 --name=SCN-008 --name=SCN-009 --name=SCN-010 --name=SCN-011 --name=SCN-012 --name=SCN-013 --name=SCN-014
+        run: python -m behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004 --name=SCN-005 --name=SCN-006 --name=SCN-007 --name=SCN-008 --name=SCN-009 --name=SCN-010 --name=SCN-011 --name=SCN-012 --name=SCN-013 --name=SCN-014 --name=SCN-015
       - name: Validate Gherkin parity
         run: python bdd/validate_gherkin.py
       - name: Validate architecture documentation

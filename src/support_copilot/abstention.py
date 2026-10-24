@@ -26,6 +26,7 @@ _MISSING_VERIFICATION_DETAIL_MESSAGE = (
 class ReviewReason(StrEnum):
     INSUFFICIENT_KNOWLEDGE = "insufficient_knowledge"
     INSUFFICIENT_KB_COVERAGE = "insufficient_knowledge"
+    LOW_CONFIDENCE = "low_confidence"
     TRADING_ADVICE = "trading_advice"
     KYC = "KYC"
     COMPLAINT = "complaint"

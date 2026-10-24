@@ -40,3 +40,30 @@ def step_human_review_required_is_true(context) -> None:
 def step_route_reason_includes_insufficient_knowledge(context) -> None:
     payload = context.routing_result.model_dump(mode="json")
     assert "insufficient_knowledge" in payload["review_reasons"]
+
+
+@given("classification or grounding confidence is below the configured threshold")
+def step_confidence_is_below_configured_threshold(context) -> None:
+    from support_copilot.routing import ConfidenceAssessment, ConfidenceKind
+
+    context.confidence_assessment = ConfidenceAssessment(
+        confidence_kind=ConfidenceKind.CLASSIFICATION,
+        confidence=0.49,
+        configured_threshold=0.50,
+    )
+
+
+@when("the result is finalized")
+def step_low_confidence_result_is_finalized(context) -> None:
+    from support_copilot.routing import route_low_confidence
+
+    context.routing_result = route_low_confidence(context.confidence_assessment)
+    assert context.routing_result is not None
+
+
+@then("the configured threshold is recorded with the result")
+def step_configured_threshold_is_recorded(context) -> None:
+    assert (
+        context.routing_result.configured_threshold
+        == context.confidence_assessment.configured_threshold
+    )

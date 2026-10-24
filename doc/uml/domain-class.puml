@@ -54,9 +54,31 @@ class AbstentionResult <<implemented fee/verification coverage>> {
 
 enum ReviewReason <<partially implemented>> {
   insufficient_knowledge
+  low_confidence
   trading_advice
   KYC
   complaint
+}
+
+enum ConfidenceKind <<implemented>> {
+  classification
+  grounding
+}
+
+class ConfidenceAssessment <<implemented>> {
+  +confidence_kind: ConfidenceKind
+  +confidence: float [0..1]
+  +configured_threshold: float [0..1]
+  +is_below_threshold(): bool
+}
+
+class LowConfidenceRouteResult <<implemented>> {
+  +status: routed
+  +human_review_required: true
+  +review_reasons: list<ReviewReason>
+  +confidence_kind: ConfidenceKind
+  +confidence: float [0..1]
+  +configured_threshold: float [0..1]
 }
 
 class SafetyResult <<implemented trading/KYC/complaint routes>> {
@@ -124,6 +146,10 @@ AbstentionResult --> ReviewReason
 SafetyResult "1" o-- "0..*" Citation
 SafetyResult --> SafetyFlag
 SafetyResult --> ReviewReason
+ConfidenceAssessment --> ConfidenceKind
+ConfidenceAssessment --> LowConfidenceRouteResult : route when below threshold
+LowConfidenceRouteResult --> ConfidenceKind
+LowConfidenceRouteResult --> ReviewReason
 KBSnapshot "1" o-- "1..*" SourceDocument
 SourceDocument "1" o-- "1..*" SourceSection
 KBSnapshot --> RetrievedPassage : retrieve approved sections
