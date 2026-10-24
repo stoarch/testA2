@@ -1,14 +1,14 @@
 # Project Progress Dashboard
 
-> **CURRENT: Domain implementation** · **NEXT: SCN-019 evaluation report** · **50 tests green**
+> **CURRENT: Domain implementation** · **NEXT: SCN-020 business case** · **54 tests green**
 >
-> **Scenario implementation:** `█████████████░░░░░░░` **64%** · 18 of 28 BDD scenarios passing
+> **Scenario implementation:** `██████████████░░░░░░` **68%** · 19 of 28 BDD scenarios passing
 
 ```mermaid
 flowchart LR
     M1["✓ Definition<br/>WBS-001–002"] --> M2["✓ Architecture<br/>WBS-003–004"]
     M2 --> M3["✓ Foundation<br/>WBS-005–006"]
-    M3 --> M4["▶ Domain increments<br/>WBS-007 · 18/28 scenarios"]
+    M3 --> M4["▶ Domain increments<br/>WBS-007 · 19/28 scenarios"]
     M4 --> M5["◆ Quality verification<br/>WBS-008 · in progress"]
     M5 --> M6["○ Release readiness<br/>WBS-009–010"]
 
@@ -25,14 +25,14 @@ flowchart LR
 `✓ Done` · `▶ Active` · `◆ Active in parallel` · `○ Planned`
 
 - Last updated: 2026-10-24
-- Overall state: In progress - engineering foundation complete and first eighteen implementation scenarios green
+- Overall state: In progress - engineering foundation complete and first nineteen implementation scenarios green
 - Current phase: Domain implementation
-- Current task: [`WBS-007`](../doc/tasks/WBS-007.md) - Implement domain increments; next code slice is `WBS-007.019 / SCN-019`
+- Current task: [`WBS-007`](../doc/tasks/WBS-007.md) - Implement domain increments; next code slice is `WBS-007.020 / SCN-020`
 - Completed work packages: WBS-001, WBS-002, WBS-003, WBS-004, WBS-005, WBS-006
 - Latest architecture execution: [`WBS-004 execution 001`](../doc/tasks/WBS-004-execution-001.md)
 - Latest planning execution: [`WBS-005 execution 001`](../doc/tasks/WBS-005-execution-001.md)
 - Latest foundation execution: [`WBS-006 execution 001`](../doc/tasks/WBS-006-execution-001.md)
-- Latest code execution: [`SCN-018 execution 001`](../bdd/executions/SCN-018-execution-001.md)
+- Latest code execution: [`SCN-019 execution 001`](../bdd/executions/SCN-019-execution-001.md)
 - Source of truth: [`doc/master-prompt.md`](../doc/master-prompt.md)
 - Work plan: [`doc/WBS.md`](../doc/WBS.md)
 - Architecture decisions: [`doc/adr/README.md`](../doc/adr/README.md)
@@ -49,15 +49,14 @@ flowchart LR
 | UML models | Done for baseline | WBS-004 passed; six authoritative PlantUML views include trust boundaries and implementation state |
 | Delivery plan | Done | WBS-005 defines ten owned, estimated, dependency-ordered, verifiable increments in a 4h25m timebox |
 | Engineering foundation | Done | Python 3.12+ packaging, Pydantic, CLI, pytest, Behave, Ruff, quickstart, and CI gate are present |
-| Implementation | In progress | SCN-001 through SCN-018 are green; SCN-019 evaluation reporting is next |
-| Verification | In progress | Pytest: 50 passed; selected BDD: 18 scenarios / 70 steps passed; Gherkin parity: 28 scenarios |
+| Implementation | In progress | SCN-001 through SCN-019 are green; SCN-020 business-case comparison is next |
+| Verification | In progress | Pytest: 54 passed; selected BDD: 19 scenarios / 73 steps passed; Gherkin parity: 28 scenarios |
 
 ## Immediate next actions
 
 | Priority | Action | Owner | Target | Related item |
 |---|---|---|---|---|
-| P0 | Produce the labeled evaluation report through red-green-refactor | Engineer / QA | Next increment | WBS-007.019 / SCN-019 |
-| P0 | Compare configurations at target volume | Engineer / QA | Following increment | SCN-020 / REQ-014 |
+| P0 | Compare configurations at target volume and state a justified recommendation | Engineer / QA | Next increment | WBS-007.020 / SCN-020 |
 | P0 | Build at least 30 labeled routine/risky/conflict/multilingual/adversarial fixtures | QA / Engineer | Increment 9 | WBS-008 / REQ-114 |
 | P1 | Add PlantUML rendering to CI | Engineer | Architecture follow-up | WBS-008 |
 | P1 | Populate business-case labor and pricing assumptions | Support operations | Increment 10 | REQ-014 / OQ-005 |
@@ -122,6 +121,7 @@ Create an ADR only when the corresponding decision is ready for explicit compari
 | 2026-10-24 | Completed WBS-007.016 / SCN-016 through red-green-refactor; classifications and typed decision metadata now compose into an immutable JSON-ready audit result with configuration, latency, and optional token usage. |
 | 2026-10-24 | Completed WBS-007.017 / SCN-017 through red-green-refactor; explicit conflicting duration claims now produce a neutral typed abstention with both source citations and mandatory `source_conflict` review. |
 | 2026-10-24 | Completed WBS-007.018 / SCN-018 through red-green-refactor; optional offline CLI mode now returns validated classification, answer text/status, citations, and review metadata while preserving the original classification-only command. |
+| 2026-10-24 | Completed WBS-007.019 / SCN-019 through red-green-refactor; a bounded four-kind offline evaluation now emits validated aggregate quality, review, latency, and honest cost-availability measurements. |
 
 ## Reporting rules
 

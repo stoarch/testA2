@@ -41,6 +41,33 @@ class UsageData <<implemented optional>> {
   +output_tokens: int
 }
 
+class EvaluationDataset <<implemented bounded fixture>> {
+  +dataset_id: str
+  +synthetic: bool
+  +cases: list<EvaluationCase>
+}
+
+class EvaluationCase <<implemented labeled case>> {
+  +case_id: str
+  +kind: normal | gap | conflict | safety
+  +ticket_id: str
+  +text: str
+  +expected: ExpectedEvaluationOutcome
+}
+
+class EvaluationReport <<implemented aggregate>> {
+  +configuration_id: str
+  +execution_mode: str
+  +case_count: int
+  +quality_metrics: RatioMeasurement
+  +latency: LatencyMeasurement
+  +cost: CostMeasurement
+}
+
+class OfflineEvaluationService <<implemented>> {
+  +run_offline_evaluation(dataset_path, snapshot_path): EvaluationReport
+}
+
 class Citation <<implemented for draft slice>> {
   +source_id: str
   +title: str
@@ -192,6 +219,11 @@ OfflineApplicationService --> KBSnapshot : loads
 OfflineApplicationService --> DraftResult : resolves draft
 OfflineApplicationService --> SafetyResult : applies policy
 OfflineApplicationService --> AuditableProcessingResult : returns
+EvaluationDataset "1" o-- "1..*" EvaluationCase
+OfflineEvaluationService --> EvaluationDataset : loads labels
+OfflineEvaluationService --> OfflineApplicationService : processes cases
+OfflineEvaluationService --> EvaluationReport : aggregates
+EvaluationReport --> AuditableProcessingResult : measures outcomes
 
 note right of ProcessingResult
 Identity and four classification fields are
@@ -202,5 +234,11 @@ note right of AuditableProcessingResult
 Decision metadata, evidence, configuration,
 latency, and optional token usage compose into
 one frozen result emitted by bounded offline CLI mode.
+end note
+
+note right of EvaluationReport
+Aggregate-only output records explicit denominators,
+p50/p95 latency, execution mode, and measured or
+unavailable cost without exposing raw ticket text.
 end note
 @enduml

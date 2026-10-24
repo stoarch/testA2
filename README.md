@@ -24,9 +24,10 @@ The governing specification is [`doc/master-prompt.md`](doc/master-prompt.md). C
 - Return a frozen auditable result with classifications, decision metadata, evidence, configuration, latency, and optional token usage (`SCN-016`).
 - Abstain from explicit conflicting approved-source duration claims, expose both sources, and require review with `source_conflict` (`SCN-017`).
 - Process an offline ticket through the CLI and return validated classification, answer, citations, and review metadata (`SCN-018`).
+- Evaluate a bounded synthetic normal/gap/conflict/safety set and return aggregate quality, review, latency, and cost-availability measurements (`SCN-019`).
 - Provide a credential-free CLI that emits schema-valid JSON for agent review.
 
-Live retrieval, general semantic claim validation, generative drafting, broad safety-intent coverage/routing, evaluation, and business-case runtime behavior remain planned unless the dashboard says otherwise.
+Live retrieval, general semantic claim validation, generative drafting, broad safety-intent coverage/routing, the 30+ case evaluation corpus, and business-case runtime behavior remain planned unless the dashboard says otherwise.
 
 ## Developer quickstart
 
@@ -35,7 +36,7 @@ Prerequisite: Python 3.12+.
 ```text
 python -m pip install -e ".[dev]"
 python -m pytest -q
-python -m behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004 --name=SCN-005 --name=SCN-006 --name=SCN-007 --name=SCN-008 --name=SCN-009 --name=SCN-010 --name=SCN-011 --name=SCN-012 --name=SCN-013 --name=SCN-014 --name=SCN-015 --name=SCN-016 --name=SCN-017 --name=SCN-018
+python -m behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004 --name=SCN-005 --name=SCN-006 --name=SCN-007 --name=SCN-008 --name=SCN-009 --name=SCN-010 --name=SCN-011 --name=SCN-012 --name=SCN-013 --name=SCN-014 --name=SCN-015 --name=SCN-016 --name=SCN-017 --name=SCN-018 --name=SCN-019
 python bdd/validate_gherkin.py
 python scripts/validate_architecture_docs.py
 ruff check src tests bdd/features/steps
@@ -53,7 +54,13 @@ Run the bounded full-result journey against the synthetic snapshot:
 support-copilot --ticket-id TICKET-018 --text "How do I make a deposit?" --kb-snapshot tests/fixtures/kb/synthetic_snapshot.json
 ```
 
-Both commands return JSON to the support-agent interface; neither has a customer-send operation.
+Run the bounded offline evaluation:
+
+```text
+support-copilot --evaluation-set tests/fixtures/evaluation/synthetic_evaluation_set.json --kb-snapshot tests/fixtures/kb/synthetic_snapshot.json
+```
+
+All commands return JSON; none has a customer-send operation. The evaluation report contains aggregate metrics only, labels its execution mode, and reports cost as unavailable because offline token usage and pricing are not measured.
 
 The checked-in KB fixture is explicitly synthetic. It supports deterministic tests and is not live Valetax evidence.
 
