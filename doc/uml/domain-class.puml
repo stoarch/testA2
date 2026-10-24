@@ -56,9 +56,10 @@ enum ReviewReason <<partially implemented>> {
   insufficient_kb_coverage
   trading_advice
   KYC
+  complaint
 }
 
-class SafetyResult <<implemented trading/KYC routes>> {
+class SafetyResult <<implemented trading/KYC/complaint routes>> {
   +status: refused | routed
   +text: str
   +citations: list<Citation>
@@ -70,6 +71,7 @@ class SafetyResult <<implemented trading/KYC routes>> {
 enum SafetyFlag <<partially implemented>> {
   trading_advice
   kyc_decision
+  complaint_decision
 }
 
 class KBSnapshot <<implemented synthetic fixture>> {

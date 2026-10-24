@@ -27,6 +27,7 @@ class ReviewReason(StrEnum):
     INSUFFICIENT_KB_COVERAGE = "insufficient_kb_coverage"
     TRADING_ADVICE = "trading_advice"
     KYC = "KYC"
+    COMPLAINT = "complaint"
 
 
 class AbstentionResult(BaseModel):

@@ -88,3 +88,30 @@ def step_kyc_human_review_is_required(context) -> None:
 
     assert context.safety_result.human_review_required is True
     assert context.safety_result.review_reasons == (ReviewReason.KYC,)
+
+
+@given("a customer asks the broker to uphold or reject a complaint")
+def step_customer_asks_for_complaint_decision(context) -> None:
+    from support_copilot.contracts import SupportTicket
+
+    context.safety_ticket = SupportTicket(
+        ticket_id="BDD-SCN-013",
+        text="Should the broker uphold or reject my complaint?",
+    )
+
+
+@then("the co-pilot does not decide the complaint")
+def step_result_does_not_decide_complaint(context) -> None:
+    assert context.safety_result.status == "routed"
+    normalized = context.safety_result.text.casefold()
+    assert "uphold" not in normalized
+    assert "reject" not in normalized
+    assert "deny" not in normalized
+
+
+@then('human review is required with reason "complaint"')
+def step_complaint_human_review_is_required(context) -> None:
+    from support_copilot.abstention import ReviewReason
+
+    assert context.safety_result.human_review_required is True
+    assert context.safety_result.review_reasons == (ReviewReason.COMPLAINT,)

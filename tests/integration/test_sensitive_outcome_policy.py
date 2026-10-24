@@ -18,3 +18,20 @@ def test_kyc_ticket_reaches_human_route_without_retrieval_or_provider() -> None:
     assert result.review_reasons == (ReviewReason.KYC,)
     assert "approve" not in result.text.casefold()
     assert "reject" not in result.text.casefold()
+
+
+def test_complaint_ticket_reaches_human_route_without_retrieval_or_provider() -> None:
+    ticket = SupportTicket(
+        ticket_id="TICKET-SENSITIVE-INTEGRATION-002",
+        text="Should the broker uphold or reject my complaint?",
+    )
+
+    result = apply_safety_policy(ticket)
+
+    assert result is not None
+    assert result.status == "routed"
+    assert result.citations == ()
+    assert result.human_review_required is True
+    assert result.review_reasons == (ReviewReason.COMPLAINT,)
+    assert "uphold" not in result.text.casefold()
+    assert "reject" not in result.text.casefold()

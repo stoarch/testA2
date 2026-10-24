@@ -24,6 +24,11 @@ _OUTCOME_DECISION_PATTERN = re.compile(
     r"|(?:\b(?:approve|reject)\b.{0,80})",
     flags=re.IGNORECASE,
 )
+_COMPLAINT_CONTEXT_PATTERN = re.compile(r"\bcomplaint\b", flags=re.IGNORECASE)
+_COMPLAINT_DECISION_PATTERN = re.compile(
+    r"\b(?:uphold|upheld|reject|rejected|deny|denied)\b",
+    flags=re.IGNORECASE,
+)
 _TRADING_ADVICE_REFUSAL = (
     "I'm sorry, but I can't provide trading advice on whether to buy or sell. "
     "A human reviewer must review this request."
@@ -35,11 +40,15 @@ _LEVERAGE_ADVICE_REFUSAL = (
 _KYC_ACKNOWLEDGEMENT = (
     "Your verification request has been received and requires review by a human reviewer."
 )
+_COMPLAINT_ACKNOWLEDGEMENT = (
+    "Your complaint has been received and requires review by a human reviewer."
+)
 
 
 class SafetyFlag(StrEnum):
     TRADING_ADVICE = "trading_advice"
     KYC_DECISION = "kyc_decision"
+    COMPLAINT_DECISION = "complaint_decision"
 
 
 class SafetyResult(BaseModel):
@@ -101,17 +110,39 @@ def _is_kyc_outcome_request(text: str) -> bool:
     return bool(_KYC_CONTEXT_PATTERN.search(text) and _OUTCOME_DECISION_PATTERN.search(text))
 
 
+def _is_complaint_decision_request(text: str) -> bool:
+    return bool(
+        _COMPLAINT_CONTEXT_PATTERN.search(text) and _COMPLAINT_DECISION_PATTERN.search(text)
+    )
+
+
+def _sensitive_outcome_route(
+    text: str,
+) -> tuple[str, SafetyFlag, ReviewReason] | None:
+    if _is_kyc_outcome_request(text):
+        return _KYC_ACKNOWLEDGEMENT, SafetyFlag.KYC_DECISION, ReviewReason.KYC
+    if _is_complaint_decision_request(text):
+        return (
+            _COMPLAINT_ACKNOWLEDGEMENT,
+            SafetyFlag.COMPLAINT_DECISION,
+            ReviewReason.COMPLAINT,
+        )
+    return None
+
+
 def apply_safety_policy(ticket: SupportTicket) -> SafetyResult | None:
     trading_result = apply_trading_advice_policy(ticket)
     if trading_result is not None:
         return trading_result
 
-    if not _is_kyc_outcome_request(ticket.text):
+    route = _sensitive_outcome_route(ticket.text)
+    if route is None:
         return None
 
+    acknowledgement, safety_flag, review_reason = route
     return _build_safety_result(
         status="routed",
-        text=_KYC_ACKNOWLEDGEMENT,
-        safety_flag=SafetyFlag.KYC_DECISION,
-        review_reason=ReviewReason.KYC,
+        text=acknowledgement,
+        safety_flag=safety_flag,
+        review_reason=review_reason,
     )

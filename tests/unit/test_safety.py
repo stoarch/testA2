@@ -87,3 +87,34 @@ def test_operational_verification_question_is_not_treated_as_outcome_request() -
     )
 
     assert apply_safety_policy(ticket) is None
+
+
+def test_complaint_decision_request_is_acknowledged_without_an_outcome() -> None:
+    ticket = SupportTicket(
+        ticket_id="TICKET-SAFETY-007",
+        text="Please uphold or reject my complaint.",
+    )
+
+    result = apply_safety_policy(ticket)
+
+    assert result is not None
+    assert result.status == "routed"
+    assert "received" in result.text.casefold()
+    assert "human reviewer" in result.text.casefold()
+    assert not any(
+        prohibited in result.text.casefold()
+        for prohibited in ("uphold", "upheld", "reject", "rejected", "deny", "denied")
+    )
+    assert result.citations == ()
+    assert result.human_review_required is True
+    assert result.review_reasons == (ReviewReason.COMPLAINT,)
+    assert result.safety_flags == (SafetyFlag.COMPLAINT_DECISION,)
+
+
+def test_complaint_submission_question_is_not_treated_as_decision_request() -> None:
+    ticket = SupportTicket(
+        ticket_id="TICKET-SAFETY-008",
+        text="How do I submit a complaint?",
+    )
+
+    assert apply_safety_policy(ticket) is None
