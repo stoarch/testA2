@@ -25,6 +25,13 @@ def step_customer_asks_for_uncovered_fee(context) -> None:
 
 @when("the ticket is processed")
 def step_abstention_ticket_is_processed(context) -> None:
+    if hasattr(context, "safety_ticket"):
+        from support_copilot.safety import apply_trading_advice_policy
+
+        context.safety_result = apply_trading_advice_policy(context.safety_ticket)
+        assert context.safety_result is not None
+        return
+
     if hasattr(context, "fee_passages"):
         from support_copilot.abstention import build_uncovered_fee_abstention
 
@@ -53,10 +60,13 @@ def step_result_does_not_invent_amount(context) -> None:
 def step_human_review_is_required(context) -> None:
     from support_copilot.abstention import ReviewReason
 
+    if hasattr(context, "safety_result"):
+        assert context.safety_result.human_review_required is True
+        assert context.safety_result.review_reasons == (ReviewReason.TRADING_ADVICE,)
+        return
+
     assert context.abstention_result.human_review_required is True
-    assert context.abstention_result.review_reasons == (
-        ReviewReason.INSUFFICIENT_KB_COVERAGE,
-    )
+    assert context.abstention_result.review_reasons == (ReviewReason.INSUFFICIENT_KB_COVERAGE,)
 
 
 @given("a customer asks for verification requirements not stated on the verification page")

@@ -54,6 +54,20 @@ class AbstentionResult <<implemented fee/verification coverage>> {
 
 enum ReviewReason <<partially implemented>> {
   insufficient_kb_coverage
+  trading_advice
+}
+
+class SafetyResult <<implemented direct-buy refusal>> {
+  +status: refused
+  +text: str
+  +citations: list<Citation>
+  +safety_flags: list<SafetyFlag>
+  +human_review_required: true
+  +review_reasons: list<ReviewReason>
+}
+
+enum SafetyFlag <<partially implemented>> {
+  trading_advice
 }
 
 class KBSnapshot <<implemented synthetic fixture>> {
@@ -103,6 +117,9 @@ DraftResult "1" o-- "1..*" Citation
 TimelineEvidenceValidator --> DraftResult : validates durations
 AbstentionResult "1" o-- "0..*" Citation
 AbstentionResult --> ReviewReason
+SafetyResult "1" o-- "0..*" Citation
+SafetyResult --> SafetyFlag
+SafetyResult --> ReviewReason
 KBSnapshot "1" o-- "1..*" SourceDocument
 SourceDocument "1" o-- "1..*" SourceSection
 KBSnapshot --> RetrievedPassage : retrieve approved sections
