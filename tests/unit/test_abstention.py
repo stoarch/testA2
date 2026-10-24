@@ -35,7 +35,7 @@ def test_uncovered_fee_returns_safe_abstention_and_requires_review() -> None:
     assert "does not establish the requested fee" in result.text
     assert result.citations == ()
     assert result.human_review_required is True
-    assert result.review_reasons == (ReviewReason.INSUFFICIENT_KB_COVERAGE,)
+    assert result.review_reasons == (ReviewReason.INSUFFICIENT_KNOWLEDGE,)
     assert not any(character.isdigit() for character in result.text)
 
 
@@ -55,7 +55,7 @@ def test_missing_verification_detail_abstains_without_inferring_requirement() ->
     assert "notarized" not in result.text.casefold()
     assert "utility bill" not in result.text.casefold()
     assert result.human_review_required is True
-    assert result.review_reasons == (ReviewReason.INSUFFICIENT_KB_COVERAGE,)
+    assert result.review_reasons == (ReviewReason.INSUFFICIENT_KNOWLEDGE,)
 
 
 def test_missing_verification_detail_rejects_directly_supported_evidence() -> None:
@@ -64,3 +64,14 @@ def test_missing_verification_detail_rejects_directly_supported_evidence() -> No
             [_passage("Verification requires a notarized utility bill.")],
             requested_detail="notarized utility bill",
         )
+
+
+def test_abstention_serializes_an_insufficient_knowledge_route_reason() -> None:
+    result = build_uncovered_fee_abstention(
+        [_passage("Withdrawal requests are initiated from the withdrawal area.")]
+    )
+
+    payload = result.model_dump(mode="json")
+
+    assert payload["human_review_required"] is True
+    assert "insufficient_knowledge" in payload["review_reasons"]

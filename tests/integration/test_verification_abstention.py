@@ -27,5 +27,5 @@ def test_persisted_snapshot_missing_verification_detail_routes_to_review() -> No
     assert passages
     assert result.status == "abstained"
     assert result.human_review_required is True
-    assert result.review_reasons == (ReviewReason.INSUFFICIENT_KB_COVERAGE,)
+    assert result.review_reasons == (ReviewReason.INSUFFICIENT_KNOWLEDGE,)
     assert result.citations == ()

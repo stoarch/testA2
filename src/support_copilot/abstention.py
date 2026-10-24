@@ -24,7 +24,8 @@ _MISSING_VERIFICATION_DETAIL_MESSAGE = (
 
 
 class ReviewReason(StrEnum):
-    INSUFFICIENT_KB_COVERAGE = "insufficient_kb_coverage"
+    INSUFFICIENT_KNOWLEDGE = "insufficient_knowledge"
+    INSUFFICIENT_KB_COVERAGE = "insufficient_knowledge"
     TRADING_ADVICE = "trading_advice"
     KYC = "KYC"
     COMPLAINT = "complaint"
@@ -66,7 +67,7 @@ def build_uncovered_fee_abstention(
 
     return AbstentionResult(
         text=_UNCOVERED_FEE_MESSAGE,
-        review_reasons=(ReviewReason.INSUFFICIENT_KB_COVERAGE,),
+        review_reasons=(ReviewReason.INSUFFICIENT_KNOWLEDGE,),
     )
 
 
@@ -85,5 +86,5 @@ def build_missing_verification_detail_abstention(
 
     return AbstentionResult(
         text=_MISSING_VERIFICATION_DETAIL_MESSAGE,
-        review_reasons=(ReviewReason.INSUFFICIENT_KB_COVERAGE,),
+        review_reasons=(ReviewReason.INSUFFICIENT_KNOWLEDGE,),
     )

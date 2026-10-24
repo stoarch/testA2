@@ -21,5 +21,20 @@ def test_persisted_snapshot_without_fee_support_produces_reviewed_abstention() -
     assert passages
     assert result.status == "abstained"
     assert result.human_review_required is True
-    assert result.review_reasons == (ReviewReason.INSUFFICIENT_KB_COVERAGE,)
+    assert result.review_reasons == (ReviewReason.INSUFFICIENT_KNOWLEDGE,)
     assert result.citations == ()
+
+
+def test_coverage_abstention_reaches_serialized_human_route_contract() -> None:
+    snapshot = load_snapshot(FIXTURE_PATH)
+    passages = retrieve_passages(
+        snapshot,
+        query="What is the withdrawal fee?",
+        retrieved_at=datetime(2026, 10, 24, 1, tzinfo=UTC),
+    )
+
+    payload = build_uncovered_fee_abstention(passages).model_dump(mode="json")
+
+    assert payload["status"] == "abstained"
+    assert payload["human_review_required"] is True
+    assert "insufficient_knowledge" in payload["review_reasons"]

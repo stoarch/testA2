@@ -66,7 +66,7 @@ def step_human_review_is_required(context) -> None:
         return
 
     assert context.abstention_result.human_review_required is True
-    assert context.abstention_result.review_reasons == (ReviewReason.INSUFFICIENT_KB_COVERAGE,)
+    assert context.abstention_result.review_reasons == (ReviewReason.INSUFFICIENT_KNOWLEDGE,)
 
 
 @given("a customer asks for verification requirements not stated on the verification page")
@@ -98,5 +98,5 @@ def step_result_routes_to_human(context) -> None:
 
     assert context.abstention_result.human_review_required is True
     assert context.abstention_result.review_reasons == (
-        ReviewReason.INSUFFICIENT_KB_COVERAGE,
+        ReviewReason.INSUFFICIENT_KNOWLEDGE,
     )

@@ -1,14 +1,14 @@
 # Project Progress Dashboard
 
-> **CURRENT: Domain implementation** · **NEXT: SCN-014 abstention routing** · **32 tests green**
+> **CURRENT: Domain implementation** · **NEXT: SCN-015 confidence routing** · **34 tests green**
 >
-> **Scenario implementation:** `█████████░░░░░░░░░░░` **46%** · 13 of 28 BDD scenarios passing
+> **Scenario implementation:** `██████████░░░░░░░░░░` **50%** · 14 of 28 BDD scenarios passing
 
 ```mermaid
 flowchart LR
     M1["✓ Definition<br/>WBS-001–002"] --> M2["✓ Architecture<br/>WBS-003–004"]
     M2 --> M3["✓ Foundation<br/>WBS-005–006"]
-    M3 --> M4["▶ Domain increments<br/>WBS-007 · 13/28 scenarios"]
+    M3 --> M4["▶ Domain increments<br/>WBS-007 · 14/28 scenarios"]
     M4 --> M5["◆ Quality verification<br/>WBS-008 · in progress"]
     M5 --> M6["○ Release readiness<br/>WBS-009–010"]
 
@@ -25,14 +25,14 @@ flowchart LR
 `✓ Done` · `▶ Active` · `◆ Active in parallel` · `○ Planned`
 
 - Last updated: 2026-10-24
-- Overall state: In progress - engineering foundation complete and first thirteen implementation scenarios green
+- Overall state: In progress - engineering foundation complete and first fourteen implementation scenarios green
 - Current phase: Domain implementation
-- Current task: [`WBS-007`](../doc/tasks/WBS-007.md) - Implement domain increments; next code slice is `WBS-007.014 / SCN-014`
+- Current task: [`WBS-007`](../doc/tasks/WBS-007.md) - Implement domain increments; next code slice is `WBS-007.015 / SCN-015`
 - Completed work packages: WBS-001, WBS-002, WBS-003, WBS-004, WBS-005, WBS-006
 - Latest architecture execution: [`WBS-004 execution 001`](../doc/tasks/WBS-004-execution-001.md)
 - Latest planning execution: [`WBS-005 execution 001`](../doc/tasks/WBS-005-execution-001.md)
 - Latest foundation execution: [`WBS-006 execution 001`](../doc/tasks/WBS-006-execution-001.md)
-- Latest code execution: [`SCN-013 execution 001`](../bdd/executions/SCN-013-execution-001.md)
+- Latest code execution: [`SCN-014 execution 001`](../bdd/executions/SCN-014-execution-001.md)
 - Source of truth: [`doc/master-prompt.md`](../doc/master-prompt.md)
 - Work plan: [`doc/WBS.md`](../doc/WBS.md)
 - Architecture decisions: [`doc/adr/README.md`](../doc/adr/README.md)
@@ -49,15 +49,15 @@ flowchart LR
 | UML models | Done for baseline | WBS-004 passed; six authoritative PlantUML views include trust boundaries and implementation state |
 | Delivery plan | Done | WBS-005 defines ten owned, estimated, dependency-ordered, verifiable increments in a 4h25m timebox |
 | Engineering foundation | Done | Python 3.12+ packaging, Pydantic, CLI, pytest, Behave, Ruff, quickstart, and CI gate are present |
-| Implementation | In progress | SCN-001 through SCN-013 are green; SCN-014 abstention routing is next |
-| Verification | In progress | Pytest: 32 passed; selected BDD: 13 scenarios / 51 steps passed; Gherkin parity: 28 scenarios |
+| Implementation | In progress | SCN-001 through SCN-014 are green; SCN-015 configured low-confidence routing is next |
+| Verification | In progress | Pytest: 34 passed; selected BDD: 14 scenarios / 55 steps passed; Gherkin parity: 28 scenarios |
 
 ## Immediate next actions
 
 | Priority | Action | Owner | Target | Related item |
 |---|---|---|---|---|
-| P0 | Route explicit abstentions to human review through red-green-refactor | Engineer / Compliance | Next increment | WBS-007.014 / SCN-014 |
-| P0 | Route configured low-confidence results | Engineer / QA | Following increment | SCN-015 / REQ-009 |
+| P0 | Route configured low-confidence results through red-green-refactor | Engineer / QA | Next increment | WBS-007.015 / SCN-015 |
+| P0 | Produce the complete auditable output contract | Engineer / QA | Following increment | SCN-016 / REQ-010 |
 | P0 | Build at least 30 labeled routine/risky/conflict/multilingual/adversarial fixtures | QA / Engineer | Increment 9 | WBS-008 / REQ-114 |
 | P1 | Add PlantUML rendering to CI | Engineer | Architecture follow-up | WBS-008 |
 | P1 | Populate business-case labor and pricing assumptions | Support operations | Increment 10 | REQ-014 / OQ-005 |
@@ -117,6 +117,7 @@ Create an ADR only when the corresponding decision is ready for explicit compari
 | 2026-10-24 | Completed WBS-007.011 / SCN-011 through red-green-refactor; personalized leverage-setting requests now receive a number-free refusal and mandatory human review. |
 | 2026-10-24 | Completed WBS-007.012 / SCN-012 through red-green-refactor; explicit KYC outcome requests now receive only a neutral acknowledgement and mandatory human review. |
 | 2026-10-24 | Completed WBS-007.013 / SCN-013 through red-green-refactor; explicit complaint-outcome requests now receive only a neutral acknowledgement and mandatory human review. |
+| 2026-10-24 | Completed WBS-007.014 / SCN-014 through red-green-refactor; coverage abstentions now serialize the canonical `insufficient_knowledge` route reason while retaining a compatibility alias. |
 
 ## Reporting rules
 
