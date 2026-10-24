@@ -24,6 +24,7 @@ def test_classification_and_low_confidence_route_compose_into_auditable_result()
     result = build_auditable_result(
         classification=classification,
         answer_status=AnswerStatus.ROUTED,
+        answer_text="A human reviewer must confirm this result.",
         citations=(),
         safety_flags=(),
         human_review_required=route.human_review_required,
@@ -36,6 +37,7 @@ def test_classification_and_low_confidence_route_compose_into_auditable_result()
     assert payload["ticket_id"] == "TICKET-AUDIT-INTEGRATION-001"
     assert payload["category"] == "withdrawal"
     assert payload["answer_status"] == "routed"
+    assert payload["answer_text"] == "A human reviewer must confirm this result."
     assert payload["human_review_required"] is True
     assert payload["review_reasons"] == ["low_confidence"]
     assert payload["configuration_id"] == "offline-v1"

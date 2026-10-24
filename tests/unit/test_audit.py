@@ -41,6 +41,7 @@ def _result(**overrides: object) -> AuditableProcessingResult:
         "language": TicketLanguage.ENGLISH,
         "sentiment": TicketSentiment.NEUTRAL,
         "answer_status": AnswerStatus.DRAFTED,
+        "answer_text": "Open the deposit area and choose a supported method.",
         "citations": (_citation(),),
         "safety_flags": (),
         "human_review_required": False,
@@ -59,6 +60,7 @@ def test_auditable_result_serializes_required_fields_and_available_usage() -> No
     assert payload["ticket_id"] == "TICKET-AUDIT-001"
     assert payload["category"] == "withdrawal"
     assert payload["answer_status"] == "drafted"
+    assert payload["answer_text"] == "Open the deposit area and choose a supported method."
     assert payload["citations"][0]["source_id"] == "KB-001"
     assert payload["safety_flags"] == []
     assert payload["review_reasons"] == []

@@ -23,6 +23,7 @@ The governing specification is [`doc/master-prompt.md`](doc/master-prompt.md). C
 - Route configured low-confidence classification or grounding results and retain the threshold (`SCN-015`).
 - Return a frozen auditable result with classifications, decision metadata, evidence, configuration, latency, and optional token usage (`SCN-016`).
 - Abstain from explicit conflicting approved-source duration claims, expose both sources, and require review with `source_conflict` (`SCN-017`).
+- Process an offline ticket through the CLI and return validated classification, answer, citations, and review metadata (`SCN-018`).
 - Provide a credential-free CLI that emits schema-valid JSON for agent review.
 
 Live retrieval, general semantic claim validation, generative drafting, broad safety-intent coverage/routing, evaluation, and business-case runtime behavior remain planned unless the dashboard says otherwise.
@@ -34,7 +35,7 @@ Prerequisite: Python 3.12+.
 ```text
 python -m pip install -e ".[dev]"
 python -m pytest -q
-python -m behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004 --name=SCN-005 --name=SCN-006 --name=SCN-007 --name=SCN-008 --name=SCN-009 --name=SCN-010 --name=SCN-011 --name=SCN-012 --name=SCN-013 --name=SCN-014 --name=SCN-015 --name=SCN-016 --name=SCN-017
+python -m behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004 --name=SCN-005 --name=SCN-006 --name=SCN-007 --name=SCN-008 --name=SCN-009 --name=SCN-010 --name=SCN-011 --name=SCN-012 --name=SCN-013 --name=SCN-014 --name=SCN-015 --name=SCN-016 --name=SCN-017 --name=SCN-018
 python bdd/validate_gherkin.py
 python scripts/validate_architecture_docs.py
 ruff check src tests bdd/features/steps
@@ -46,7 +47,13 @@ Run the current offline classifier:
 support-copilot --ticket-id TICKET-004 --text "I am frustrated because my withdrawal is still pending."
 ```
 
-The command returns JSON to the support-agent interface; it has no customer-send operation.
+Run the bounded full-result journey against the synthetic snapshot:
+
+```text
+support-copilot --ticket-id TICKET-018 --text "How do I make a deposit?" --kb-snapshot tests/fixtures/kb/synthetic_snapshot.json
+```
+
+Both commands return JSON to the support-agent interface; neither has a customer-send operation.
 
 The checked-in KB fixture is explicitly synthetic. It supports deterministic tests and is not live Valetax evidence.
 

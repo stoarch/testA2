@@ -35,6 +35,7 @@ class AuditableProcessingResult(ContractModel):
     language: TicketLanguage
     sentiment: TicketSentiment
     answer_status: AnswerStatus
+    answer_text: str = Field(min_length=1)
     citations: tuple[Citation, ...] = ()
     safety_flags: tuple[SafetyFlag, ...] = ()
     human_review_required: bool
@@ -48,6 +49,7 @@ def build_auditable_result(
     *,
     classification: ProcessingResult,
     answer_status: AnswerStatus,
+    answer_text: str,
     citations: Sequence[Citation],
     safety_flags: Sequence[SafetyFlag],
     human_review_required: bool,
@@ -60,6 +62,7 @@ def build_auditable_result(
         {
             **classification.model_dump(),
             "answer_status": answer_status,
+            "answer_text": answer_text,
             "citations": tuple(citations),
             "safety_flags": tuple(safety_flags),
             "human_review_required": human_review_required,

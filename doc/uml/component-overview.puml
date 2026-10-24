@@ -9,7 +9,7 @@ cloud "Optional Live LLM" as LiveLLM <<external trust boundary>>
 
 package "Trusted Local Application Boundary" {
   [CLI] as CLI <<implemented>>
-  [Application Orchestrator] as App <<planned>>
+  [Application Orchestrator] as App <<implemented bounded offline>>
   [Input Validator] as Input <<partially implemented>>
   [Pre-generation Policy Gate] as PrePolicy <<implemented trading/KYC/complaint slices>>
   [Category Classifier] as Classifier <<partially implemented>>
@@ -18,7 +18,7 @@ package "Trusted Local Application Boundary" {
   [Drafting Service] as Draft <<implemented extractive deposit>>
   [Post-generation Safety Gate] as PostPolicy <<planned>>
   [Human Router] as Router <<implemented coverage/safety/confidence slices>>
-  [Result Validator] as Result <<implemented audit aggregate; CLI partial>>
+  [Result Validator] as Result <<implemented offline JSON>>
   [Provider Protocol] as Provider <<planned>>
   [Deterministic Offline Adapter] as Offline <<planned>>
   database "Versioned KB Snapshots" as Snapshot <<implemented synthetic fixture>>

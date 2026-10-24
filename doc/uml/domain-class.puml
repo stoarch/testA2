@@ -22,6 +22,7 @@ class AuditableProcessingResult <<implemented aggregate>> {
   +language: TicketLanguage
   +sentiment: TicketSentiment
   +answer_status: str
+  +answer_text: str
   +citations: list<Citation>
   +safety_flags: list<str>
   +human_review_required: bool
@@ -29,6 +30,10 @@ class AuditableProcessingResult <<implemented aggregate>> {
   +configuration_id: str
   +latency_ms: float
   +usage: UsageData?
+}
+
+class OfflineApplicationService <<implemented bounded journey>> {
+  +process_offline_ticket(ticket_id, text, snapshot_path): AuditableProcessingResult
 }
 
 class UsageData <<implemented optional>> {
@@ -182,6 +187,11 @@ DraftProvider <|.. DeterministicOfflineAdapter
 ClassificationProvider <|.. LiveLLMAdapter
 DraftProvider <|.. LiveLLMAdapter
 SupportTicket --> ProcessingResult : process
+OfflineApplicationService --> SupportTicket : validates
+OfflineApplicationService --> KBSnapshot : loads
+OfflineApplicationService --> DraftResult : resolves draft
+OfflineApplicationService --> SafetyResult : applies policy
+OfflineApplicationService --> AuditableProcessingResult : returns
 
 note right of ProcessingResult
 Identity and four classification fields are
@@ -191,6 +201,6 @@ end note
 note right of AuditableProcessingResult
 Decision metadata, evidence, configuration,
 latency, and optional token usage compose into
-one frozen result. CLI output remains planned.
+one frozen result emitted by bounded offline CLI mode.
 end note
 @enduml

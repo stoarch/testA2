@@ -38,6 +38,7 @@ def step_structured_result_is_returned(context) -> None:
     context.audit_result = build_auditable_result(
         classification=context.audit_classification,
         answer_status=AnswerStatus.ROUTED,
+        answer_text="A human reviewer must confirm this result.",
         citations=(),
         safety_flags=(),
         human_review_required=context.audit_route.human_review_required,
@@ -60,6 +61,7 @@ def step_audit_fields_are_present(context) -> None:
         "language",
         "sentiment",
         "answer_status",
+        "answer_text",
         "citations",
         "safety_flags",
         "review_reasons",
