@@ -9,3 +9,13 @@
 - PlantUML sources are present, but automated rendering is not yet a CI gate.
 - No Git repository/commit evidence or repository link is currently available.
 - The synthetic snapshot and rules-only paths now form a bounded offline CLI demo. The classifier remains narrow, no web interface exists, and optional live-provider mode is not yet executable.
+
+## Additional integrated boundaries
+
+- **Implemented vs. Roadmap Scenarios**: Scenarios `SCN-001` through `SCN-019` are fully implemented and passing. Scenarios `SCN-020` through `SCN-028` are documented roadmap specifications reserved for Phase 2 scaling.
+- **Synthetic Offline Knowledge Base**: Phase 1 relies on checked-in synthetic JSON snapshots (`tests/fixtures/kb/synthetic_snapshot.json`) with allowlisted source URLs (`https://valetax.com/how-to-deposit/`, etc.). Live Valetax KB scraping, vector search, and automated KB synchronization remain Phase 2 work.
+- **Deposit Query Intent Boundary**: Extractive deposit drafts are returned strictly for explicit deposit how-to questions ("How do I make a deposit?"). Unsupported deposit operations (deposit cancellation, deposit fees, deposit limits/timelines, or ambiguous requests) return a typed abstention requiring human review.
+- **Trading Advice & Safety Routing**: Safety filters conservatively detect buy/sell recommendations, trading signals, price targets, personalized leverage requests, KYC decisions, and complaint outcomes. Obfuscated or highly complex adversarial prompt injections remain part of Phase 2 evaluation targets.
+- **Generative LLMs & External APIs**: The prototype operates entirely offline and deterministically without external LLM API calls or paid cloud infrastructure. Generative LLM drafting and live provider adapters are specified in Phase 2 architectural plans.
+- **Business Case Assumptions**: The numerical business case in `reports/business-case.md` models operating costs and labor savings at 10,000 tickets/month based on explicit non-measured operational estimates.
+- **Audit Store Persistence**: Audit metadata records are returned in Pydantic JSON responses per ticket execution; database/data warehouse audit log persistence is not included in Phase 1.

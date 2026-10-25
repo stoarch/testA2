@@ -8,7 +8,7 @@
       "ticket_id": "TICKET-EVAL-NORMAL-001",
       "text": "How do I make a deposit?",
       "expected": {
-        "category": "other",
+        "category": "deposit",
         "urgency": "normal",
         "language": "en",
         "sentiment": "neutral",

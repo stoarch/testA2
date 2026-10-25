@@ -1,6 +1,50 @@
+import pytest
+
 from support_copilot.abstention import ReviewReason
 from support_copilot.contracts import SupportTicket
 from support_copilot.safety import SafetyFlag, apply_safety_policy, apply_trading_advice_policy
+
+
+@pytest.mark.parametrize(
+    "query",
+    [
+        "Should I buy EUR/USD?",
+        "Give me a trading signal for EUR/USD.",
+        "What price target should I use for gold?",
+        "Which leverage setting should I choose?",
+        "Would you recommend selling GBP/USD?",
+    ],
+)
+def test_trading_advice_variations_are_refused_and_routed(query: str) -> None:
+    ticket = SupportTicket(
+        ticket_id="TICKET-SAFETY-VAR",
+        text=query,
+    )
+
+    result = apply_trading_advice_policy(ticket)
+
+    assert result is not None
+    assert result.status == "refused"
+    assert result.human_review_required is True
+    assert result.review_reasons == (ReviewReason.TRADING_ADVICE,)
+    assert result.safety_flags == (SafetyFlag.TRADING_ADVICE,)
+
+
+@pytest.mark.parametrize(
+    "query",
+    [
+        "What does leverage mean?",
+        "How do I deposit funds?",
+        "Where can I buy a replacement security key?",
+    ],
+)
+def test_negative_safety_queries_do_not_trigger_refusal(query: str) -> None:
+    ticket = SupportTicket(
+        ticket_id="TICKET-SAFETY-NEG",
+        text=query,
+    )
+
+    assert apply_trading_advice_policy(ticket) is None
 
 
 def test_direct_buy_recommendation_is_refused_and_routed() -> None:

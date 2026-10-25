@@ -8,20 +8,39 @@ from support_copilot.abstention import ReviewReason
 from support_copilot.contracts import SupportTicket
 from support_copilot.drafting import Citation
 
-_RECOMMENDATION_REQUEST_PATTERN = re.compile(
-    r"(?:\bshould\s+i\b.{0,40}\b(?:buy|sell)\b)"
-    r"|(?:\brecommend\b.{0,60}\b(?:buy|sell)\b)",
+_BUY_SELL_RECOMMENDATION_PATTERN = re.compile(
+    r"(?:\bshould\s+i\b.{0,40}\b(?:buy|sell|trade|short|long)\b)"
+    r"|(?:\b(?:would|do)\s+you\s+recommend\b.{0,40}\b(?:buy|selling|buying|sell|trade|trading|short|long)\b)"
+    r"|(?:\brecommend\b.{0,60}\b(?:buy|selling|buying|sell|trade|trading)\b)"
+    r"|(?:\b(?:buy|sell|trade)\b.{0,40}\b(?:recommendation|advice)\b)"
+    r"|(?:\bis\s+it\s+a\s+good\s+time\s+to\b.{0,30}\b(?:buy|sell|trade)\b)",
     flags=re.IGNORECASE,
 )
-_CURRENCY_PAIR_PATTERN = re.compile(r"\b[A-Z]{3}/[A-Z]{3}\b", flags=re.IGNORECASE)
+_TRADING_SIGNAL_PATTERN = re.compile(
+    r"\b(?:trading\s+signal|trade\s+signal|forex\s+signal|crypto\s+signal|buy\s+signal|sell\s+signal|signals?)\b",
+    flags=re.IGNORECASE,
+)
+_PRICE_TARGET_PATTERN = re.compile(
+    r"\b(?:price\s+target|target\s+price|price\s+forecast)\b",
+    flags=re.IGNORECASE,
+)
 _LEVERAGE_RECOMMENDATION_PATTERN = re.compile(
-    r"\bleverage\b.{0,60}\bshould\s+i\s+(?:choose|use|set)\b",
+    r"(?:\bleverage\b.{0,60}\b(?:should\s+i|would\s+you|which|what)\b.{0,40}\b(?:choose|use|select|set|pick|go\s+with)\b)"
+    r"|(?:\b(?:which|what)\s+leverage\b.{0,60}\b(?:setting\s+)?(?:should\s+i|would\s+you|choose|use|set|select|pick)\b)"
+    r"|(?:\b(?:recommend|suggest)\b.{0,40}\bleverage\b)",
     flags=re.IGNORECASE,
 )
 _KYC_CONTEXT_PATTERN = re.compile(r"\b(?:KYC|verification)\b", flags=re.IGNORECASE)
 _OUTCOME_DECISION_PATTERN = re.compile(
     r"(?:\bshould\b.{0,80}\b(?:be\s+)?(?:approved|rejected)\b)"
     r"|(?:\b(?:approve|reject)\b.{0,80})",
+    flags=re.IGNORECASE,
+)
+_AML_CONTEXT_PATTERN = re.compile(
+    r"\b(?:AML|anti.money.laundering|suspicious transaction)\b", flags=re.IGNORECASE
+)
+_AML_DECISION_PATTERN = re.compile(
+    r"\b(?:approve|reject|clear|flag|freeze|unfreeze|release|pass|fail)\b",
     flags=re.IGNORECASE,
 )
 _COMPLAINT_CONTEXT_PATTERN = re.compile(r"\bcomplaint\b", flags=re.IGNORECASE)
@@ -49,6 +68,7 @@ class SafetyFlag(StrEnum):
     TRADING_ADVICE = "trading_advice"
     KYC_DECISION = "kyc_decision"
     COMPLAINT_DECISION = "complaint_decision"
+    AML_DECISION = "aml_decision"
 
 
 class SafetyResult(BaseModel):
@@ -62,19 +82,15 @@ class SafetyResult(BaseModel):
     review_reasons: tuple[ReviewReason, ...] = Field(min_length=1)
 
 
-def _is_direct_currency_pair_recommendation(text: str) -> bool:
-    required_patterns = (
-        _CURRENCY_PAIR_PATTERN,
-        _RECOMMENDATION_REQUEST_PATTERN,
-    )
-    return all(pattern.search(text) for pattern in required_patterns)
-
-
 def _refusal_message(text: str) -> str | None:
-    if _is_direct_currency_pair_recommendation(text):
-        return _TRADING_ADVICE_REFUSAL
     if _LEVERAGE_RECOMMENDATION_PATTERN.search(text):
         return _LEVERAGE_ADVICE_REFUSAL
+    if (
+        _BUY_SELL_RECOMMENDATION_PATTERN.search(text)
+        or _TRADING_SIGNAL_PATTERN.search(text)
+        or _PRICE_TARGET_PATTERN.search(text)
+    ):
+        return _TRADING_ADVICE_REFUSAL
     return None
 
 
@@ -119,6 +135,12 @@ def _is_complaint_decision_request(text: str) -> bool:
 def _sensitive_outcome_route(
     text: str,
 ) -> tuple[str, SafetyFlag, ReviewReason] | None:
+    if _AML_CONTEXT_PATTERN.search(text) and _AML_DECISION_PATTERN.search(text):
+        return (
+            "Your request requires a human compliance review.",
+            SafetyFlag.AML_DECISION,
+            ReviewReason.AML,
+        )
     if _is_kyc_outcome_request(text):
         return _KYC_ACKNOWLEDGEMENT, SafetyFlag.KYC_DECISION, ReviewReason.KYC
     if _is_complaint_decision_request(text):

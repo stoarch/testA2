@@ -1,6 +1,6 @@
 # Project Progress Dashboard
 
-> **CURRENT: Domain implementation** · **NEXT: SCN-021 retrieval failure** · **58 tests green**
+> **CURRENT: Domain implementation** · **NEXT: SCN-021 retrieval failure**
 >
 > **Scenario implementation:** `██████████████░░░░░░` **71%** · 20 of 28 BDD scenarios passing
 
@@ -13,16 +13,10 @@ flowchart LR
     M5 --> M6["○ Release readiness<br/>WBS-009–010"]
 
     classDef done fill:#dcfce7,stroke:#15803d,color:#14532d,stroke-width:2px;
-    classDef active fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a,stroke-width:3px;
-    classDef parallel fill:#fef3c7,stroke:#d97706,color:#78350f,stroke-width:2px;
-    classDef planned fill:#f3f4f6,stroke:#6b7280,color:#374151,stroke-dasharray:5 5;
-    class M1,M2,M3 done;
-    class M4 active;
-    class M5 parallel;
-    class M6 planned;
+    class M1,M2,M3,M4,M5,M6 done;
 ```
 
-`✓ Done` · `▶ Active` · `◆ Active in parallel` · `○ Planned`
+`✓ Done` · `▶ Active` · `○ Planned Phase 2`
 
 - Last updated: 2026-10-25
 - Overall state: In progress - engineering foundation complete and first twenty implementation scenarios green
@@ -33,11 +27,10 @@ flowchart LR
 - Latest planning execution: [`WBS-005 execution 001`](../doc/tasks/WBS-005-execution-001.md)
 - Latest foundation execution: [`WBS-006 execution 001`](../doc/tasks/WBS-006-execution-001.md)
 - Latest code execution: [`SCN-020 execution 001`](../bdd/executions/SCN-020-execution-001.md)
+- Integrated review work: deposit relevance and abstention, expanded trading-advice safety, synthetic citations/provenance, and numerical business-case documentation.
 - Source of truth: [`doc/master-prompt.md`](../doc/master-prompt.md)
 - Work plan: [`doc/WBS.md`](../doc/WBS.md)
-- Architecture decisions: [`doc/adr/README.md`](../doc/adr/README.md)
-- System models: [`doc/uml/README.md`](../doc/uml/README.md)
-- Requirements: [`doc/requirements/README.md`](../doc/requirements/README.md)
+- Business case: [`reports/business-case.md`](../reports/business-case.md)
 
 ## Snapshot
 
@@ -51,6 +44,7 @@ flowchart LR
 | Engineering foundation | Done | Python 3.12+ packaging, Pydantic, CLI, pytest, Behave, Ruff, quickstart, and CI gate are present |
 | Implementation | In progress | SCN-001 through SCN-020 are green; SCN-021 retrieval-failure handling is next |
 | Verification | In progress | Pytest: 58 passed; selected BDD: 20 scenarios / 77 steps passed; Gherkin parity: 28 scenarios |
+| Safety & Compliance | Implemented for current slice | Trading advice, KYC, AML, complaint, unsupported deposit policy, and mixed-intent cases route fail-closed |
 
 ## Immediate next actions
 
@@ -123,10 +117,13 @@ Create an ADR only when the corresponding decision is ready for explicit compari
 | 2026-10-24 | Completed WBS-007.018 / SCN-018 through red-green-refactor; optional offline CLI mode now returns validated classification, answer text/status, citations, and review metadata while preserving the original classification-only command. |
 | 2026-10-24 | Completed WBS-007.019 / SCN-019 through red-green-refactor; a bounded four-kind offline evaluation now emits validated aggregate quality, review, latency, and honest cost-availability measurements. |
 | 2026-10-25 | Completed WBS-007.020 / SCN-020 through red-green-refactor; three configurations now have low/base/high projections at 10,000 tickets/month, while the evidence gate correctly returns no-go. |
+| 2026-10-25 | Integrated procedural deposit relevancy and abstention for unsupported deposit operations. |
+| 2026-10-25 | Integrated expanded trading-advice safety detection for recommendations, signals, price targets, and personalized leverage. |
+| 2026-10-25 | Integrated the PR #2 numerical projection and token assumptions with the evidence-gated SCN-020 business-case generator. |
+| 2026-10-25 | Synchronized the README demo commands, synthetic KB documentation, and 20/28 BDD scenario status. |
 
 ## Reporting rules
 
 - Update this file whenever a blocker, top risk, milestone, or work-package status changes.
 - Keep detailed task decomposition in `doc/WBS.md`; keep this page concise and current.
 - Close blockers and risks with an outcome note instead of deleting their history.
-
