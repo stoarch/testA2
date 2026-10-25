@@ -1,80 +1,56 @@
-# Technical Walkthrough & Evaluation Guide
+# Technical Walkthrough and Evaluation Guide
 
-## 1. Quick Technical Overview
+## Prototype overview
 
-The **Valetax Support Co-Pilot** is an agent-assist prototype designed to assist retail Forex/CFD customer support teams. It classifies support tickets, retrieves verified evidence from allowlisted knowledge sources, generates cited response drafts, and enforces safety boundaries by escalating sensitive or unsupported queries to human reviewers.
+The Valetax Support Ticket Co-Pilot is a deterministic, offline agent-assist prototype. It classifies support tickets, retrieves allowlisted passages from a synthetic KB fixture, produces a cited extractive deposit draft when supported, and fails closed to abstention or human review for unsupported and safety-sensitive requests.
 
-Key Architectural Guarantees:
-- **Fail-Closed Safety**: Requests involving trading advice, price targets, trading signals, personalized leverage, KYC outcomes, or complaints are routed to human review with explicit review reasons.
-- **Strict Evidence Grounding**: Answers are generated only when supported by approved knowledge base passages. Unsupported operations (such as deposit cancellation or unknown fees/limits) trigger an explicit abstention.
-- **Deterministic Offline Processing**: Built with Python 3.12+ and Pydantic v2, operating credential-free and offline without external LLM dependencies.
+It has no live Valetax ingestion, generative LLM, external integration, customer auto-send operation, or production deployment.
 
----
+## Five-minute reviewer demonstration
 
-## 2. Five-Minute Reviewer Demonstration
+Install once with `python -m pip install -e ".[dev]"`, then run from the repository root.
 
-Run the five CLI demonstration commands to verify all core ticket processing outcomes:
-
-### Outcome 1: Grounded Operational Answer with Citation
 ```bash
+# Grounded extractive deposit draft with structured citation
 support-copilot --ticket-id DEMO-001 --text "How do I make a deposit?" --kb-snapshot tests/fixtures/kb/synthetic_snapshot.json
-```
-*Expected Result*: Returns `answer_status: "drafted"`, extractive deposit instructions, and a structured citation pointing to `https://valetax.com/how-to-deposit/`.
 
-### Outcome 2: Abstention for Unsupported Policy (Deposit Cancellation)
-```bash
+# Explicit abstention for an unsupported deposit operation
 support-copilot --ticket-id DEMO-002 --text "Can I cancel my deposit?" --kb-snapshot tests/fixtures/kb/synthetic_snapshot.json
-```
-*Expected Result*: Returns `answer_status: "abstained"`, `human_review_required: true`, and `review_reasons: ["insufficient_knowledge"]`.
 
-### Outcome 3: Refusal of Prohibited Trading Advice
-```bash
+# Trading-advice refusal
 support-copilot --ticket-id DEMO-003 --text "Should I buy EUR/USD?" --kb-snapshot tests/fixtures/kb/synthetic_snapshot.json
-```
-*Expected Result*: Returns `answer_status: "refused"`, polite refusal message without financial advice, `safety_flags: ["trading_advice"]`, and `human_review_required: true`.
 
-### Outcome 4: Human Escalation for KYC Outcome Request
-```bash
+# KYC and AML human-review routes
 support-copilot --ticket-id DEMO-004 --text "Please approve my KYC verification." --kb-snapshot tests/fixtures/kb/synthetic_snapshot.json
-```
-*Expected Result*: Returns `answer_status: "routed"`, neutral acknowledgement, `safety_flags: ["kyc_decision"]`, and `review_reasons: ["KYC"]`.
+support-copilot --ticket-id DEMO-005 --text "Should we release this AML-flagged transaction?" --kb-snapshot tests/fixtures/kb/synthetic_snapshot.json
 
-### Outcome 5: Aggregate Offline Evaluation Report
-```bash
+# Aggregate metrics from four synthetic evaluation cases
 support-copilot --evaluation-set tests/fixtures/evaluation/synthetic_evaluation_set.json --kb-snapshot tests/fixtures/kb/synthetic_snapshot.json
 ```
-*Expected Result*: Emits aggregate metrics covering classification accuracy, safety accuracy, grounding accuracy, review rate, latency, and cost availability.
 
----
+Ticket and evaluation modes emit JSON. The KB and evaluation inputs are synthetic fixtures, not live or statistically representative operating data.
 
-## 3. Business Case Summary
+## Business-case decision
 
-The complete economic analysis for 10,000 tickets/month is located in [`reports/business-case.md`](../reports/business-case.md).
-
-Key Findings:
-- **Baseline (Human-Only)**: $40,000 / month ($4.00 / ticket at 8 min AHT).
-- **Configuration A (Deterministic Prototype - Phase 1)**: $31,550 / month ($3.16 / ticket) -> **$8,450 / month net savings ($101.4k/year)**.
-- **Configuration C (Hybrid - Phase 2 Recommended)**: $16,735 / month ($1.67 / ticket) -> **$23,265 / month net savings ($279.2k/year)**.
-
----
-
-## 4. Test Verification Suite
-
-Execute the full verification suite:
+[`reports/business-case.md`](../reports/business-case.md) is generated from [`reports/business-case-input.json`](../reports/business-case-input.json):
 
 ```bash
-# 1. Run all Pytest unit, integration, and E2E tests
-uv run pytest -q
-
-# 2. Run implemented Behave BDD feature scenarios
-uv run behave bdd/features --tags=@must
-
-# 3. Validate Gherkin specification parity
-uv run python bdd/validate_gherkin.py
-
-# 4. Validate Architecture Decisions and PlantUML models
-uv run python scripts/validate_architecture_docs.py
-
-# 5. Code quality and formatting checks
-uv run ruff check src tests bdd/features/steps
+support-copilot --business-case-input reports/business-case-input.json
+support-copilot --business-case-input reports/business-case-input.json --business-case-format json
 ```
+
+Markdown is the default output; JSON is optional. Under the base assumptions, configurations A, B, and C have modeled monthly net values of USD 5,100, USD 6,137.50, and USD 8,830 respectively. These are projections, not measured savings. The authoritative decision is **no-go for deployment** because configuration A has only four synthetic evaluation cases and configurations B/C have no measured quality evidence.
+
+The older figures retained in [`reports/pr2-business-case-assumptions.md`](../reports/pr2-business-case-assumptions.md) are explicitly illustrative history and do not override that decision.
+
+## Verification suite
+
+```bash
+python -m pytest -q
+ruff check src tests bdd/features/steps
+python -m behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004 --name=SCN-005 --name=SCN-006 --name=SCN-007 --name=SCN-008 --name=SCN-009 --name=SCN-010 --name=SCN-011 --name=SCN-012 --name=SCN-013 --name=SCN-014 --name=SCN-015 --name=SCN-016 --name=SCN-017 --name=SCN-018 --name=SCN-019 --name=SCN-020
+python bdd/validate_gherkin.py
+python scripts/validate_architecture_docs.py
+```
+
+The BDD selection matches [GitHub CI](../.github/workflows/ci.yml) and deliberately runs only the 20 implemented scenarios. The eight remaining roadmap scenarios are planned work, not requirements for this submission.

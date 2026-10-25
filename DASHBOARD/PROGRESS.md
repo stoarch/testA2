@@ -1,28 +1,30 @@
 # Project Progress Dashboard
 
-> **CURRENT: Domain implementation** · **NEXT: SCN-021 retrieval failure**
+> **CURRENT: Submission-ready prototype** · **NEXT: Share for take-home review**
 >
-> **Scenario implementation:** `██████████████░░░░░░` **71%** · 20 of 28 BDD scenarios passing
+> **Scenario implementation:** `██████████████░░░░░░` **71.4%** · 20 of 28 BDD scenarios implemented; 8 intentionally planned
 
 ```mermaid
 flowchart LR
     M1["✓ Definition<br/>WBS-001–002"] --> M2["✓ Architecture<br/>WBS-003–004"]
     M2 --> M3["✓ Foundation<br/>WBS-005–006"]
-    M3 --> M4["▶ Domain increments<br/>WBS-007 · 20/28 scenarios"]
-    M4 --> M5["◆ Quality verification<br/>WBS-008 · in progress"]
-    M5 --> M6["○ Release readiness<br/>WBS-009–010"]
+    M3 --> M4["✓ Prototype scope<br/>SCN-001–020 · 20/28"]
+    M4 --> M5["✓ Submission verification<br/>83 pytest · 20 BDD"]
+    M5 --> M6["○ Production readiness<br/>Phase 2"]
 
     classDef done fill:#dcfce7,stroke:#15803d,color:#14532d,stroke-width:2px;
-    class M1,M2,M3,M4,M5,M6 done;
+    classDef planned fill:#f8fafc,stroke:#64748b,color:#334155,stroke-width:2px;
+    class M1,M2,M3,M4,M5 done;
+    class M6 planned;
 ```
 
 `✓ Done` · `▶ Active` · `○ Planned Phase 2`
 
 - Last updated: 2026-10-25
-- Overall state: In progress - engineering foundation complete and first twenty implementation scenarios green
-- Current phase: Domain implementation
-- Current task: [`WBS-007`](../doc/tasks/WBS-007.md) - Implement domain increments; next code slice is `WBS-007.021 / SCN-021`
-- Completed work packages: WBS-001, WBS-002, WBS-003, WBS-004, WBS-005, WBS-006
+- Overall state: Submission-ready prototype; production deployment remains out of scope
+- Current phase: Final take-home documentation and verification complete
+- Current task: Share the verified prototype for review; no further development increment is required for submission
+- Completed prototype scope: WBS-001 through WBS-006 and WBS-007.001 through WBS-007.020
 - Latest architecture execution: [`WBS-004 execution 001`](../doc/tasks/WBS-004-execution-001.md)
 - Latest planning execution: [`WBS-005 execution 001`](../doc/tasks/WBS-005-execution-001.md)
 - Latest foundation execution: [`WBS-006 execution 001`](../doc/tasks/WBS-006-execution-001.md)
@@ -42,15 +44,15 @@ flowchart LR
 | UML models | Done for baseline | WBS-004 passed; six authoritative PlantUML views include trust boundaries and implementation state |
 | Delivery plan | Done | WBS-005 defines ten owned, estimated, dependency-ordered, verifiable increments in a 4h25m timebox |
 | Engineering foundation | Done | Python 3.12+ packaging, Pydantic, CLI, pytest, Behave, Ruff, quickstart, and CI gate are present |
-| Implementation | In progress | SCN-001 through SCN-020 are green; SCN-021 retrieval-failure handling is next |
-| Verification | In progress | Pytest: 58 passed; selected BDD: 20 scenarios / 77 steps passed; Gherkin parity: 28 scenarios |
+| Implementation | Submission-ready | SCN-001 through SCN-020 are green (20/28, 71.4%); SCN-021 through SCN-028 remain intentional roadmap work |
+| Verification | Done for submission | Pytest: 83 passed; selected BDD: 20 scenarios / 77 steps passed; Gherkin parity: 28 scenarios |
 | Safety & Compliance | Implemented for current slice | Trading advice, KYC, AML, complaint, unsupported deposit policy, and mixed-intent cases route fail-closed |
 
-## Immediate next actions
+## Post-submission roadmap (not submission blockers)
 
 | Priority | Action | Owner | Target | Related item |
 |---|---|---|---|---|
-| P0 | Fail safely when retrieval is unavailable | Engineer / QA | Next increment | WBS-007.021 / SCN-021 |
+| P0 | Fail safely when retrieval is unavailable | Engineer / QA | Future increment | WBS-007.021 / SCN-021 |
 | P0 | Build at least 30 labeled routine/risky/conflict/multilingual/adversarial fixtures | QA / Engineer | Increment 9 | WBS-008 / REQ-114 |
 | P1 | Add PlantUML rendering to CI | Engineer | Architecture follow-up | WBS-008 |
 | P1 | Replace modeled business-case assumptions with measured operating inputs | Support operations | Before deployment decision | REQ-014 / OQ-005 |

@@ -1,21 +1,25 @@
 # Known Limitations
 
-- Only SCN-001 through SCN-020 have executable step definitions and passing production behavior.
-- Category recognition identifies only the case-insensitive marker `withdraw`; other text becomes `other`. Urgency, English-language, and negative-sentiment recognition use narrow deterministic markers and are not yet evaluated.
-- Pydantic classification and auditable-result contracts, the classification CLI, optional full-result offline CLI mode, a persisted synthetic KB snapshot, allowlisted section retrieval, snapshot integration tests, and classification/full-result subprocess E2E tests are implemented. Full-result mode requires an explicit local snapshot path and supports the implemented deposit-draft, deterministic safety, and generic abstention paths. The audit aggregate is not persisted to an audit store.
-- One extractive synthetic deposit draft, its structured provenance citation, exact numeric-duration validation, explicit same-detail duration-conflict abstention with both citations, typed fee/verification coverage abstentions with canonical `insufficient_knowledge` routing, narrow direct currency-pair and personalized-leverage refusals, explicit KYC/complaint outcome routing, and caller-supplied classification/grounding confidence routing are implemented. Conflict detection requires the requested-detail phrase and distinct numeric minute/hour/day/week claims; general semantic or nonnumeric contradiction detection is not implemented. Confidence thresholds are validated and recorded, but calibration and evaluation-set tuning are not implemented. Verification coverage is exact-phrase only; safety detection uses bounded patterns, KYC routing requires verification context plus approval/rejection language, and complaint routing requires complaint context plus uphold/reject/deny language. General semantic claim validation, AML routing, broader or obfuscated safety intents, live KB fetching/refresh, generative drafting, provider adapters, and grounded-answer E2E paths are not implemented.
-- A bounded four-case synthetic evaluation set and schema-valid aggregate JSON report are implemented. It covers one normal, gap, conflict, and safety case with explicit metric denominators, p50/p95 latency, review metrics, and honest cost availability. The conflict-labeled case currently routes safely but reports `insufficient_knowledge` instead of `source_conflict`. This fixture does not satisfy the separate 30+ routine/risky/contradictory/multilingual/unsupported/adversarial coverage target, and its zero critical violations cannot establish universal safety.
-- The one-page business case now calculates all three configurations under low/base/high assumptions at 10,000 tickets/month, but its staffing, handling-time, acceptance, provider, infrastructure, and maintenance values remain modeled estimates. It correctly returns no-go: configuration A has only four offline synthetic cases and configurations B/C have no measured quality evidence. No projected savings are measured operating results.
-- PlantUML sources are present, but automated rendering is not yet a CI gate.
-- No Git repository/commit evidence or repository link is currently available.
-- The synthetic snapshot and rules-only paths now form a bounded offline CLI demo. The classifier remains narrow, no web interface exists, and optional live-provider mode is not yet executable.
+The repository is a submission-ready, human-reviewed prototype, not a production system.
 
-## Additional integrated boundaries
+## Implemented boundary
 
-- **Implemented vs. Roadmap Scenarios**: Scenarios `SCN-001` through `SCN-019` are fully implemented and passing. Scenarios `SCN-020` through `SCN-028` are documented roadmap specifications reserved for Phase 2 scaling.
-- **Synthetic Offline Knowledge Base**: Phase 1 relies on checked-in synthetic JSON snapshots (`tests/fixtures/kb/synthetic_snapshot.json`) with allowlisted source URLs (`https://valetax.com/how-to-deposit/`, etc.). Live Valetax KB scraping, vector search, and automated KB synchronization remain Phase 2 work.
-- **Deposit Query Intent Boundary**: Extractive deposit drafts are returned strictly for explicit deposit how-to questions ("How do I make a deposit?"). Unsupported deposit operations (deposit cancellation, deposit fees, deposit limits/timelines, or ambiguous requests) return a typed abstention requiring human review.
-- **Trading Advice & Safety Routing**: Safety filters conservatively detect buy/sell recommendations, trading signals, price targets, personalized leverage requests, KYC decisions, and complaint outcomes. Obfuscated or highly complex adversarial prompt injections remain part of Phase 2 evaluation targets.
-- **Generative LLMs & External APIs**: The prototype operates entirely offline and deterministically without external LLM API calls or paid cloud infrastructure. Generative LLM drafting and live provider adapters are specified in Phase 2 architectural plans.
-- **Business Case Assumptions**: The numerical business case in `reports/business-case.md` models operating costs and labor savings at 10,000 tickets/month based on explicit non-measured operational estimates.
-- **Audit Store Persistence**: Audit metadata records are returned in Pydantic JSON responses per ticket execution; database/data warehouse audit log persistence is not included in Phase 1.
+- `SCN-001` through `SCN-020` are executable and passing: 20 of 28 roadmap scenarios (71.4%). The remaining eight are intentional future work, not submission blockers.
+- Classification has five outcomes: `deposit`, `withdrawal`, `account_opening`, `verification`, and `other`. No match or multiple category matches explicitly fall back to `other`.
+- The working offline path validates deposit intent, produces an extractive deposit how-to draft when approved evidence supports it, and otherwise abstains. Citations include structured source and snapshot provenance.
+- Deterministic safety rules refuse buy/sell recommendations, trading signals, price targets, and personalized leverage choices. KYC, AML, and complaint outcome requests route to human review.
+- The CLI supports classification, offline ticket processing, a four-case synthetic evaluation, and evidence-gated business-case generation. Automated pytest, Behave, Ruff, Gherkin-parity, architecture-document, and GitHub CI checks are present.
+- The business case compares three configurations and can project positive value under modeled assumptions, but currently returns **no-go for deployment** because quality evidence is insufficient.
+
+## Intentional limitations
+
+- The KB is a checked-in synthetic offline fixture, not live Valetax page ingestion, search, or synchronization.
+- The end-to-end drafting path is extractive and deposit-only; other supported classifications do not imply general answer generation.
+- No generative LLM or external model-provider integration is implemented.
+- Classification and safety detection use bounded, English-oriented deterministic patterns. They are not reliable multilingual or adversarial semantic classifiers.
+- Evaluation contains four synthetic cases, which is insufficient for statistical performance or universal safety claims; the separate 30+ case target remains future validation work.
+- Semantic grounding is limited. Timeline conflict detection depends on requested-detail phrases and distinct numeric duration claims; broader semantic and nonnumeric contradiction detection is absent.
+- Confidence thresholds are recorded but not statistically calibrated. Verification coverage and safety routing remain pattern-bound and can miss obfuscated intent.
+- Audit metadata is returned in each response but is not persisted. There is no production review queue, database, live KB, customer system, or other external integration.
+- There is no production deployment or customer auto-send path. Security, privacy, capacity, monitoring, and operational ownership require separate Phase 2 work.
+- PlantUML sources are maintained, but rendered-diagram validation is not a CI gate.
