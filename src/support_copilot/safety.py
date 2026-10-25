@@ -24,6 +24,13 @@ _OUTCOME_DECISION_PATTERN = re.compile(
     r"|(?:\b(?:approve|reject)\b.{0,80})",
     flags=re.IGNORECASE,
 )
+_AML_CONTEXT_PATTERN = re.compile(
+    r"\b(?:AML|anti.money.laundering|suspicious transaction)\b", flags=re.IGNORECASE
+)
+_AML_DECISION_PATTERN = re.compile(
+    r"\b(?:approve|reject|clear|flag|freeze|unfreeze|release|pass|fail)\b",
+    flags=re.IGNORECASE,
+)
 _COMPLAINT_CONTEXT_PATTERN = re.compile(r"\bcomplaint\b", flags=re.IGNORECASE)
 _COMPLAINT_DECISION_PATTERN = re.compile(
     r"\b(?:uphold|upheld|reject|rejected|deny|denied)\b",
@@ -49,6 +56,7 @@ class SafetyFlag(StrEnum):
     TRADING_ADVICE = "trading_advice"
     KYC_DECISION = "kyc_decision"
     COMPLAINT_DECISION = "complaint_decision"
+    AML_DECISION = "aml_decision"
 
 
 class SafetyResult(BaseModel):
@@ -119,6 +127,12 @@ def _is_complaint_decision_request(text: str) -> bool:
 def _sensitive_outcome_route(
     text: str,
 ) -> tuple[str, SafetyFlag, ReviewReason] | None:
+    if _AML_CONTEXT_PATTERN.search(text) and _AML_DECISION_PATTERN.search(text):
+        return (
+            "Your request requires a human compliance review.",
+            SafetyFlag.AML_DECISION,
+            ReviewReason.AML,
+        )
     if _is_kyc_outcome_request(text):
         return _KYC_ACKNOWLEDGEMENT, SafetyFlag.KYC_DECISION, ReviewReason.KYC
     if _is_complaint_decision_request(text):

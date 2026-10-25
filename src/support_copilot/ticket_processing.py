@@ -10,11 +10,22 @@ from support_copilot.contracts import (
 
 def classify_category(text: str) -> TicketCategory:
     normalized_text = text.casefold()
-    withdrawal_markers = ("withdraw",)
-
-    if any(marker in normalized_text for marker in withdrawal_markers):
-        return TicketCategory.WITHDRAWAL
-    return TicketCategory.OTHER
+    markers = {
+        TicketCategory.WITHDRAWAL: ("withdraw", "payout"),
+        TicketCategory.DEPOSIT: ("deposit", "fund my account", "add funds"),
+        TicketCategory.ACCOUNT_OPENING: (
+            "open an account",
+            "create an account",
+            "sign up",
+            "registration",
+        ),
+        TicketCategory.VERIFICATION: ("verify", "verification", "kyc", "upload documents"),
+    }
+    matches = [
+        category for category, keywords in markers.items()
+        if any(keyword in normalized_text for keyword in keywords)
+    ]
+    return matches[0] if len(matches) == 1 else TicketCategory.OTHER
 
 
 def classify_urgency(text: str) -> TicketUrgency:

@@ -1,34 +1,26 @@
-# Valetax Support Co-Pilot Business Case
+# Valetax support co-pilot — one-page business case (illustrative)
 
-- Status: Draft - awaiting measured evaluation and operating inputs
-- Planning volume: 10,000 tickets/month
-- Evidence rule: projections are estimates, not measured savings
+**Decision:** At 10,000 tickets/month, pilot **A: deterministic/extractive assist with mandatory human approval** first. Evaluate **C: hybrid** as the scale-up candidate only after measured quality, acceptance, and review-time data. Do not infer savings from synthetic tests.
 
-## Configurations
+## Inputs and assumptions (not measured Valetax data)
 
-| Configuration | Description | Expected tradeoff |
-|---|---|---|
-| A | Deterministic retrieval and template drafts | Lowest variable cost and risk; narrower coverage |
-| B | Guarded LLM-assisted drafting | Broader language flexibility; higher cost and validation burden |
-| C | Hybrid routing with selective LLM usage | Uses deterministic paths where possible and reserves LLM calls for eligible tickets |
+- Monthly tickets: **10,000**; baseline handling time: **6 min/ticket**; fully loaded support cost: **$15/hour**.
+- Assumed share of tickets eligible for useful drafts: **60%**; no staffing reduction is assumed. Savings represent recoverable staff capacity, not guaranteed cash savings.
+- The configurations below assume no automated sending and humans retain KYC/AML/complaint decisions.
+- Cost estimates for provider/infrastructure/maintenance are **scenario assumptions**, not vendor quotes or measured tokens.
 
-## Required inputs
+| Configuration | Accepted useful drafts as % of all tickets | Net minutes saved per accepted draft (including review/edit) | Monthly saved hours | Labor capacity value | Monthly run + maintenance cost | Net monthly value |
+|---|---:|---:|---:|---:|---:|---:|
+| A: Deterministic templates/extractive (Phase 1) | 30% | 2.5 | 125 | $1,875 | $650 | **+$1,225** |
+| B: Guarded LLM drafts on eligible tickets | 42% | 3.0 | 210 | $3,150 | $1,700 | **+$1,450** |
+| C: Hybrid deterministic + selective LLM (Phase 2 candidate) | 40% | 3.0 | 200 | $3,000 | $1,100 | **+$1,900** |
 
-Baseline handling minutes, loaded labor cost, eligible-ticket share, acceptance/edit/review rates, provider token prices, measured tokens, infrastructure cost, maintenance cost, and evaluation-derived error rates remain `TBD` until measured or supplied.
+**Formula:** `net/month = 10,000 × accepted_fraction × net_minutes_saved / 60 × $15 − monthly_run_cost`. These are alternative scenarios, not additive benefits. Baseline labor time is `10,000 × 6 / 60 = 1,000 hours/month` ($15,000/month). The 60% eligible-share assumption caps the accepted fractions above.
 
-## Calculations
+**Break-even accepted-ticket fraction:** A **10.4%**, B **22.7%**, C **14.7%**, at each configuration's net saved minutes and cost. If the acceptance rate or handling-time benefit falls short, the configuration may not pay for itself.
 
-- Baseline hours = `10,000 * baseline_minutes / 60`
-- Assisted hours = review, edit, exception, and escalation hours under each configuration
-- Labor benefit = `(baseline_hours - assisted_hours) * loaded_hourly_cost`
-- Monthly cost = provider + infrastructure + maintenance + review overhead
-- Net monthly benefit = labor benefit - monthly cost
-- Break-even acceptance rate or volume is solved where net monthly benefit equals zero
+**A sensitivity at 10,000 tickets/month:** pessimistic `15% × 1.5 min` => $562.50 capacity value − $650 = **−$87.50/month**; base **+$1,225/month**; optimistic `45% × 3 min` => $3,375 − $650 = **+$2,725/month**. The estimates intentionally exclude one-off development costs and safety-error losses, which should be tracked separately in pilot evaluation.
 
-## Sensitivity cases
+## Operational gate
 
-Each configuration must show low/base/high assumptions for acceptance rate, review time, token usage, provider price, maintenance, and error-driven rework.
-
-## Current recommendation
-
-No deployment configuration is justified yet because the repository lacks measured end-to-end quality, handling-time, review-rate, latency, and cost evidence. The next decision point follows the 30+ ticket evaluation and subprocess CLI E2E run.
+Run an agent-in-the-loop pilot, **never customer-autosend**. Label ≥30 representative cases, including unsupported policy, conflict, injection, multilingual, and prohibited financial advice. Measure grounded citation validity, critical safety violations, classification, abstention/route precision-recall, agent acceptance/edit time, p50/p95 latency, actual tokens and provider prices. **Do not launch without zero observed critical violations on the pilot set, an explicit human override, and compliance approval**; zero in a small set is not proof of safety. Choose C over A only if measured extra value exceeds its extra costs while maintaining safety. At 10,000/month (~333/day), start with a simple worker; add queue, idempotency, retries, audit store and KB versioning only when peaks/SLA require them.
