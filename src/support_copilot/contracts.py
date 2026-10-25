@@ -27,7 +27,12 @@ class TicketSentiment(StrEnum):
 
 
 class ContractModel(BaseModel):
-    model_config = ConfigDict(extra="forbid", frozen=True, str_strip_whitespace=True)
+    model_config = ConfigDict(
+        extra="forbid",
+        frozen=True,
+        protected_namespaces=(),
+        str_strip_whitespace=True,
+    )
 
 
 class SupportTicket(ContractModel):
