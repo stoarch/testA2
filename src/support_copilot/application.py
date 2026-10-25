@@ -11,13 +11,22 @@ from support_copilot.audit import (
 )
 from support_copilot.contracts import SupportTicket
 from support_copilot.drafting import Citation, InsufficientEvidenceError, draft_deposit_answer
-from support_copilot.knowledge_base import load_snapshot, retrieve_passages
+from support_copilot.knowledge_base import (
+    RetrievalUnavailableError,
+    Retriever,
+    load_snapshot,
+    retrieve_passages,
+)
 from support_copilot.safety import SafetyFlag, SafetyResult, apply_safety_policy
 from support_copilot.ticket_processing import process_ticket
 
 DEFAULT_CONFIGURATION_ID = "deterministic-offline-v1"
 _UNSUPPORTED_ANSWER = (
     "The available knowledge base does not establish a supported answer. "
+    "A human reviewer must confirm it."
+)
+_RETRIEVAL_FAILURE_ANSWER = (
+    "We are temporarily unable to verify this answer against the knowledge base. "
     "A human reviewer must confirm it."
 )
 
@@ -49,13 +58,28 @@ def _decision_from_safety(result: SafetyResult) -> _OfflineDecision:
     )
 
 
-def _decision_from_knowledge(text: str, snapshot_path: Path) -> _OfflineDecision:
-    snapshot = load_snapshot(snapshot_path)
-    passages = retrieve_passages(
-        snapshot,
-        query=text,
-        retrieved_at=datetime.now(UTC),
+def _retrieval_failure_decision() -> _OfflineDecision:
+    return _OfflineDecision(
+        answer_status=AnswerStatus.ABSTAINED,
+        answer_text=_RETRIEVAL_FAILURE_ANSWER,
+        citations=(),
+        safety_flags=(),
+        human_review_required=True,
+        review_reasons=(ReviewReason.RETRIEVAL_FAILURE,),
     )
+
+
+def _decision_from_knowledge(
+    text: str,
+    snapshot_path: Path,
+    retriever: Retriever,
+) -> _OfflineDecision:
+    try:
+        snapshot = load_snapshot(snapshot_path)
+        passages = retriever(snapshot, text, datetime.now(UTC))
+    except RetrievalUnavailableError:
+        return _retrieval_failure_decision()
+
     # Do not answer fee/limit/timeline questions by returning an unrelated procedural paragraph.
     normalized = text.casefold()
     high_risk_details = (
@@ -113,6 +137,7 @@ def process_offline_ticket(
     text: str,
     snapshot_path: Path,
     configuration_id: str = DEFAULT_CONFIGURATION_ID,
+    retriever: Retriever = retrieve_passages,
 ) -> AuditableProcessingResult:
     started_at = perf_counter()
     classification = process_ticket(ticket_id=ticket_id, text=text)
@@ -121,7 +146,7 @@ def process_offline_ticket(
     decision = (
         _decision_from_safety(safety_result)
         if safety_result is not None
-        else _decision_from_knowledge(text, snapshot_path)
+        else _decision_from_knowledge(text, snapshot_path, retriever)
     )
 
     return build_auditable_result(

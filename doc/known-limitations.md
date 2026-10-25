@@ -4,9 +4,10 @@ The repository is a submission-ready, human-reviewed prototype, not a production
 
 ## Implemented boundary
 
-- `SCN-001` through `SCN-020` are executable and passing: 20 of 28 roadmap scenarios (71.4%). The remaining eight are intentional future work, not submission blockers.
+- `SCN-001` through `SCN-021` are executable and passing: 21 of 28 roadmap scenarios (75%). The remaining seven are intentional future work, not submission blockers.
 - Classification has five outcomes: `deposit`, `withdrawal`, `account_opening`, `verification`, and `other`. No match or multiple category matches explicitly fall back to `other`.
 - The working offline path validates deposit intent, produces an extractive deposit how-to draft when approved evidence supports it, and otherwise abstains. Citations include structured source and snapshot provenance.
+- Missing, unreadable, malformed, integrity-invalid, or explicitly unavailable retrieval dependencies return a typed `retrieval_failure` abstention with no citations and mandatory human review.
 - Deterministic safety rules refuse buy/sell recommendations, trading signals, price targets, and personalized leverage choices. KYC, AML, and complaint outcome requests route to human review.
 - The CLI supports classification, offline ticket processing, a four-case synthetic evaluation, and evidence-gated business-case generation. Automated pytest, Behave, Ruff, Gherkin-parity, architecture-document, and GitHub CI checks are present.
 - The business case compares three configurations and can project positive value under modeled assumptions, but currently returns **no-go for deployment** because quality evidence is insufficient.

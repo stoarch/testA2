@@ -3,6 +3,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+from support_copilot.abstention import ReviewReason
 from support_copilot.audit import AuditableProcessingResult
 from support_copilot.business_case import BusinessCaseReport
 from support_copilot.contracts import ProcessingResult
@@ -74,6 +75,42 @@ def test_cli_offline_mode_returns_auditable_draft_json() -> None:
     assert result.answer_text
     assert result.citations[0].source_id == "KB-001"
     assert result.human_review_required is False
+
+
+def test_cli_offline_mode_returns_auditable_abstention_when_snapshot_is_missing(
+    tmp_path: Path,
+) -> None:
+    environment = os.environ.copy()
+    environment["PYTHONPATH"] = str(PROJECT_ROOT / "src")
+    missing_snapshot = tmp_path / "missing-snapshot.json"
+
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "support_copilot",
+            "--ticket-id",
+            "TICKET-INTERFACE-E2E-KB-FAILURE",
+            "--text",
+            "How do I make a deposit?",
+            "--kb-snapshot",
+            str(missing_snapshot),
+        ],
+        cwd=PROJECT_ROOT,
+        env=environment,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert completed.returncode == 0, completed.stderr
+    result = AuditableProcessingResult.model_validate_json(completed.stdout)
+    assert result.ticket_id == "TICKET-INTERFACE-E2E-KB-FAILURE"
+    assert result.answer_status == "abstained"
+    assert result.citations == ()
+    assert result.human_review_required is True
+    assert result.review_reasons == (ReviewReason.RETRIEVAL_FAILURE,)
+    assert str(missing_snapshot) not in result.answer_text
 
 
 def test_cli_evaluation_mode_returns_schema_valid_aggregate_report() -> None:

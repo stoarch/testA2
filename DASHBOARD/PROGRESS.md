@@ -2,14 +2,14 @@
 
 > **CURRENT: Submission-ready prototype** · **NEXT: Share for take-home review**
 >
-> **Scenario implementation:** `██████████████░░░░░░` **71.4%** · 20 of 28 BDD scenarios implemented; 8 intentionally planned
+> **Scenario implementation:** `███████████████░░░░░` **75%** · 21 of 28 BDD scenarios implemented; 7 intentionally planned
 
 ```mermaid
 flowchart LR
     M1["✓ Definition<br/>WBS-001–002"] --> M2["✓ Architecture<br/>WBS-003–004"]
     M2 --> M3["✓ Foundation<br/>WBS-005–006"]
-    M3 --> M4["✓ Prototype scope<br/>SCN-001–020 · 20/28"]
-    M4 --> M5["✓ Submission verification<br/>83 pytest · 20 BDD"]
+    M3 --> M4["✓ Prototype scope<br/>SCN-001–021 · 21/28"]
+    M4 --> M5["✓ Submission verification<br/>95 pytest · 21 BDD"]
     M5 --> M6["○ Production readiness<br/>Phase 2"]
 
     classDef done fill:#dcfce7,stroke:#15803d,color:#14532d,stroke-width:2px;
@@ -24,12 +24,12 @@ flowchart LR
 - Overall state: Submission-ready prototype; production deployment remains out of scope
 - Current phase: Final take-home documentation and verification complete
 - Current task: Share the verified prototype for review; no further development increment is required for submission
-- Completed prototype scope: WBS-001 through WBS-006 and WBS-007.001 through WBS-007.020
+- Completed prototype scope: WBS-001 through WBS-006 and WBS-007.001 through WBS-007.021
 - Latest architecture execution: [`WBS-004 execution 001`](../doc/tasks/WBS-004-execution-001.md)
 - Latest planning execution: [`WBS-005 execution 001`](../doc/tasks/WBS-005-execution-001.md)
 - Latest foundation execution: [`WBS-006 execution 001`](../doc/tasks/WBS-006-execution-001.md)
-- Latest code execution: [`SCN-020 execution 001`](../bdd/executions/SCN-020-execution-001.md)
-- Integrated review work: deposit relevance and abstention, expanded trading-advice safety, synthetic citations/provenance, and numerical business-case documentation.
+- Latest code execution: [`SCN-021 execution 001`](../bdd/executions/SCN-021-execution-001.md)
+- Integrated review work: deposit relevance and abstention, expanded trading-advice safety, synthetic citations/provenance, retrieval-failure handling, and numerical business-case documentation.
 - Source of truth: [`doc/master-prompt.md`](../doc/master-prompt.md)
 - Work plan: [`doc/WBS.md`](../doc/WBS.md)
 - Business case: [`reports/business-case.md`](../reports/business-case.md)
@@ -44,15 +44,14 @@ flowchart LR
 | UML models | Done for baseline | WBS-004 passed; six authoritative PlantUML views include trust boundaries and implementation state |
 | Delivery plan | Done | WBS-005 defines ten owned, estimated, dependency-ordered, verifiable increments in a 4h25m timebox |
 | Engineering foundation | Done | Python 3.12+ packaging, Pydantic, CLI, pytest, Behave, Ruff, quickstart, and CI gate are present |
-| Implementation | Submission-ready | SCN-001 through SCN-020 are green (20/28, 71.4%); SCN-021 through SCN-028 remain intentional roadmap work |
-| Verification | Done for submission | Pytest: 83 passed; selected BDD: 20 scenarios / 77 steps passed; Gherkin parity: 28 scenarios |
+| Implementation | Submission-ready | SCN-001 through SCN-021 are green (21/28, 75%); SCN-022 through SCN-028 remain intentional roadmap work |
+| Verification | Done for submission | Pytest: 95 passed; selected BDD: 21 scenarios / 81 steps passed; Gherkin parity: 28 scenarios |
 | Safety & Compliance | Implemented for current slice | Trading advice, KYC, AML, complaint, unsupported deposit policy, and mixed-intent cases route fail-closed |
 
 ## Post-submission roadmap (not submission blockers)
 
 | Priority | Action | Owner | Target | Related item |
 |---|---|---|---|---|
-| P0 | Fail safely when retrieval is unavailable | Engineer / QA | Future increment | WBS-007.021 / SCN-021 |
 | P0 | Build at least 30 labeled routine/risky/conflict/multilingual/adversarial fixtures | QA / Engineer | Increment 9 | WBS-008 / REQ-114 |
 | P1 | Add PlantUML rendering to CI | Engineer | Architecture follow-up | WBS-008 |
 | P1 | Replace modeled business-case assumptions with measured operating inputs | Support operations | Before deployment decision | REQ-014 / OQ-005 |
@@ -123,6 +122,7 @@ Create an ADR only when the corresponding decision is ready for explicit compari
 | 2026-10-25 | Integrated expanded trading-advice safety detection for recommendations, signals, price targets, and personalized leverage. |
 | 2026-10-25 | Integrated the PR #2 numerical projection and token assumptions with the evidence-gated SCN-020 business-case generator. |
 | 2026-10-25 | Synchronized the README demo commands, synthetic KB documentation, and 20/28 BDD scenario status. |
+| 2026-10-25 | Completed WBS-007.021 / SCN-021; unavailable or invalid KB data now returns a typed fail-closed abstention while deterministic safety routing remains first. |
 
 ## Reporting rules
 

@@ -24,11 +24,12 @@ Step definitions are added one scenario at a time through red-green-refactor.
 | SCN-018 | [`interface_steps.py`](interface_steps.py) | Passing |
 | SCN-019 | [`evaluation_steps.py`](evaluation_steps.py) | Passing |
 | SCN-020 | [`business_case_steps.py`](business_case_steps.py) | Passing |
+| SCN-021 | [`failure_steps.py`](failure_steps.py) | Passing |
 
 Run the implemented first scenario with:
 
 ```text
-behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004 --name=SCN-005 --name=SCN-006 --name=SCN-007 --name=SCN-008 --name=SCN-009 --name=SCN-010 --name=SCN-011 --name=SCN-012 --name=SCN-013 --name=SCN-014 --name=SCN-015 --name=SCN-016 --name=SCN-017 --name=SCN-018 --name=SCN-019 --name=SCN-020
+behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004 --name=SCN-005 --name=SCN-006 --name=SCN-007 --name=SCN-008 --name=SCN-009 --name=SCN-010 --name=SCN-011 --name=SCN-012 --name=SCN-013 --name=SCN-014 --name=SCN-015 --name=SCN-016 --name=SCN-017 --name=SCN-018 --name=SCN-019 --name=SCN-020 --name=SCN-021
 ```
 
 The remaining scenarios intentionally have undefined steps until their implementation increments begin.

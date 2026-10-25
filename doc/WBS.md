@@ -69,7 +69,7 @@ Latest execution: [`WBS-002 execution 002`](tasks/WBS-002-execution-002.md). The
 - [x] **WBS-007.018 / SCN-018** - process a ticket through the minimal agent interface ([execution evidence](../bdd/executions/SCN-018-execution-001.md))
 - [x] **WBS-007.019 / SCN-019** - report evaluation measurements for labeled normal, gap, conflict, and safety cases ([execution evidence](../bdd/executions/SCN-019-execution-001.md))
 - [x] **WBS-007.020 / SCN-020** - compare operating configurations at 10,000 tickets per month and state a justified recommendation ([execution evidence](../bdd/executions/SCN-020-execution-001.md))
-- [ ] **WBS-007.021 / SCN-021** - fail safely when retrieval is unavailable
+- [x] **WBS-007.021 / SCN-021** - fail safely when retrieval is unavailable ([execution evidence](../bdd/executions/SCN-021-execution-001.md))
 
 WBS-007 remains in progress until the prioritized domain increments are complete. WBS-008 is also in progress because functional verification has begun, while E2E and non-functional checks remain outstanding.
 

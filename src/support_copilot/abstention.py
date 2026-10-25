@@ -28,6 +28,7 @@ class ReviewReason(StrEnum):
     INSUFFICIENT_KB_COVERAGE = "insufficient_knowledge"
     LOW_CONFIDENCE = "low_confidence"
     SOURCE_CONFLICT = "source_conflict"
+    RETRIEVAL_FAILURE = "retrieval_failure"
     TRADING_ADVICE = "trading_advice"
     KYC = "KYC"
     AML = "AML"

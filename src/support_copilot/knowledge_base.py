@@ -1,9 +1,10 @@
 import hashlib
 import re
+from collections.abc import Callable
 from datetime import datetime
 from pathlib import Path
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 APPROVED_SOURCE_URLS = frozenset(
     {
@@ -51,6 +52,13 @@ class RetrievedPassage(KnowledgeBaseModel):
     synthetic: bool
 
 
+class RetrievalUnavailableError(RuntimeError):
+    """The configured knowledge base could not be loaded, validated, or queried."""
+
+
+Retriever = Callable[[KBSnapshot, str, datetime], list[RetrievedPassage]]
+
+
 def compute_document_hash(document: SourceDocument) -> str:
     section_content = "\n".join(
         f"{section.heading}\n{section.text}" for section in document.sections
@@ -67,8 +75,20 @@ def validate_snapshot_integrity(snapshot: KBSnapshot) -> None:
 
 
 def load_snapshot(path: Path) -> KBSnapshot:
-    snapshot = KBSnapshot.model_validate_json(path.read_text(encoding="utf-8"))
-    validate_snapshot_integrity(snapshot)
+    try:
+        raw_snapshot = path.read_text(encoding="utf-8")
+    except (OSError, UnicodeError) as error:
+        raise RetrievalUnavailableError("Knowledge-base snapshot is unavailable") from error
+
+    try:
+        snapshot = KBSnapshot.model_validate_json(raw_snapshot)
+    except ValidationError as error:
+        raise RetrievalUnavailableError("Knowledge-base snapshot is invalid") from error
+
+    try:
+        validate_snapshot_integrity(snapshot)
+    except ValueError as error:
+        raise RetrievalUnavailableError("Knowledge-base snapshot integrity check failed") from error
     return snapshot
 
 

@@ -48,9 +48,9 @@ The older figures retained in [`reports/pr2-business-case-assumptions.md`](../re
 ```bash
 python -m pytest -q
 ruff check src tests bdd/features/steps
-python -m behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004 --name=SCN-005 --name=SCN-006 --name=SCN-007 --name=SCN-008 --name=SCN-009 --name=SCN-010 --name=SCN-011 --name=SCN-012 --name=SCN-013 --name=SCN-014 --name=SCN-015 --name=SCN-016 --name=SCN-017 --name=SCN-018 --name=SCN-019 --name=SCN-020
+python -m behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004 --name=SCN-005 --name=SCN-006 --name=SCN-007 --name=SCN-008 --name=SCN-009 --name=SCN-010 --name=SCN-011 --name=SCN-012 --name=SCN-013 --name=SCN-014 --name=SCN-015 --name=SCN-016 --name=SCN-017 --name=SCN-018 --name=SCN-019 --name=SCN-020 --name=SCN-021
 python bdd/validate_gherkin.py
 python scripts/validate_architecture_docs.py
 ```
 
-The BDD selection matches [GitHub CI](../.github/workflows/ci.yml) and deliberately runs only the 20 implemented scenarios. The eight remaining roadmap scenarios are planned work, not requirements for this submission.
+The BDD selection matches [GitHub CI](../.github/workflows/ci.yml) and deliberately runs only the 21 implemented scenarios. The seven remaining roadmap scenarios are planned work, not requirements for this submission.

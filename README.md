@@ -12,9 +12,10 @@ This is a timeboxed prototype for reviewer evaluation, not a production deployme
 - An extractive deposit how-to draft with structured provenance; unsupported, ambiguous, or uncovered deposit requests abstain.
 - Refusal of buy/sell advice, trading signals, price targets, and personalized leverage recommendations.
 - Human-review routing for KYC, AML, complaint outcomes, low confidence, insufficient knowledge, and explicit source conflicts.
+- Fail-closed, schema-valid abstention when the synthetic KB cannot be loaded, validated, or queried.
 - A four-case synthetic evaluation and an evidence-gated comparison of three operating configurations.
 
-The implemented acceptance slice is `SCN-001` through `SCN-020`: 20 of 28 roadmap scenarios (71.4%). The remaining eight scenarios are intentional future work and are not required for this submission.
+The implemented acceptance slice is `SCN-001` through `SCN-021`: 21 of 28 roadmap scenarios (75%). The remaining seven scenarios are intentional future work and are not required for this submission.
 
 ## Quickstart
 
@@ -48,6 +49,12 @@ Explicit abstention for an unsupported deposit operation:
 support-copilot --ticket-id DEMO-002 --text "Can I cancel my deposit?" --kb-snapshot tests/fixtures/kb/synthetic_snapshot.json
 ```
 
+Fail-closed abstention when the KB snapshot is unavailable:
+
+```bash
+support-copilot --ticket-id DEMO-KB-FAILURE --text "How do I make a deposit?" --kb-snapshot tests/fixtures/kb/does-not-exist.json
+```
+
 Trading-advice refusal:
 
 ```bash
@@ -76,7 +83,7 @@ Run the same implemented BDD selection used by [CI](.github/workflows/ci.yml):
 ```bash
 python -m pytest -q
 ruff check src tests bdd/features/steps
-python -m behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004 --name=SCN-005 --name=SCN-006 --name=SCN-007 --name=SCN-008 --name=SCN-009 --name=SCN-010 --name=SCN-011 --name=SCN-012 --name=SCN-013 --name=SCN-014 --name=SCN-015 --name=SCN-016 --name=SCN-017 --name=SCN-018 --name=SCN-019 --name=SCN-020
+python -m behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004 --name=SCN-005 --name=SCN-006 --name=SCN-007 --name=SCN-008 --name=SCN-009 --name=SCN-010 --name=SCN-011 --name=SCN-012 --name=SCN-013 --name=SCN-014 --name=SCN-015 --name=SCN-016 --name=SCN-017 --name=SCN-018 --name=SCN-019 --name=SCN-020 --name=SCN-021
 python bdd/validate_gherkin.py
 python scripts/validate_architecture_docs.py
 ```
