@@ -5,6 +5,32 @@ An agent-assist prototype for classifying retail Forex/CFD support tickets, retr
 The governing specification is [`doc/master-prompt.md`](doc/master-prompt.md). Current delivery status is tracked in [`DASHBOARD/PROGRESS.md`](DASHBOARD/PROGRESS.md). The numerical business case for 10,000 tickets/month is in [`reports/business-case.md`](reports/business-case.md).
 
 ---
+## Demo scope and decision support
+
+This is an **agent-assist test-task prototype**, not a production deployment. The CLI
+runs against an explicitly **synthetic offline snapshot**; it never contacts customers.
+Four common category intents are classified by bounded keyword rules; ambiguity falls
+back to `other`. Procedural deposit answers can be extracted with a synthetic citation.
+Other topics and fee/timeline/limit questions safely abstain until verified live KB
+sources or further domain-specific answer rules are incorporated. Human review is mandatory
+for abstentions and sensitive outcomes including AML. No production KB ingestion, model
+provider, calibration or general multilingual NLP is claimed.
+
+See [`reports/business-case.md`](reports/business-case.md) for the numerical three-configuration
+business case (all assumptions explicitly illustrative), and
+[`doc/phase-2-scaling.md`](doc/phase-2-scaling.md) for scale-up design.
+
+### Five-minute technical demo
+
+```shell
+support-copilot --ticket-id DEMO-1 --text "How do I make a deposit?" --kb-snapshot tests/fixtures/kb/synthetic_snapshot.json
+support-copilot --ticket-id DEMO-2 --text "What is the deposit fee?" --kb-snapshot tests/fixtures/kb/synthetic_snapshot.json
+support-copilot --ticket-id DEMO-3 --text "Should I buy EUR/USD?" --kb-snapshot tests/fixtures/kb/synthetic_snapshot.json
+support-copilot --ticket-id DEMO-4 --text "Should we release this AML-flagged transaction?" --kb-snapshot tests/fixtures/kb/synthetic_snapshot.json
+support-copilot --evaluation-set tests/fixtures/evaluation/synthetic_evaluation_set.json --kb-snapshot tests/fixtures/kb/synthetic_snapshot.json
+```
+
+## Current implemented slice
 
 ## Architecture & Implementation Overview
 
