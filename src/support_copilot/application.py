@@ -57,7 +57,7 @@ def _decision_from_knowledge(text: str, snapshot_path: Path) -> _OfflineDecision
         retrieved_at=datetime.now(UTC),
     )
     try:
-        draft_result = draft_deposit_answer(passages)
+        draft_result = draft_deposit_answer(passages, query=text)
     except InsufficientEvidenceError:
         abstention = _unsupported_abstention()
         return _OfflineDecision(
