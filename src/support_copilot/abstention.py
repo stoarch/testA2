@@ -30,6 +30,7 @@ class ReviewReason(StrEnum):
     SOURCE_CONFLICT = "source_conflict"
     TRADING_ADVICE = "trading_advice"
     KYC = "KYC"
+    AML = "AML"
     COMPLAINT = "complaint"
 
 

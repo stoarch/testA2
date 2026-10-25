@@ -4,7 +4,10 @@ from pydantic import BaseModel, ConfigDict, Field
 
 
 class TicketCategory(StrEnum):
+    DEPOSIT = "deposit"
     WITHDRAWAL = "withdrawal"
+    ACCOUNT_OPENING = "account_opening"
+    VERIFICATION = "verification"
     OTHER = "other"
 
 
