@@ -10,7 +10,7 @@ The governing specification is [`doc/master-prompt.md`](doc/master-prompt.md). C
 
 - **Deterministic Offline Processing**: Built using Python 3.12+ and Pydantic v2. Operates completely offline without external LLM API dependencies or paid cloud requirements during Phase 1.
 - **Synthetic Knowledge Base**: Uses checked-in synthetic JSON snapshots (`tests/fixtures/kb/synthetic_snapshot.json`) enforcing cryptographic content hashes and URL allowlisting. Ingestion of live Valetax documentation and vector search remain planned for Phase 2.
-- **Fail-Closed Safety Routing**: Automatically detects and refuses/routes trading advice, personalized leverage queries, trading signals, price targets, KYC/AML decisions, and customer complaints directly to human reviewers.
+- **Fail-Closed Safety Routing**: Automatically detects and refuses/routes trading advice (buy/sell recommendations, signals, price targets, leverage choices), KYC decisions, AML flags, and customer complaints directly to human review.
 - **BDD Roadmap Alignment**: 19 core scenarios (`SCN-001` through `SCN-019`) are fully implemented with executable tests. The remaining 9 roadmap scenarios (`SCN-020` through `SCN-028`) are documented architectural specifications reserved for Phase 2 scaling.
 
 ---
@@ -50,7 +50,7 @@ All commands run offline, require no API credentials, and output schema-valid JS
 support-copilot --ticket-id DEMO-001 --text "How do I make a deposit?" --kb-snapshot tests/fixtures/kb/synthetic_snapshot.json
 ```
 
-### 2. Abstention for Unsupported Policy (Deposit Cancellation / Unknown Policy)
+### 2. Abstention for Unsupported Deposit Policy (Deposit Cancellation / Fee / Limit)
 ```bash
 support-copilot --ticket-id DEMO-002 --text "Can I cancel my deposit?" --kb-snapshot tests/fixtures/kb/synthetic_snapshot.json
 ```
@@ -70,6 +70,11 @@ support-copilot --ticket-id DEMO-004 --text "Please approve my KYC verification.
 support-copilot --evaluation-set tests/fixtures/evaluation/synthetic_evaluation_set.json --kb-snapshot tests/fixtures/kb/synthetic_snapshot.json
 ```
 
+### 6. Mixed-Category Request Abstention
+```bash
+support-copilot --ticket-id DEMO-005 --text "How do I withdraw and deposit?" --kb-snapshot tests/fixtures/kb/synthetic_snapshot.json
+```
+
 ---
 
 ## Developer Quickstart
@@ -82,7 +87,7 @@ uv sync --extra dev
 uv run pytest -q
 
 # Run implemented BDD feature scenarios
-uv run behave bdd/features --tags=@must
+uv run behave bdd/features --name=SCN-001 --name=SCN-002 --name=SCN-003 --name=SCN-004 --name=SCN-005 --name=SCN-006 --name=SCN-007 --name=SCN-008 --name=SCN-009 --name=SCN-010 --name=SCN-011 --name=SCN-012 --name=SCN-013 --name=SCN-014 --name=SCN-015 --name=SCN-016 --name=SCN-017 --name=SCN-018 --name=SCN-019
 
 # Validate Gherkin specification parity
 uv run python bdd/validate_gherkin.py

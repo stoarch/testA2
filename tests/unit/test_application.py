@@ -39,6 +39,21 @@ def test_offline_application_abstains_when_no_supported_draft_exists() -> None:
     assert result.review_reasons == (ReviewReason.INSUFFICIENT_KNOWLEDGE,)
 
 
+def test_offline_application_abstains_on_mixed_withdraw_and_deposit_request() -> None:
+    result = process_offline_ticket(
+        ticket_id="TICKET-MIXED-001",
+        text="How do I withdraw and deposit?",
+        snapshot_path=SNAPSHOT_PATH,
+    )
+
+    assert result.category == "other"
+    assert result.answer_status is AnswerStatus.ABSTAINED
+    assert "does not establish" in result.answer_text
+    assert result.citations == ()
+    assert result.human_review_required is True
+    assert result.review_reasons == (ReviewReason.INSUFFICIENT_KNOWLEDGE,)
+
+
 def test_offline_application_abstains_on_deposit_cancellation() -> None:
     result = process_offline_ticket(
         ticket_id="TICKET-DEP-CANCEL",

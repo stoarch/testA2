@@ -56,6 +56,34 @@ def _decision_from_knowledge(text: str, snapshot_path: Path) -> _OfflineDecision
         query=text,
         retrieved_at=datetime.now(UTC),
     )
+    # Do not answer fee/limit/timeline questions by returning an unrelated procedural paragraph.
+    normalized = text.casefold()
+    high_risk_details = (
+        "fee",
+        "charge",
+        "cost",
+        "how long",
+        "when",
+        "time",
+        "limit",
+        "minimum",
+        "maximum",
+    )
+    category = process_ticket(ticket_id="classification-only", text=text).category
+    from support_copilot.contracts import TicketCategory
+
+    if category != TicketCategory.DEPOSIT or any(
+        term in normalized for term in high_risk_details
+    ):
+        abstention = _unsupported_abstention()
+        return _OfflineDecision(
+            answer_status=AnswerStatus.ABSTAINED,
+            answer_text=abstention.text,
+            citations=(),
+            safety_flags=(),
+            human_review_required=True,
+            review_reasons=abstention.review_reasons,
+        )
     try:
         draft_result = draft_deposit_answer(passages, query=text)
     except InsufficientEvidenceError:
